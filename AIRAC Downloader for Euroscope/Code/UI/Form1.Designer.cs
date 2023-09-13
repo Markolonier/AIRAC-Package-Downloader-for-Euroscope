@@ -42,6 +42,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             p2_open = new Button();
             s1_open = new Button();
             p1_open = new Button();
+            show_hoppie = new Button();
             show_pwd = new Button();
             s3_tb = new TextBox();
             p3_tb = new TextBox();
@@ -59,6 +60,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             rating_cb = new CheckBox();
             facility_dd = new ComboBox();
             facility_cb = new CheckBox();
+            hoppie_tb = new TextBox();
             password_tb = new TextBox();
             password_cb = new CheckBox();
             certificate_tb = new TextBox();
@@ -67,16 +69,29 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             realname_cb = new CheckBox();
             callsign_tb = new TextBox();
             callsign_cb = new CheckBox();
-            hoppie_tb = new TextBox();
-            button1 = new Button();
             sound_opendialogue = new OpenFileDialog();
             plugin_opendialogue = new OpenFileDialog();
+            vccs_setup = new GroupBox();
+            g2g_btn = new Button();
+            g2a_btn = new Button();
+            nickname_tb = new TextBox();
+            g2g_ptt_cb = new CheckBox();
+            g2a_ptt_cb = new CheckBox();
+            nickname_cb = new CheckBox();
+            capture_mode_cb = new CheckBox();
+            capture_device_cb = new CheckBox();
+            capture_mode_dd = new ComboBox();
+            playback_mode_cb = new CheckBox();
+            playback_device_cb = new CheckBox();
+            capture_device_dd = new ComboBox();
+            playback_mode_dd = new ComboBox();
+            playback_device_dd = new ComboBox();
             es_setup.SuspendLayout();
+            vccs_setup.SuspendLayout();
             SuspendLayout();
             // 
             // es_setup
             // 
-            es_setup.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             es_setup.Controls.Add(sound3_cb);
             es_setup.Controls.Add(plugin3_cb);
             es_setup.Controls.Add(sound2_cb);
@@ -87,7 +102,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             es_setup.Controls.Add(p2_open);
             es_setup.Controls.Add(s1_open);
             es_setup.Controls.Add(p1_open);
-            es_setup.Controls.Add(button1);
+            es_setup.Controls.Add(show_hoppie);
             es_setup.Controls.Add(show_pwd);
             es_setup.Controls.Add(s3_tb);
             es_setup.Controls.Add(p3_tb);
@@ -167,7 +182,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             s3_open.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             s3_open.Location = new Point(592, 512);
             s3_open.Name = "s3_open";
-            s3_open.Size = new Size(75, 27);
+            s3_open.Size = new Size(75, 28);
             s3_open.TabIndex = 37;
             s3_open.Text = "Open";
             s3_open.UseVisualStyleBackColor = true;
@@ -189,7 +204,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             s2_open.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             s2_open.Location = new Point(592, 472);
             s2_open.Name = "s2_open";
-            s2_open.Size = new Size(75, 27);
+            s2_open.Size = new Size(75, 28);
             s2_open.TabIndex = 33;
             s2_open.Text = "Open";
             s2_open.UseVisualStyleBackColor = true;
@@ -211,7 +226,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             s1_open.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             s1_open.Location = new Point(592, 432);
             s1_open.Name = "s1_open";
-            s1_open.Size = new Size(75, 27);
+            s1_open.Size = new Size(75, 28);
             s1_open.TabIndex = 29;
             s1_open.Text = "Open";
             s1_open.UseVisualStyleBackColor = true;
@@ -227,10 +242,23 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             p1_open.Text = "Open";
             p1_open.UseVisualStyleBackColor = true;
             // 
+            // show_hoppie
+            // 
+            show_hoppie.BackgroundImage = (Image)resources.GetObject("show_hoppie.BackgroundImage");
+            show_hoppie.BackgroundImageLayout = ImageLayout.Stretch;
+            show_hoppie.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            show_hoppie.Location = new Point(616, 272);
+            show_hoppie.Margin = new Padding(0);
+            show_hoppie.Name = "show_hoppie";
+            show_hoppie.Size = new Size(50, 27);
+            show_hoppie.TabIndex = 16;
+            show_hoppie.UseVisualStyleBackColor = true;
+            // 
             // show_pwd
             // 
             show_pwd.BackgroundImage = (Image)resources.GetObject("show_pwd.BackgroundImage");
             show_pwd.BackgroundImageLayout = ImageLayout.Stretch;
+            show_pwd.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             show_pwd.Location = new Point(616, 152);
             show_pwd.Margin = new Padding(0);
             show_pwd.Name = "show_pwd";
@@ -320,6 +348,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // sound_dd_3
             // 
+            sound_dd_3.Enabled = false;
             sound_dd_3.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             sound_dd_3.FormattingEnabled = true;
             sound_dd_3.Location = new Point(360, 512);
@@ -329,6 +358,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // sound_dd_2
             // 
+            sound_dd_2.Enabled = false;
             sound_dd_2.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             sound_dd_2.FormattingEnabled = true;
             sound_dd_2.Location = new Point(360, 472);
@@ -338,6 +368,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // sound_dd_1
             // 
+            sound_dd_1.Enabled = false;
             sound_dd_1.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             sound_dd_1.FormattingEnabled = true;
             sound_dd_1.Location = new Point(360, 432);
@@ -373,7 +404,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             rating_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             rating_cb.Location = new Point(16, 232);
             rating_cb.Name = "rating_cb";
-            rating_cb.Size = new Size(104, 27);
+            rating_cb.Size = new Size(104, 28);
             rating_cb.TabIndex = 12;
             rating_cb.Text = "Rating";
             rating_cb.UseVisualStyleBackColor = true;
@@ -394,14 +425,23 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             facility_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             facility_cb.Location = new Point(16, 192);
             facility_cb.Name = "facility_cb";
-            facility_cb.Size = new Size(104, 27);
+            facility_cb.Size = new Size(104, 28);
             facility_cb.TabIndex = 10;
             facility_cb.Text = "Facility";
             facility_cb.UseVisualStyleBackColor = true;
             // 
+            // hoppie_tb
+            // 
+            hoppie_tb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            hoppie_tb.Location = new Point(128, 272);
+            hoppie_tb.Name = "hoppie_tb";
+            hoppie_tb.PlaceholderText = "******";
+            hoppie_tb.Size = new Size(480, 27);
+            hoppie_tb.TabIndex = 15;
+            hoppie_tb.UseSystemPasswordChar = true;
+            // 
             // password_tb
             // 
-            password_tb.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             password_tb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             password_tb.Location = new Point(128, 152);
             password_tb.Name = "password_tb";
@@ -424,7 +464,6 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // certificate_tb
             // 
-            certificate_tb.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             certificate_tb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             certificate_tb.Location = new Point(128, 112);
             certificate_tb.Name = "certificate_tb";
@@ -446,7 +485,6 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // realname_tb
             // 
-            realname_tb.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             realname_tb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             realname_tb.Location = new Point(128, 72);
             realname_tb.Name = "realname_tb";
@@ -468,7 +506,6 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // callsign_tb
             // 
-            callsign_tb.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             callsign_tb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             callsign_tb.Location = new Point(128, 32);
             callsign_tb.Name = "callsign_tb";
@@ -488,28 +525,6 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             callsign_cb.Text = "Callsign";
             callsign_cb.UseVisualStyleBackColor = true;
             // 
-            // hoppie_tb
-            // 
-            hoppie_tb.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            hoppie_tb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            hoppie_tb.Location = new Point(128, 272);
-            hoppie_tb.Name = "hoppie_tb";
-            hoppie_tb.PlaceholderText = "******";
-            hoppie_tb.Size = new Size(480, 27);
-            hoppie_tb.TabIndex = 15;
-            hoppie_tb.UseSystemPasswordChar = true;
-            // 
-            // button1
-            // 
-            button1.BackgroundImage = (Image)resources.GetObject("button1.BackgroundImage");
-            button1.BackgroundImageLayout = ImageLayout.Stretch;
-            button1.Location = new Point(616, 272);
-            button1.Margin = new Padding(0);
-            button1.Name = "button1";
-            button1.Size = new Size(50, 27);
-            button1.TabIndex = 16;
-            button1.UseVisualStyleBackColor = true;
-            // 
             // sound_opendialogue
             // 
             sound_opendialogue.Title = "Select Sound File";
@@ -518,17 +533,185 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             plugin_opendialogue.Title = "Select Euroscope Plugin File";
             // 
+            // vccs_setup
+            // 
+            vccs_setup.Controls.Add(g2g_btn);
+            vccs_setup.Controls.Add(g2a_btn);
+            vccs_setup.Controls.Add(nickname_tb);
+            vccs_setup.Controls.Add(playback_device_cb);
+            vccs_setup.Controls.Add(playback_mode_cb);
+            vccs_setup.Controls.Add(capture_device_cb);
+            vccs_setup.Controls.Add(capture_mode_cb);
+            vccs_setup.Controls.Add(g2g_ptt_cb);
+            vccs_setup.Controls.Add(g2a_ptt_cb);
+            vccs_setup.Controls.Add(nickname_cb);
+            vccs_setup.Controls.Add(playback_device_dd);
+            vccs_setup.Controls.Add(playback_mode_dd);
+            vccs_setup.Controls.Add(capture_device_dd);
+            vccs_setup.Controls.Add(capture_mode_dd);
+            vccs_setup.Location = new Point(696, 16);
+            vccs_setup.Name = "vccs_setup";
+            vccs_setup.Size = new Size(704, 312);
+            vccs_setup.TabIndex = 38;
+            vccs_setup.TabStop = false;
+            vccs_setup.Text = "VCCS_Setup";
+            // 
+            // g2g_btn
+            // 
+            g2g_btn.Enabled = false;
+            g2g_btn.Location = new Point(160, 112);
+            g2g_btn.Name = "g2g_btn";
+            g2g_btn.Size = new Size(536, 27);
+            g2g_btn.TabIndex = 44;
+            g2g_btn.Text = "Set Hotkey";
+            g2g_btn.UseVisualStyleBackColor = true;
+            // 
+            // g2a_btn
+            // 
+            g2a_btn.Enabled = false;
+            g2a_btn.Location = new Point(160, 72);
+            g2a_btn.Name = "g2a_btn";
+            g2a_btn.Size = new Size(536, 27);
+            g2a_btn.TabIndex = 42;
+            g2a_btn.Text = "Set Hotkey";
+            g2a_btn.UseVisualStyleBackColor = true;
+            // 
+            // nickname_tb
+            // 
+            nickname_tb.Enabled = false;
+            nickname_tb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            nickname_tb.Location = new Point(160, 32);
+            nickname_tb.Name = "nickname_tb";
+            nickname_tb.PlaceholderText = "1234567";
+            nickname_tb.Size = new Size(536, 27);
+            nickname_tb.TabIndex = 40;
+            // 
+            // g2g_ptt_cb
+            // 
+            g2g_ptt_cb.Enabled = false;
+            g2g_ptt_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            g2g_ptt_cb.Location = new Point(16, 112);
+            g2g_ptt_cb.Name = "g2g_ptt_cb";
+            g2g_ptt_cb.Size = new Size(136, 27);
+            g2g_ptt_cb.TabIndex = 43;
+            g2g_ptt_cb.Text = "G2G PTT";
+            g2g_ptt_cb.UseVisualStyleBackColor = true;
+            // 
+            // g2a_ptt_cb
+            // 
+            g2a_ptt_cb.Enabled = false;
+            g2a_ptt_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            g2a_ptt_cb.Location = new Point(16, 72);
+            g2a_ptt_cb.Name = "g2a_ptt_cb";
+            g2a_ptt_cb.Size = new Size(136, 27);
+            g2a_ptt_cb.TabIndex = 41;
+            g2a_ptt_cb.Text = "G2A PTT";
+            g2a_ptt_cb.UseVisualStyleBackColor = true;
+            // 
+            // nickname_cb
+            // 
+            nickname_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            nickname_cb.Location = new Point(16, 32);
+            nickname_cb.Name = "nickname_cb";
+            nickname_cb.Size = new Size(136, 27);
+            nickname_cb.TabIndex = 39;
+            nickname_cb.Text = "Nickname";
+            nickname_cb.UseVisualStyleBackColor = true;
+            // 
+            // capture_mode_cb
+            // 
+            capture_mode_cb.Enabled = false;
+            capture_mode_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            capture_mode_cb.Location = new Point(16, 152);
+            capture_mode_cb.Name = "capture_mode_cb";
+            capture_mode_cb.Size = new Size(136, 27);
+            capture_mode_cb.TabIndex = 45;
+            capture_mode_cb.Text = "Capture Mode";
+            capture_mode_cb.UseVisualStyleBackColor = true;
+            // 
+            // capture_device_cb
+            // 
+            capture_device_cb.Enabled = false;
+            capture_device_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            capture_device_cb.Location = new Point(16, 192);
+            capture_device_cb.Name = "capture_device_cb";
+            capture_device_cb.Size = new Size(136, 27);
+            capture_device_cb.TabIndex = 47;
+            capture_device_cb.Text = "Capture Device";
+            capture_device_cb.UseVisualStyleBackColor = true;
+            // 
+            // capture_mode_dd
+            // 
+            capture_mode_dd.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            capture_mode_dd.FormattingEnabled = true;
+            capture_mode_dd.Location = new Point(160, 152);
+            capture_mode_dd.Name = "capture_mode_dd";
+            capture_mode_dd.Size = new Size(536, 28);
+            capture_mode_dd.TabIndex = 46;
+            // 
+            // playback_mode_cb
+            // 
+            playback_mode_cb.Enabled = false;
+            playback_mode_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            playback_mode_cb.Location = new Point(16, 232);
+            playback_mode_cb.Name = "playback_mode_cb";
+            playback_mode_cb.Size = new Size(136, 27);
+            playback_mode_cb.TabIndex = 49;
+            playback_mode_cb.Text = "Playback Mode";
+            playback_mode_cb.UseVisualStyleBackColor = true;
+            // 
+            // playback_device_cb
+            // 
+            playback_device_cb.Enabled = false;
+            playback_device_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            playback_device_cb.Location = new Point(16, 272);
+            playback_device_cb.Name = "playback_device_cb";
+            playback_device_cb.Size = new Size(136, 27);
+            playback_device_cb.TabIndex = 51;
+            playback_device_cb.Text = "Playback Device";
+            playback_device_cb.UseVisualStyleBackColor = true;
+            // 
+            // capture_device_dd
+            // 
+            capture_device_dd.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            capture_device_dd.FormattingEnabled = true;
+            capture_device_dd.Location = new Point(160, 192);
+            capture_device_dd.Name = "capture_device_dd";
+            capture_device_dd.Size = new Size(536, 28);
+            capture_device_dd.TabIndex = 48;
+            // 
+            // playback_mode_dd
+            // 
+            playback_mode_dd.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            playback_mode_dd.FormattingEnabled = true;
+            playback_mode_dd.Location = new Point(160, 232);
+            playback_mode_dd.Name = "playback_mode_dd";
+            playback_mode_dd.Size = new Size(536, 28);
+            playback_mode_dd.TabIndex = 50;
+            // 
+            // playback_device_dd
+            // 
+            playback_device_dd.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            playback_device_dd.FormattingEnabled = true;
+            playback_device_dd.Location = new Point(160, 272);
+            playback_device_dd.Name = "playback_device_dd";
+            playback_device_dd.Size = new Size(536, 28);
+            playback_device_dd.TabIndex = 52;
+            // 
             // Main_Form
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1646, 572);
+            ClientSize = new Size(1413, 565);
+            Controls.Add(vccs_setup);
             Controls.Add(es_setup);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "Main_Form";
             Text = "AIRAC Updater for Euroscope";
             es_setup.ResumeLayout(false);
             es_setup.PerformLayout();
+            vccs_setup.ResumeLayout(false);
+            vccs_setup.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -570,9 +753,24 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
         public ComboBox sound_dd_3;
         public ComboBox sound_dd_2;
         public ComboBox sound_dd_1;
-        public Button button1;
+        public Button show_hoppie;
         public TextBox hoppie_tb;
         public OpenFileDialog sound_opendialogue;
         public OpenFileDialog plugin_opendialogue;
+        public GroupBox vccs_setup;
+        public CheckBox nickname_cb;
+        public CheckBox g2a_ptt_cb;
+        public TextBox nickname_tb;
+        public Button g2g_btn;
+        public Button g2a_btn;
+        public CheckBox g2g_ptt_cb;
+        public CheckBox capture_mode_cb;
+        public CheckBox playback_device_cb;
+        public CheckBox playback_mode_cb;
+        public CheckBox capture_device_cb;
+        public ComboBox capture_mode_dd;
+        public ComboBox playback_device_dd;
+        public ComboBox playback_mode_dd;
+        public ComboBox capture_device_dd;
     }
 }
