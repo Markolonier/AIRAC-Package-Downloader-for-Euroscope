@@ -71,10 +71,12 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             if (password_cb.Checked == false)
             {
                 password_tb.Enabled = false;
+                show_pwd.Enabled = false;
             }
             else
             {
                 password_tb.Enabled = true;
+                show_pwd.Enabled = true;
             }
         }
 
@@ -223,12 +225,36 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
 
         public void show_pwd_MouseDown(object sender, MouseEventArgs e)
         {
-            password_tb.PasswordChar = '\0';
+            password_tb.UseSystemPasswordChar = false;
         }
 
         public void show_pwd_MouseUp(object sender, MouseEventArgs e)
         {
-            password_tb.PasswordChar = '*';
+            password_tb.UseSystemPasswordChar = true;
+        }
+
+        public void show_hoppie_MouseDown(object sender, MouseEventArgs e)
+        {
+            hoppie_tb.UseSystemPasswordChar = false;
+        }
+
+        public void show_hoppie_MouseUp(object sender, MouseEventArgs e)
+        {
+            hoppie_tb.UseSystemPasswordChar = true;
+        }
+
+        public void Hoppie_cb_CheckedChanged(object sender, EventArgs e)
+        {
+            if (hoppie_cb.Checked)
+            {
+                hoppie_tb.Enabled = true;
+                show_hoppie.Enabled = true;
+            }
+            else
+            {
+                hoppie_tb.Enabled = false;
+                show_hoppie.Enabled = false;
+            }
         }
     }
 }

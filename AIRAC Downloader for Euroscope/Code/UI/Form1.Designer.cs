@@ -166,6 +166,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             sound3_cb.TabIndex = 34;
             sound3_cb.Text = "Sound 3";
             sound3_cb.UseVisualStyleBackColor = true;
+            sound3_cb.CheckedChanged += sound3_cb_CheckedChanged;
             // 
             // plugin3_cb
             // 
@@ -176,6 +177,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             plugin3_cb.TabIndex = 23;
             plugin3_cb.Text = "Plugin 3";
             plugin3_cb.UseVisualStyleBackColor = true;
+            plugin3_cb.CheckedChanged += plugin3_cb_CheckedChanged;
             // 
             // sound2_cb
             // 
@@ -186,6 +188,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             sound2_cb.TabIndex = 30;
             sound2_cb.Text = "Sound 2";
             sound2_cb.UseVisualStyleBackColor = true;
+            sound2_cb.CheckedChanged += sound2_cb_CheckedChanged;
             // 
             // plugin2_cb
             // 
@@ -196,6 +199,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             plugin2_cb.TabIndex = 20;
             plugin2_cb.Text = "Plugin 2";
             plugin2_cb.UseVisualStyleBackColor = true;
+            plugin2_cb.CheckedChanged += plugin2_cb_CheckedChanged;
             // 
             // s3_open
             // 
@@ -207,6 +211,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             s3_open.TabIndex = 37;
             s3_open.Text = "Open";
             s3_open.UseVisualStyleBackColor = true;
+            s3_open.Click += s3_open_Click;
             // 
             // p3_open
             // 
@@ -218,6 +223,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             p3_open.TabIndex = 25;
             p3_open.Text = "Open";
             p3_open.UseVisualStyleBackColor = true;
+            p3_open.Click += p3_open_Click;
             // 
             // s2_open
             // 
@@ -229,6 +235,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             s2_open.TabIndex = 33;
             s2_open.Text = "Open";
             s2_open.UseVisualStyleBackColor = true;
+            s2_open.Click += s2_open_Click;
             // 
             // p2_open
             // 
@@ -240,6 +247,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             p2_open.TabIndex = 22;
             p2_open.Text = "Open";
             p2_open.UseVisualStyleBackColor = true;
+            p2_open.Click += p2_open_Click;
             // 
             // s1_open
             // 
@@ -251,6 +259,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             s1_open.TabIndex = 29;
             s1_open.Text = "Open";
             s1_open.UseVisualStyleBackColor = true;
+            s1_open.Click += s1_open_Click;
             // 
             // p1_open
             // 
@@ -262,6 +271,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             p1_open.TabIndex = 19;
             p1_open.Text = "Open";
             p1_open.UseVisualStyleBackColor = true;
+            p1_open.Click += p1_open_Click;
             // 
             // show_hoppie
             // 
@@ -274,6 +284,8 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             show_hoppie.Size = new Size(50, 27);
             show_hoppie.TabIndex = 16;
             show_hoppie.UseVisualStyleBackColor = true;
+            show_hoppie.MouseDown += show_hoppie_MouseDown;
+            show_hoppie.MouseUp += show_hoppie_MouseUp;
             // 
             // show_pwd
             // 
@@ -286,6 +298,8 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             show_pwd.Size = new Size(50, 27);
             show_pwd.TabIndex = 9;
             show_pwd.UseVisualStyleBackColor = true;
+            show_pwd.MouseDown += show_pwd_MouseDown;
+            show_pwd.MouseUp += show_pwd_MouseUp;
             // 
             // s3_tb
             // 
@@ -346,6 +360,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             sound1_cb.TabIndex = 26;
             sound1_cb.Text = "Sound 1";
             sound1_cb.UseVisualStyleBackColor = true;
+            sound1_cb.CheckedChanged += sound1_cb_CheckedChanged;
             // 
             // p1_tb
             // 
@@ -366,6 +381,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             plugin1_cb.TabIndex = 17;
             plugin1_cb.Text = "Plugin 1";
             plugin1_cb.UseVisualStyleBackColor = true;
+            plugin1_cb.CheckedChanged += plugin1_cb_CheckedChanged;
             // 
             // sound_dd_3
             // 
@@ -411,6 +427,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             hoppie_cb.TabIndex = 14;
             hoppie_cb.Text = "Hoppie";
             hoppie_cb.UseVisualStyleBackColor = true;
+            hoppie_cb.CheckedChanged += Hoppie_cb_CheckedChanged;
             // 
             // rating_dd
             // 
@@ -433,6 +450,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             rating_cb.TabIndex = 12;
             rating_cb.Text = "Rating";
             rating_cb.UseVisualStyleBackColor = true;
+            rating_cb.CheckedChanged += Rating_cb_CheckedChanged;
             // 
             // facility_dd
             // 
@@ -455,6 +473,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             facility_cb.TabIndex = 10;
             facility_cb.Text = "Facility";
             facility_cb.UseVisualStyleBackColor = true;
+            facility_cb.CheckedChanged += Facility_cb_CheckedChanged;
             // 
             // hoppie_tb
             // 
@@ -487,6 +506,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             password_cb.TabIndex = 7;
             password_cb.Text = "Password";
             password_cb.UseVisualStyleBackColor = true;
+            password_cb.CheckedChanged += Password_cb_CheckedChanged;
             // 
             // certificate_tb
             // 
@@ -508,6 +528,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             certificate_cb.TabIndex = 5;
             certificate_cb.Text = "Certificate";
             certificate_cb.UseVisualStyleBackColor = true;
+            certificate_cb.CheckedChanged += Certificate_cb_CheckedChanged;
             // 
             // realname_tb
             // 
@@ -529,6 +550,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             realname_cb.TabIndex = 3;
             realname_cb.Text = "Realname";
             realname_cb.UseVisualStyleBackColor = true;
+            realname_cb.CheckedChanged += Realname_cb_CheckedChanged;
             // 
             // callsign_tb
             // 
@@ -550,6 +572,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             callsign_cb.TabIndex = 1;
             callsign_cb.Text = "Callsign";
             callsign_cb.UseVisualStyleBackColor = true;
+            callsign_cb.CheckedChanged += Callsign_cb_CheckedChanged;
             // 
             // sound_opendialogue
             // 
@@ -614,7 +637,6 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // playback_device_cb
             // 
-            playback_device_cb.Enabled = false;
             playback_device_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             playback_device_cb.Location = new Point(16, 272);
             playback_device_cb.Name = "playback_device_cb";
@@ -625,7 +647,6 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // playback_mode_cb
             // 
-            playback_mode_cb.Enabled = false;
             playback_mode_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             playback_mode_cb.Location = new Point(16, 232);
             playback_mode_cb.Name = "playback_mode_cb";
@@ -636,7 +657,6 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // capture_device_cb
             // 
-            capture_device_cb.Enabled = false;
             capture_device_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             capture_device_cb.Location = new Point(16, 192);
             capture_device_cb.Name = "capture_device_cb";
@@ -647,7 +667,6 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // capture_mode_cb
             // 
-            capture_mode_cb.Enabled = false;
             capture_mode_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             capture_mode_cb.Location = new Point(16, 152);
             capture_mode_cb.Name = "capture_mode_cb";
@@ -778,7 +797,6 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // save_to_tb
             // 
-            save_to_tb.Enabled = false;
             save_to_tb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             save_to_tb.Location = new Point(160, 152);
             save_to_tb.Name = "save_to_tb";
@@ -870,7 +888,6 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // save_to_btn
             // 
-            save_to_btn.Enabled = false;
             save_to_btn.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             save_to_btn.Location = new Point(608, 152);
             save_to_btn.Name = "save_to_btn";
