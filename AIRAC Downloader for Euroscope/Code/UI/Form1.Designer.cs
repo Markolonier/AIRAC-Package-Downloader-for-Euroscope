@@ -99,11 +99,13 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             Pack_AIRAC = new Label();
             download_lbl = new Label();
             pck_fold_lbl = new Label();
+            package_info_lbl = new Label();
             package_lbl = new Label();
             Download = new Button();
             save_to_btn = new Button();
             vacc_lbl = new Label();
             toolTip1 = new ToolTip(components);
+            save_folder = new FolderBrowserDialog();
             es_setup.SuspendLayout();
             vccs_setup.SuspendLayout();
             aeronav_setup.SuspendLayout();
@@ -367,6 +369,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // sound_dd_3
             // 
+            sound_dd_3.DataSource = resources.GetObject("sound_dd_3.DataSource");
             sound_dd_3.Enabled = false;
             sound_dd_3.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             sound_dd_3.FormattingEnabled = true;
@@ -377,6 +380,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // sound_dd_2
             // 
+            sound_dd_2.DataSource = resources.GetObject("sound_dd_2.DataSource");
             sound_dd_2.Enabled = false;
             sound_dd_2.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             sound_dd_2.FormattingEnabled = true;
@@ -387,6 +391,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // sound_dd_1
             // 
+            sound_dd_1.DataSource = resources.GetObject("sound_dd_1.DataSource");
             sound_dd_1.Enabled = false;
             sound_dd_1.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             sound_dd_1.FormattingEnabled = true;
@@ -409,6 +414,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // rating_dd
             // 
+            rating_dd.DataSource = resources.GetObject("rating_dd.DataSource");
             rating_dd.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             rating_dd.FormattingEnabled = true;
             rating_dd.Location = new Point(128, 232);
@@ -430,6 +436,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // facility_dd
             // 
+            facility_dd.DataSource = resources.GetObject("facility_dd.DataSource");
             facility_dd.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             facility_dd.FormattingEnabled = true;
             facility_dd.Location = new Point(128, 192);
@@ -732,22 +739,23 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             aeronav_setup.Controls.Add(Pack_AIRAC);
             aeronav_setup.Controls.Add(download_lbl);
             aeronav_setup.Controls.Add(pck_fold_lbl);
+            aeronav_setup.Controls.Add(package_info_lbl);
             aeronav_setup.Controls.Add(package_lbl);
             aeronav_setup.Controls.Add(Download);
             aeronav_setup.Controls.Add(save_to_btn);
             aeronav_setup.Controls.Add(vacc_lbl);
             aeronav_setup.Location = new Point(696, 328);
             aeronav_setup.Name = "aeronav_setup";
-            aeronav_setup.Size = new Size(848, 232);
+            aeronav_setup.Size = new Size(704, 232);
             aeronav_setup.TabIndex = 53;
             aeronav_setup.TabStop = false;
             aeronav_setup.Text = "AeroNav Setup";
             // 
             // download_bar
             // 
-            download_bar.Location = new Point(160, 152);
+            download_bar.Location = new Point(160, 192);
             download_bar.Name = "download_bar";
-            download_bar.Size = new Size(536, 27);
+            download_bar.Size = new Size(440, 27);
             download_bar.TabIndex = 62;
             // 
             // pack_dd
@@ -756,7 +764,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             pack_dd.FormattingEnabled = true;
             pack_dd.Location = new Point(160, 72);
             pack_dd.Name = "pack_dd";
-            pack_dd.Size = new Size(272, 28);
+            pack_dd.Size = new Size(536, 28);
             pack_dd.TabIndex = 57;
             // 
             // vacc_dd
@@ -772,18 +780,19 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             save_to_tb.Enabled = false;
             save_to_tb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            save_to_tb.Location = new Point(160, 112);
+            save_to_tb.Location = new Point(160, 152);
             save_to_tb.Name = "save_to_tb";
             save_to_tb.PlaceholderText = "Select the Folder, where all the Packages should be saved";
-            save_to_tb.Size = new Size(536, 27);
+            save_to_tb.ReadOnly = true;
+            save_to_tb.Size = new Size(440, 27);
             save_to_tb.TabIndex = 40;
             // 
             // Pack_Released
             // 
             Pack_Released.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            Pack_Released.Location = new Point(728, 72);
+            Pack_Released.Location = new Point(464, 112);
             Pack_Released.Name = "Pack_Released";
-            Pack_Released.Size = new Size(112, 28);
+            Pack_Released.Size = new Size(232, 28);
             Pack_Released.TabIndex = 60;
             Pack_Released.Text = "Released: ";
             Pack_Released.TextAlign = ContentAlignment.MiddleLeft;
@@ -791,27 +800,27 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // Pack_Version
             // 
             Pack_Version.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            Pack_Version.Location = new Point(584, 72);
+            Pack_Version.Location = new Point(320, 112);
             Pack_Version.Name = "Pack_Version";
             Pack_Version.Size = new Size(136, 28);
             Pack_Version.TabIndex = 59;
-            Pack_Version.Text = "Version: ";
+            Pack_Version.Text = "Version:";
             Pack_Version.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // Pack_AIRAC
             // 
             Pack_AIRAC.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            Pack_AIRAC.Location = new Point(440, 72);
+            Pack_AIRAC.Location = new Point(160, 112);
             Pack_AIRAC.Name = "Pack_AIRAC";
             Pack_AIRAC.Size = new Size(136, 28);
             Pack_AIRAC.TabIndex = 58;
-            Pack_AIRAC.Text = "AIRAC: ";
+            Pack_AIRAC.Text = "AIRAC:";
             Pack_AIRAC.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // download_lbl
             // 
             download_lbl.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            download_lbl.Location = new Point(16, 152);
+            download_lbl.Location = new Point(16, 192);
             download_lbl.Name = "download_lbl";
             download_lbl.Size = new Size(136, 28);
             download_lbl.TabIndex = 61;
@@ -821,12 +830,22 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // pck_fold_lbl
             // 
             pck_fold_lbl.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            pck_fold_lbl.Location = new Point(16, 112);
+            pck_fold_lbl.Location = new Point(16, 152);
             pck_fold_lbl.Name = "pck_fold_lbl";
             pck_fold_lbl.Size = new Size(136, 28);
             pck_fold_lbl.TabIndex = 61;
             pck_fold_lbl.Text = "Packages Folder";
             pck_fold_lbl.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // package_info_lbl
+            // 
+            package_info_lbl.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            package_info_lbl.Location = new Point(16, 112);
+            package_info_lbl.Name = "package_info_lbl";
+            package_info_lbl.Size = new Size(136, 28);
+            package_info_lbl.TabIndex = 56;
+            package_info_lbl.Text = "Package info";
+            package_info_lbl.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // package_lbl
             // 
@@ -842,7 +861,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             Download.Enabled = false;
             Download.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            Download.Location = new Point(704, 152);
+            Download.Location = new Point(608, 192);
             Download.Name = "Download";
             Download.Size = new Size(88, 28);
             Download.TabIndex = 29;
@@ -853,7 +872,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             save_to_btn.Enabled = false;
             save_to_btn.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            save_to_btn.Location = new Point(704, 112);
+            save_to_btn.Location = new Point(608, 152);
             save_to_btn.Name = "save_to_btn";
             save_to_btn.Size = new Size(88, 28);
             save_to_btn.TabIndex = 29;
@@ -874,13 +893,14 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1558, 565);
+            ClientSize = new Size(1412, 565);
             Controls.Add(aeronav_setup);
             Controls.Add(vccs_setup);
             Controls.Add(es_setup);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "Main_Form";
             Text = "AIRAC Updater for Euroscope";
+            Load += Main_Form_Load;
             es_setup.ResumeLayout(false);
             es_setup.PerformLayout();
             vccs_setup.ResumeLayout(false);
@@ -962,5 +982,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
         public Button save_to_btn;
         public ProgressBar download_bar;
         public ToolTip toolTip1;
+        private Label package_info_lbl;
+        private FolderBrowserDialog save_folder;
     }
 }
