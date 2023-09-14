@@ -54,7 +54,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             }
         }
 
-        public void Playback_device_pb_CheckedChanged(object sender, EventArgs e)
+        public void Playback_device_cb_CheckedChanged(object sender, EventArgs e)
         {
             if (playback_device_cb.Checked == false)
             {

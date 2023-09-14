@@ -614,6 +614,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             g2g_btn.TabIndex = 44;
             g2g_btn.Text = "Set Hotkey";
             g2g_btn.UseVisualStyleBackColor = true;
+            g2g_btn.Click += G2g_btn_Click;
             // 
             // g2a_btn
             // 
@@ -624,6 +625,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             g2a_btn.TabIndex = 42;
             g2a_btn.Text = "Set Hotkey";
             g2a_btn.UseVisualStyleBackColor = true;
+            g2a_btn.Click += G2a_btn_Click;
             // 
             // nickname_tb
             // 
@@ -644,6 +646,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             playback_device_cb.TabIndex = 51;
             playback_device_cb.Text = "Playback Device";
             playback_device_cb.UseVisualStyleBackColor = true;
+            playback_device_cb.CheckedChanged += Playback_device_cb_CheckedChanged;
             // 
             // playback_mode_cb
             // 
@@ -654,6 +657,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             playback_mode_cb.TabIndex = 49;
             playback_mode_cb.Text = "Playback Mode";
             playback_mode_cb.UseVisualStyleBackColor = true;
+            playback_mode_cb.CheckedChanged += Playback_mode_cb_CheckedChanged;
             // 
             // capture_device_cb
             // 
@@ -664,6 +668,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             capture_device_cb.TabIndex = 47;
             capture_device_cb.Text = "Capture Device";
             capture_device_cb.UseVisualStyleBackColor = true;
+            capture_device_cb.CheckedChanged += Capture_device_cb_CheckedChanged;
             // 
             // capture_mode_cb
             // 
@@ -674,6 +679,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             capture_mode_cb.TabIndex = 45;
             capture_mode_cb.Text = "Capture Mode";
             capture_mode_cb.UseVisualStyleBackColor = true;
+            capture_mode_cb.CheckedChanged += Capture_mode_cb_CheckedChanged;
             // 
             // g2g_ptt_cb
             // 
@@ -685,6 +691,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             g2g_ptt_cb.TabIndex = 43;
             g2g_ptt_cb.Text = "G2G PTT";
             g2g_ptt_cb.UseVisualStyleBackColor = true;
+            g2g_ptt_cb.CheckedChanged += G2g_ptt_cb_CheckedChanged;
             // 
             // g2a_ptt_cb
             // 
@@ -696,6 +703,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             g2a_ptt_cb.TabIndex = 41;
             g2a_ptt_cb.Text = "G2A PTT";
             g2a_ptt_cb.UseVisualStyleBackColor = true;
+            g2a_ptt_cb.CheckedChanged += G2a_ptt_cb_CheckedChanged;
             // 
             // nickname_cb
             // 
@@ -706,6 +714,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             nickname_cb.TabIndex = 39;
             nickname_cb.Text = "Nickname";
             nickname_cb.UseVisualStyleBackColor = true;
+            nickname_cb.CheckedChanged += Nickname_cb_CheckedChanged;
             // 
             // playback_device_dd
             // 
