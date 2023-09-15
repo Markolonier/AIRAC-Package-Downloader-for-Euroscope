@@ -6,9 +6,6 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
     {
         public Main_Form()
         {
-
-
-
             InitializeComponent();
         }
 
@@ -16,6 +13,8 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
 
         private async void Main_Form_Load(object sender, EventArgs e)
         {
+            Datahandling Datahandler = new(this);
+            Datahandler.Import_Data();
             vacc_dd.UseWaitCursor = true;
             var VACCS = await Get_VACCS();
             foreach (var VACC in VACCS)
@@ -24,6 +23,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             }
             if (Datahandling.GetSetting("vacc_dd") != "")
             {
+                Console.WriteLine("Vacc_dd Available");
                 vacc_dd.Text = Datahandling.GetSetting("vacc_dd");
             }
             else

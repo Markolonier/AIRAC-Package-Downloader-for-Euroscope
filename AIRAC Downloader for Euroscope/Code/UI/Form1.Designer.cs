@@ -32,6 +32,57 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
         /// </summary>
         private void InitializeComponent()//ES_Events ES_Events, VCCS_Events VCCS_Events, AeroNav_Events AeroNav_Events)
         {
+
+            List<string> facilities = new List<string>
+            {
+                "Observer",
+                "Flight Service Station",
+                "Clearance/Delivery",
+                "Ground",
+                "Tower",
+                "Approach/Departure",
+                "Center"
+            };
+            List<string> ratings = new List<string>
+            {
+                "Observer",
+                "Ground/Delivery (STU1)",
+                "Tower Controller (STU2)",
+                "TMA Controller (STU3)",
+                "Enroute Controller (CTR1)",
+                "Controller 2(not in use)",
+                "Senior controller (CTR3)",
+                "Instructor 1", "Instructor 2",
+                "Instructor 3",
+                "Supervisor",
+                "Administrator"
+            };
+            List<string> soundtypes = new List<string>
+            {
+                "Handoff Request",
+                "Handoff Accept",
+                "Conflict Alert",
+                "Radio Message",
+                "Private Message",
+                "ATC Message",
+                "Broadcast Message",
+                "Landline request",
+                "Supervisor call",
+                "Connected",
+                "Disconnected",
+                "Ongoing coordination request",
+                "Ongoing coordination accepted",
+                "Ongoing coordination refused",
+                "New ATIS message",
+                "Handoff Refused",
+                "Pointout",
+                "Startup"
+            };
+            List<string> sound1 = new List<string>(soundtypes);
+            List<string> sound2 = new List<string>(soundtypes);
+            List<string> sound3 = new List<string>(soundtypes);
+
+
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main_Form));
             es_setup = new GroupBox();
@@ -106,6 +157,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             vacc_lbl = new Label();
             toolTip1 = new ToolTip(components);
             save_folder = new FolderBrowserDialog();
+            save_data = new Button();
             es_setup.SuspendLayout();
             vccs_setup.SuspendLayout();
             aeronav_setup.SuspendLayout();
@@ -276,12 +328,12 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // show_hoppie
             // 
             show_hoppie.BackgroundImage = (Image)resources.GetObject("show_hoppie.BackgroundImage");
-            show_hoppie.BackgroundImageLayout = ImageLayout.Stretch;
+            show_hoppie.BackgroundImageLayout = ImageLayout.Zoom;
             show_hoppie.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            show_hoppie.Location = new Point(616, 272);
+            show_hoppie.Location = new Point(592, 272);
             show_hoppie.Margin = new Padding(0);
             show_hoppie.Name = "show_hoppie";
-            show_hoppie.Size = new Size(50, 27);
+            show_hoppie.Size = new Size(74, 27);
             show_hoppie.TabIndex = 16;
             show_hoppie.UseVisualStyleBackColor = true;
             show_hoppie.MouseDown += show_hoppie_MouseDown;
@@ -290,12 +342,12 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // show_pwd
             // 
             show_pwd.BackgroundImage = (Image)resources.GetObject("show_pwd.BackgroundImage");
-            show_pwd.BackgroundImageLayout = ImageLayout.Stretch;
+            show_pwd.BackgroundImageLayout = ImageLayout.Zoom;
             show_pwd.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            show_pwd.Location = new Point(616, 152);
+            show_pwd.Location = new Point(592, 152);
             show_pwd.Margin = new Padding(0);
             show_pwd.Name = "show_pwd";
-            show_pwd.Size = new Size(50, 27);
+            show_pwd.Size = new Size(74, 27);
             show_pwd.TabIndex = 9;
             show_pwd.UseVisualStyleBackColor = true;
             show_pwd.MouseDown += show_pwd_MouseDown;
@@ -385,7 +437,6 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // sound_dd_3
             // 
-            sound_dd_3.DataSource = resources.GetObject("sound_dd_3.DataSource");
             sound_dd_3.Enabled = false;
             sound_dd_3.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             sound_dd_3.FormattingEnabled = true;
@@ -393,6 +444,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             sound_dd_3.Name = "sound_dd_3";
             sound_dd_3.Size = new Size(224, 28);
             sound_dd_3.TabIndex = 36;
+            sound_dd_3.DataSource = sound3;
             // 
             // sound_dd_2
             // 
@@ -404,6 +456,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             sound_dd_2.Name = "sound_dd_2";
             sound_dd_2.Size = new Size(224, 28);
             sound_dd_2.TabIndex = 32;
+            sound_dd_2.DataSource = sound2;
             // 
             // sound_dd_1
             // 
@@ -415,6 +468,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             sound_dd_1.Name = "sound_dd_1";
             sound_dd_1.Size = new Size(224, 28);
             sound_dd_1.TabIndex = 28;
+            sound_dd_1.DataSource = sound1;
             // 
             // hoppie_cb
             // 
@@ -431,7 +485,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // rating_dd
             // 
-            rating_dd.DataSource = resources.GetObject("rating_dd.DataSource");
+            rating_dd.DataSource = ratings;
             rating_dd.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             rating_dd.FormattingEnabled = true;
             rating_dd.Location = new Point(128, 232);
@@ -454,7 +508,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // facility_dd
             // 
-            facility_dd.DataSource = resources.GetObject("facility_dd.DataSource");
+            facility_dd.DataSource = facilities;
             facility_dd.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             facility_dd.FormattingEnabled = true;
             facility_dd.Location = new Point(128, 192);
@@ -481,7 +535,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             hoppie_tb.Location = new Point(128, 272);
             hoppie_tb.Name = "hoppie_tb";
             hoppie_tb.PlaceholderText = "******";
-            hoppie_tb.Size = new Size(480, 27);
+            hoppie_tb.Size = new Size(456, 27);
             hoppie_tb.TabIndex = 15;
             hoppie_tb.UseSystemPasswordChar = true;
             // 
@@ -491,7 +545,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             password_tb.Location = new Point(128, 152);
             password_tb.Name = "password_tb";
             password_tb.PlaceholderText = "******";
-            password_tb.Size = new Size(480, 27);
+            password_tb.Size = new Size(456, 27);
             password_tb.TabIndex = 8;
             password_tb.UseSystemPasswordChar = true;
             // 
@@ -769,6 +823,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             aeronav_setup.Controls.Add(pck_fold_lbl);
             aeronav_setup.Controls.Add(package_info_lbl);
             aeronav_setup.Controls.Add(package_lbl);
+            aeronav_setup.Controls.Add(save_data);
             aeronav_setup.Controls.Add(Download);
             aeronav_setup.Controls.Add(save_to_btn);
             aeronav_setup.Controls.Add(vacc_lbl);
@@ -783,8 +838,8 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             download_bar.Location = new Point(160, 192);
             download_bar.Name = "download_bar";
-            download_bar.Size = new Size(440, 27);
-            download_bar.TabIndex = 62;
+            download_bar.Size = new Size(344, 27);
+            download_bar.TabIndex = 65;
             // 
             // pack_dd
             // 
@@ -794,6 +849,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             pack_dd.Name = "pack_dd";
             pack_dd.Size = new Size(536, 28);
             pack_dd.TabIndex = 57;
+            pack_dd.SelectedValueChanged += Pack_dd_SelectedValueChanged;
             // 
             // vacc_dd
             // 
@@ -803,6 +859,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             vacc_dd.Name = "vacc_dd";
             vacc_dd.Size = new Size(536, 28);
             vacc_dd.TabIndex = 55;
+            vacc_dd.SelectedValueChanged += Vacc_dd_SelectedValueChanged;
             // 
             // save_to_tb
             // 
@@ -811,8 +868,9 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             save_to_tb.Name = "save_to_tb";
             save_to_tb.PlaceholderText = "Select the Folder, where all the Packages should be saved";
             save_to_tb.ReadOnly = true;
-            save_to_tb.Size = new Size(440, 27);
-            save_to_tb.TabIndex = 40;
+            save_to_tb.Size = new Size(344, 27);
+            save_to_tb.TabIndex = 62;
+            save_to_tb.MouseHover += save_vacc_MouseHover;
             // 
             // Pack_Released
             // 
@@ -850,7 +908,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             download_lbl.Location = new Point(16, 192);
             download_lbl.Name = "download_lbl";
             download_lbl.Size = new Size(136, 28);
-            download_lbl.TabIndex = 61;
+            download_lbl.TabIndex = 64;
             download_lbl.Text = "Download";
             download_lbl.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -886,24 +944,25 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // Download
             // 
-            Download.Enabled = false;
             Download.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            Download.Location = new Point(608, 192);
+            Download.Location = new Point(512, 192);
             Download.Name = "Download";
             Download.Size = new Size(88, 28);
-            Download.TabIndex = 29;
+            Download.TabIndex = 66;
             Download.Text = "Download";
             Download.UseVisualStyleBackColor = true;
+            Download.Click += Download_Click;
             // 
             // save_to_btn
             // 
             save_to_btn.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            save_to_btn.Location = new Point(608, 152);
+            save_to_btn.Location = new Point(512, 152);
             save_to_btn.Name = "save_to_btn";
             save_to_btn.Size = new Size(88, 28);
-            save_to_btn.TabIndex = 29;
-            save_to_btn.Text = "Save to";
+            save_to_btn.TabIndex = 63;
+            save_to_btn.Text = "Select";
             save_to_btn.UseVisualStyleBackColor = true;
+            save_to_btn.Click += Save_to_btn_Click;
             // 
             // vacc_lbl
             // 
@@ -914,6 +973,17 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             vacc_lbl.TabIndex = 54;
             vacc_lbl.Text = "Select VACC";
             vacc_lbl.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // save_data
+            // 
+            save_data.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            save_data.Location = new Point(608, 152);
+            save_data.Name = "save_data";
+            save_data.Size = new Size(88, 72);
+            save_data.TabIndex = 67;
+            save_data.Text = "Save all Entries";
+            save_data.UseVisualStyleBackColor = true;
+            save_data.Click += Save_Data_Click;
             // 
             // Main_Form
             // 
@@ -1010,5 +1080,6 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
         public ToolTip toolTip1;
         private Label package_info_lbl;
         private FolderBrowserDialog save_folder;
+        public Button save_data;
     }
 }

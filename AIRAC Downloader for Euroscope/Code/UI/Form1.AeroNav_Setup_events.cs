@@ -33,16 +33,12 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             pack_dd.UseWaitCursor = false;
         }
 
-        public async void Vacc_dd_VisibleChanged(object sender, EventArgs e)
-        {
-            
-        }
-
-        public void Pack_dd_SelectedIndexChanged(object sender, EventArgs e)
+        public void Pack_dd_SelectedValueChanged(object sender, EventArgs e)
         {
             Pack_AIRAC.Text = string.Join(": ", "AIRAC", Packages_list[pack_dd.SelectedIndex][1]);
             Pack_Version.Text = string.Join(": ", "Version", Packages_list[pack_dd.SelectedIndex][2]);
             Pack_Released.Text = string.Join(": ", "Released", Packages_list[pack_dd.SelectedIndex][3]);
+            
         }
 
         public void Download_Click(object sender, EventArgs e)
