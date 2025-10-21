@@ -1,4 +1,5 @@
 ﻿using AIRAC_Downloader.Code.Core;
+using AIRAC_Downloader_for_Euroscope.Code.Core;
 using System;
 using static AIRAC_Downloader.Code.Core.Datahandling;
 
@@ -30,7 +31,16 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             {
                 pack_dd.SelectedIndex = 0;
             }
-            pack_dd.UseWaitCursor = false;
+
+            if (vacc_dd.Text != "" && pack_dd.Text != "")
+            {
+                Download.Enabled = true;
+            }
+            else
+            {
+                Download.Enabled = false;
+            }
+                pack_dd.UseWaitCursor = false;
         }
 
         public void Pack_dd_SelectedValueChanged(object sender, EventArgs e)
@@ -38,13 +48,20 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             Pack_AIRAC.Text = string.Join(": ", "AIRAC", Packages_list[pack_dd.SelectedIndex][1]);
             Pack_Version.Text = string.Join(": ", "Version", Packages_list[pack_dd.SelectedIndex][2]);
             Pack_Released.Text = string.Join(": ", "Released", Packages_list[pack_dd.SelectedIndex][3]);
-            
+
+            if (vacc_dd.Text != "" && pack_dd.Text != "")
+            {
+                Download.Enabled = true;
+            }
+            else
+            {
+                Download.Enabled = false;
+            }
         }
 
         public void Download_Click(object sender, EventArgs e)
         {
-            Downloader Download_class = new(this);
-            Download_class.Start_Download();
+            HandleFinishedDownloads handleFinishedDownloads = new(this);
         }
 
 
