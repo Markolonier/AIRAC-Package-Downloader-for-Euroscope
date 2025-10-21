@@ -110,7 +110,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
         {
             if (e.KeyCode.ToString() == "Escape")
             {
-                g2a_btn.Text = "Click to Scan for Keyboard input";
+                g2a_btn.Text = "Set Hotkey";
             }
             else
             {
@@ -141,7 +141,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
         {
             if (e.KeyCode.ToString() == "Escape")
             {
-                g2g_btn.Text = "Click to Scan for Keyboard input";
+                g2g_btn.Text = "Set Hotkey";
             }
             else
             {
