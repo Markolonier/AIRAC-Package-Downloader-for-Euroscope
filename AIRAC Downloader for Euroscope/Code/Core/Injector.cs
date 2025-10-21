@@ -16,6 +16,8 @@ namespace AIRAC_Downloader.Code.Core
 
         public void Search_and_Inject_Data(string VACC_Folder)
         {
+            Main_Form.download_lbl.Text = "Injecting";
+
             string[] files = Directory.GetFiles(VACC_Folder, "*.prf", SearchOption.AllDirectories);
 
             string prf_inject_string = "";
