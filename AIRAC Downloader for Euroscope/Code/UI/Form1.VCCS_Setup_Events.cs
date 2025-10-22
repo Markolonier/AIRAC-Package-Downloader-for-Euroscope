@@ -103,12 +103,12 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             }
         }
 
-        public void G2a_btn_Click(object sender, EventArgs e)
+        public async void G2a_btn_Click(object sender, EventArgs e)
         {
             g2a_btn.Text = "Listening to Keyboard Input";
-            uint code = VCCS_Keyboard_Listener.ListenForKey();
+            var (code, keyName) = await VCCS_Keyboard_Listener.ListenForKeyWithNameAsync();
+            g2a_btn.Text = keyName; // Taste anzeigen
             MessageBox.Show($"EuroScope-Code: {code}");
-            g2a_btn.Text = "Done";
         }
 
         public void G2g_ptt_cb_CheckedChanged(object sender, EventArgs e)
@@ -123,12 +123,12 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             }
         }
 
-        public void G2g_btn_Click(object sender, EventArgs e)
+        public async void G2g_btn_Click(object sender, EventArgs e)
         {
             g2g_btn.Text = "Listening to Keyboard Input";
-            uint code = VCCS_Keyboard_Listener.ListenForKey();
+            var (code, keyName) = await VCCS_Keyboard_Listener.ListenForKeyWithNameAsync();
+            g2g_btn.Text = keyName; // Taste anzeigen
             MessageBox.Show($"EuroScope-Code: {code}");
-            g2g_btn.Text = "Done";
         }
 
 

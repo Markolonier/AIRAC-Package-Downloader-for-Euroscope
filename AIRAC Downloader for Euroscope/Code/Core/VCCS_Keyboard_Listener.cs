@@ -14,9 +14,87 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
             return await Task.Run(() => ListenForKey());
         }
 
+        public static async Task<(uint code, string name)> ListenForKeyWithNameAsync()
+        {
+            return await Task.Run(() => ListenForKeyWithName());
+        }
+
+        public static (uint code, string name) ListenForKeyWithName()
+        {
+            uint lastEuroScopeCode = 0;
+            string lastKeyName = "";
+            bool done = false;
+
+            IntPtr hInstance = GetModuleHandle(null);
+            string className = "EuroscopeRawInputHelper_{Guid.NewGuid()}";
+
+            var wndClass = new WNDCLASSEX();
+            wndClass.cbSize = (uint)Marshal.SizeOf(typeof(WNDCLASSEX));
+            wndClass.lpfnWndProc = Marshal.GetFunctionPointerForDelegate((WndProcDelegate)((hWnd, msg, wParam, lParam) =>
+            {
+                if (msg == WM_INPUT)
+                {
+                    uint dwSize = 0;
+                    GetRawInputData(lParam, RID_INPUT, IntPtr.Zero, ref dwSize, (uint)Marshal.SizeOf(typeof(RAWINPUTHEADER)));
+
+                    if (dwSize > 0)
+                    {
+                        GetRawInputData(lParam, RID_INPUT, out RAWINPUT raw, ref dwSize, (uint)Marshal.SizeOf(typeof(RAWINPUTHEADER)));
+
+                        if (raw.header.dwType == RIM_TYPEKEYBOARD)
+                        {
+                            ushort make = raw.keyboard.MakeCode;
+                            ushort flags = raw.keyboard.Flags;
+                            bool isExt = (flags & RI_KEY_E0) != 0 || (flags & RI_KEY_E1) != 0;
+
+                            uint euro = EuroScopeFromScan(make, isExt);
+                            string keyName = GetKeyName(make, isExt);
+
+                            lastEuroScopeCode = euro;
+                            lastKeyName = keyName;
+                            done = true;
+                        }
+                    }
+                }
+                return DefWindowProcW(hWnd, msg, wParam, lParam);
+            }));
+            wndClass.hInstance = hInstance;
+            wndClass.lpszClassName = className;
+            RegisterClassExW(ref wndClass);
+
+            IntPtr hwnd = CreateWindowExW(0, className, "EuroscopeRawInputWindow", 0, 0, 0, 0, 0, IntPtr.Zero, IntPtr.Zero, hInstance, IntPtr.Zero);
+
+            RAWINPUTDEVICE rid = new RAWINPUTDEVICE
+            {
+                usUsagePage = 0x01,
+                usUsage = 0x06,
+                dwFlags = RIDEV_INPUTSINK,
+                hwndTarget = hwnd
+            };
+
+            RegisterRawInputDevices(ref rid, 1, (uint)Marshal.SizeOf(typeof(RAWINPUTDEVICE)));
+
+            // Message loop
+            MSG msg;
+            while (!done && GetMessage(out msg, IntPtr.Zero, 0, 0))
+            {
+                TranslateMessage(ref msg);
+                DispatchMessage(ref msg);
+                Thread.Sleep(5);
+            }
+
+            // Fenster nach Nutzung zerstören
+            DestroyWindow(hwnd);
+
+            return (lastEuroScopeCode, lastKeyName);
+
+        }
+
+
         public static uint ListenForKey()
         {
             uint lastEuroScopeCode = 0;
+            string lastKeyName = "";
             bool done = false;
 
             IntPtr hInstance = GetModuleHandle(null);
@@ -44,11 +122,11 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
                             ushort make = raw.keyboard.MakeCode;
                             ushort flags = raw.keyboard.Flags;
                             ushort vkey = raw.keyboard.VKey;
-                            uint msgcode = raw.keyboard.Message;
                             bool isExt = (flags & RI_KEY_E0) != 0 || (flags & RI_KEY_E1) != 0;
 
                             uint euro = EuroScopeFromScan(make, isExt);
                             lastEuroScopeCode = euro;
+                            lastKeyName = GetKeyName(make, isExt);
                             done = true;
                         }
                     }
@@ -200,6 +278,10 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
         private static extern IntPtr DefWindowProcW(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
 
         [DllImport("user32.dll")]
+        private static extern bool DestroyWindow(IntPtr hWnd);
+
+
+        [DllImport("user32.dll")]
         private static extern bool GetMessage(out MSG lpMsg, IntPtr hWnd, uint wMsgFilterMin, uint wMsgFilterMax);
 
         [DllImport("user32.dll")]
@@ -228,5 +310,28 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
         private static extern IntPtr GetModuleHandle(string lpModuleName);
 
         private delegate IntPtr WndProcDelegate(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
+
+
+        // ---------------------------------------------------------------
+        // Liefert den Anzeigenamen der Taste aus ScanCode + Flags
+        // ---------------------------------------------------------------
+        public static string GetKeyName(ushort scanCode, bool isExtended)
+        {
+            int lParam = (scanCode << 16);
+            if (isExtended)
+                lParam |= (1 << 24); // Extended-Bit setzen
+
+            // Puffer für Keynamen
+            var sb = new System.Text.StringBuilder(64);
+            int result = GetKeyNameTextW(lParam, sb, sb.Capacity);
+            if (result > 0)
+                return sb.ToString();
+            else
+                return $"ScanCode {scanCode}";
+        }
+
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+        private static extern int GetKeyNameTextW(int lParam, System.Text.StringBuilder lpString, int nSize);
+
     }
 }
