@@ -111,19 +111,6 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             g2a_btn.Text = "Done";
         }
 
-        public void G2a_btn_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode.ToString() == "Escape")
-            {
-                g2a_btn.Text = "Set Hotkey";
-            }
-            else
-            {
-                Console.WriteLine(e.KeyData.ToString());
-                g2a_btn.Text = e.KeyCode.ToString();
-            }
-        }
-
         public void G2g_ptt_cb_CheckedChanged(object sender, EventArgs e)
         {
             if (g2g_ptt_cb.Checked == false)
@@ -139,19 +126,9 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
         public void G2g_btn_Click(object sender, EventArgs e)
         {
             g2g_btn.Text = "Listening to Keyboard Input";
-            g2g_btn.KeyDown += new KeyEventHandler(G2g_btn_KeyDown);
-        }
-
-        public void G2g_btn_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode.ToString() == "Escape")
-            {
-                g2g_btn.Text = "Set Hotkey";
-            }
-            else
-            {
-                g2g_btn.Text = e.KeyCode.ToString();
-            }
+            uint code = VCCS_Keyboard_Listener.ListenForKey();
+            MessageBox.Show($"EuroScope-Code: {code}");
+            g2g_btn.Text = "Done";
         }
 
 

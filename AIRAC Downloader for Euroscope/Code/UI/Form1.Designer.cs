@@ -684,7 +684,6 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // g2g_ptt_cb
             // 
-            g2g_ptt_cb.Enabled = false;
             g2g_ptt_cb.Font = new Font("Segoe UI", 11F);
             g2g_ptt_cb.Location = new Point(16, 112);
             g2g_ptt_cb.Name = "g2g_ptt_cb";
@@ -703,7 +702,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             g2a_ptt_cb.TabIndex = 41;
             g2a_ptt_cb.Text = "G2A PTT";
             g2a_ptt_cb.UseVisualStyleBackColor = true;
-            g2a_ptt_cb.CheckedChanged += this.G2a_ptt_cb_CheckedChanged;
+            g2a_ptt_cb.CheckedChanged += G2a_ptt_cb_CheckedChanged;
             // 
             // nickname_cb
             // 
