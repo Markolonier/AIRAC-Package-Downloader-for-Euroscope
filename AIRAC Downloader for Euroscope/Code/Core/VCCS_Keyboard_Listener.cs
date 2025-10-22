@@ -4,334 +4,115 @@ using System.Threading;
 
 namespace AIRAC_Downloader_for_Euroscope.Code.Core
 {
-    public static class VCCS_Keyboard_Listener
+    public class VCCS_Keyboard_Listener : NativeWindow
     {
-        // ----------------------------------------------------------------
-        //  Öffentliche API
-        // ----------------------------------------------------------------
-        public static async Task<uint> ListenForKeyAsync()
+        private static VCCS_Keyboard_Listener? instance;
+        private TaskCompletionSource<(uint code, string name)>? keyTcs;
+
+        private VCCS_Keyboard_Listener()
         {
-            return await Task.Run(() => ListenForKey());
+            CreateHandle(new CreateParams());
+            RegisterRawInput();
         }
 
-        public static async Task<(uint code, string name)> ListenForKeyWithNameAsync()
+        public static VCCS_Keyboard_Listener Instance => instance ??= new VCCS_Keyboard_Listener();
+
+        public Task<(uint code, string name)> ListenAsync()
         {
-            return await Task.Run(() => ListenForKeyWithName());
+            keyTcs = new TaskCompletionSource<(uint, string)>();
+            return keyTcs.Task;
         }
 
-        public static (uint code, string name) ListenForKeyWithName()
+        private void RegisterRawInput()
         {
-            uint lastEuroScopeCode = 0;
-            string lastKeyName = "";
-            bool done = false;
-
-            IntPtr hInstance = GetModuleHandle(null);
-            string className = "EuroscopeRawInputHelper_{Guid.NewGuid()}";
-
-            var wndClass = new WNDCLASSEX();
-            wndClass.cbSize = (uint)Marshal.SizeOf(typeof(WNDCLASSEX));
-            wndClass.lpfnWndProc = Marshal.GetFunctionPointerForDelegate((WndProcDelegate)((hWnd, msg, wParam, lParam) =>
-            {
-                if (msg == WM_INPUT)
-                {
-                    uint dwSize = 0;
-                    GetRawInputData(lParam, RID_INPUT, IntPtr.Zero, ref dwSize, (uint)Marshal.SizeOf(typeof(RAWINPUTHEADER)));
-
-                    if (dwSize > 0)
-                    {
-                        GetRawInputData(lParam, RID_INPUT, out RAWINPUT raw, ref dwSize, (uint)Marshal.SizeOf(typeof(RAWINPUTHEADER)));
-
-                        if (raw.header.dwType == RIM_TYPEKEYBOARD)
-                        {
-                            ushort make = raw.keyboard.MakeCode;
-                            ushort flags = raw.keyboard.Flags;
-                            bool isExt = (flags & RI_KEY_E0) != 0 || (flags & RI_KEY_E1) != 0;
-
-                            uint euro = EuroScopeFromScan(make, isExt);
-                            string keyName = GetKeyName(make, isExt);
-
-                            lastEuroScopeCode = euro;
-                            lastKeyName = keyName;
-                            done = true;
-                        }
-                    }
-                }
-                return DefWindowProcW(hWnd, msg, wParam, lParam);
-            }));
-            wndClass.hInstance = hInstance;
-            wndClass.lpszClassName = className;
-            RegisterClassExW(ref wndClass);
-
-            IntPtr hwnd = CreateWindowExW(0, className, "EuroscopeRawInputWindow", 0, 0, 0, 0, 0, IntPtr.Zero, IntPtr.Zero, hInstance, IntPtr.Zero);
-
             RAWINPUTDEVICE rid = new RAWINPUTDEVICE
             {
                 usUsagePage = 0x01,
                 usUsage = 0x06,
-                dwFlags = RIDEV_INPUTSINK,
-                hwndTarget = hwnd
+                dwFlags = 0,
+                hwndTarget = Handle
             };
+            RegisterRawInputDevices(ref rid, 1, (uint)Marshal.SizeOf(rid));
+        }
 
-            RegisterRawInputDevices(ref rid, 1, (uint)Marshal.SizeOf(typeof(RAWINPUTDEVICE)));
+        protected override void WndProc(ref Message m)
+        {
+            const int WM_INPUT = 0x00FF;
+            const int RID_INPUT = 0x10000003;
+            const int RIM_TYPEKEYBOARD = 1;
+            const int RI_KEY_E0 = 0x02;
+            const int RI_KEY_E1 = 0x04;
 
-            // Message loop
-            MSG msg;
-            while (!done && GetMessage(out msg, IntPtr.Zero, 0, 0))
+            if (m.Msg == WM_INPUT)
             {
-                TranslateMessage(ref msg);
-                DispatchMessage(ref msg);
-                Thread.Sleep(5);
+                uint size = 0;
+                GetRawInputData(m.LParam, RID_INPUT, IntPtr.Zero, ref size, (uint)Marshal.SizeOf<RAWINPUTHEADER>());
+                if (size == 0) return;
+
+                GetRawInputData(m.LParam, RID_INPUT, out RAWINPUT raw, ref size, (uint)Marshal.SizeOf<RAWINPUTHEADER>());
+                if (raw.header.dwType != RIM_TYPEKEYBOARD) return;
+
+                ushort make = raw.keyboard.MakeCode;
+                ushort flags = raw.keyboard.Flags;
+                bool isExt = (flags & RI_KEY_E0) != 0 || (flags & RI_KEY_E1) != 0;
+
+                uint euro = (uint)(((make & 0xFF) | (isExt ? 0x100u : 0u)) << 16);
+                string name = GetKeyName(make, isExt);
+
+                keyTcs?.TrySetResult((euro, name));
             }
 
-            // Fenster nach Nutzung zerstören
-            DestroyWindow(hwnd);
-
-            return (lastEuroScopeCode, lastKeyName);
-
+            base.WndProc(ref m);
         }
 
-
-        public static uint ListenForKey()
+        private static string GetKeyName(ushort scanCode, bool isExtended)
         {
-            uint lastEuroScopeCode = 0;
-            string lastKeyName = "";
-            bool done = false;
-
-            IntPtr hInstance = GetModuleHandle(null);
-            string className = "EuroscopeRawInputHelper_Class";
-
-            var wndClass = new WNDCLASSEX();
-            wndClass.cbSize = (uint)Marshal.SizeOf(typeof(WNDCLASSEX));
-            wndClass.style = 0;
-            wndClass.lpfnWndProc = Marshal.GetFunctionPointerForDelegate((WndProcDelegate)((hWnd, msg, wParam, lParam) =>
-            {
-                if (msg == WM_INPUT)
-                {
-                    uint dwSize = 0;
-
-                    // 1️⃣ Größe der Daten abfragen
-                    GetRawInputData(lParam, RID_INPUT, IntPtr.Zero, ref dwSize, (uint)Marshal.SizeOf(typeof(RAWINPUTHEADER)));
-
-                    // 2️⃣ Daten lesen
-                    if (dwSize > 0)
-                    {
-                        GetRawInputData(lParam, RID_INPUT, out RAWINPUT raw, ref dwSize, (uint)Marshal.SizeOf(typeof(RAWINPUTHEADER)));
-
-                        if (raw.header.dwType == RIM_TYPEKEYBOARD)
-                        {
-                            ushort make = raw.keyboard.MakeCode;
-                            ushort flags = raw.keyboard.Flags;
-                            ushort vkey = raw.keyboard.VKey;
-                            bool isExt = (flags & RI_KEY_E0) != 0 || (flags & RI_KEY_E1) != 0;
-
-                            uint euro = EuroScopeFromScan(make, isExt);
-                            lastEuroScopeCode = euro;
-                            lastKeyName = GetKeyName(make, isExt);
-                            done = true;
-                        }
-                    }
-                }
-
-                return DefWindowProcW(hWnd, msg, wParam, lParam);
-            }));
-            wndClass.hInstance = hInstance;
-            wndClass.lpszClassName = className;
-
-            RegisterClassExW(ref wndClass);
-
-            IntPtr hwnd = CreateWindowExW(0, className, "EuroscopeRawInputWindow", 0, 0, 0, 0, 0, IntPtr.Zero, IntPtr.Zero, hInstance, IntPtr.Zero);
-            if (hwnd == IntPtr.Zero)
-                throw new InvalidOperationException("CreateWindowExW fehlgeschlagen: " + Marshal.GetLastWin32Error());
-
-            // 3️⃣ Raw Input registrieren
-            RAWINPUTDEVICE rid = new RAWINPUTDEVICE
-            {
-                usUsagePage = 0x01,
-                usUsage = 0x06,
-                dwFlags = RIDEV_INPUTSINK,
-                hwndTarget = hwnd
-            };
-
-            if (!RegisterRawInputDevices(ref rid, 1, (uint)Marshal.SizeOf(typeof(RAWINPUTDEVICE))))
-                throw new InvalidOperationException("RegisterRawInputDevices fehlgeschlagen: " + Marshal.GetLastWin32Error());
-
-            // 4️⃣ Message-Loop starten
-            MSG msg;
-            while (!done && GetMessage(out msg, IntPtr.Zero, 0, 0))
-            {
-                TranslateMessage(ref msg);
-                DispatchMessage(ref msg);
-                Thread.Sleep(5);
-            }
-
-            return lastEuroScopeCode;
+            int lParam = (scanCode << 16) | (isExtended ? 1 << 24 : 0);
+            var sb = new System.Text.StringBuilder(64);
+            int len = GetKeyNameTextW(lParam, sb, sb.Capacity);
+            return len > 0 ? sb.ToString() : $"Scan {scanCode}";
         }
 
-        // ----------------------------------------------------------------
-        //  Hilfsfunktionen
-        // ----------------------------------------------------------------
-        private static uint EuroScopeFromScan(ushort scan, bool isExtended)
-        {
-            uint sc = (uint)(isExtended ? ((scan & 0xFF) | 0x100) : (scan & 0xFF));
-            return sc << 16;
-        }
-
-        // ----------------------------------------------------------------
-        //  Win32 Definitionen
-        // ----------------------------------------------------------------
-        private const int WM_INPUT = 0x00FF;
-        private const int RID_INPUT = 0x10000003;
-        private const int RIM_TYPEKEYBOARD = 1;
-        private const int RIDEV_INPUTSINK = 0x00000100;
-        private const int RI_KEY_E0 = 0x02;
-        private const int RI_KEY_E1 = 0x04;
-
+        // ---- native structs / imports ----
         [StructLayout(LayoutKind.Sequential)]
-        private struct RAWINPUTHEADER
+        struct RAWINPUTDEVICE
         {
-            public uint dwType;
-            public uint dwSize;
-            public IntPtr hDevice;
-            public IntPtr wParam;
-        }
-
-        [StructLayout(LayoutKind.Sequential)]
-        private struct RAWKEYBOARD
-        {
-            public ushort MakeCode;
-            public ushort Flags;
-            public ushort Reserved;
-            public ushort VKey;
-            public uint Message;
-            public uint ExtraInformation;
-        }
-
-        [StructLayout(LayoutKind.Sequential)]
-        private struct RAWINPUT
-        {
-            public RAWINPUTHEADER header;
-            public RAWKEYBOARD keyboard;
-        }
-
-        [StructLayout(LayoutKind.Sequential)]
-        private struct RAWINPUTDEVICE
-        {
-            public ushort usUsagePage;
-            public ushort usUsage;
+            public ushort usUsagePage, usUsage;
             public uint dwFlags;
             public IntPtr hwndTarget;
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        private struct MSG
+        struct RAWINPUTHEADER
         {
-            public IntPtr hwnd;
-            public uint message;
-            public IntPtr wParam;
-            public IntPtr lParam;
-            public uint time;
-            public int pt_x;
-            public int pt_y;
+            public uint dwType, dwSize;
+            public IntPtr hDevice, wParam;
         }
 
         [StructLayout(LayoutKind.Sequential)]
-        private struct WNDCLASSEX
+        struct RAWKEYBOARD
         {
-            public uint cbSize;
-            public uint style;
-            public IntPtr lpfnWndProc;
-            public int cbClsExtra;
-            public int cbWndExtra;
-            public IntPtr hInstance;
-            public IntPtr hIcon;
-            public IntPtr hCursor;
-            public IntPtr hbrBackground;
-            public string lpszMenuName;
-            public string lpszClassName;
-            public IntPtr hIconSm;
+            public ushort MakeCode, Flags, Reserved, VKey;
+            public uint Message, ExtraInformation;
         }
 
-        // -------------------- P/Invoke --------------------
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern bool RegisterRawInputDevices(
-            ref RAWINPUTDEVICE pRawInputDevices,
-            uint uiNumDevices,
-            uint cbSize);
-
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern uint GetRawInputData(
-            IntPtr hRawInput,
-            uint uiCommand,
-            IntPtr pData,
-            ref uint pcbSize,
-            uint cbSizeHeader);
-
-        [DllImport("user32.dll", SetLastError = true)]
-        private static extern uint GetRawInputData(
-            IntPtr hRawInput,
-            uint uiCommand,
-            out RAWINPUT pData,
-            ref uint pcbSize,
-            uint cbSizeHeader);
-
-        [DllImport("user32.dll")]
-        private static extern IntPtr DefWindowProcW(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
-
-        [DllImport("user32.dll")]
-        private static extern bool DestroyWindow(IntPtr hWnd);
-
-
-        [DllImport("user32.dll")]
-        private static extern bool GetMessage(out MSG lpMsg, IntPtr hWnd, uint wMsgFilterMin, uint wMsgFilterMax);
-
-        [DllImport("user32.dll")]
-        private static extern bool TranslateMessage([In] ref MSG lpMsg);
-
-        [DllImport("user32.dll")]
-        private static extern IntPtr DispatchMessage([In] ref MSG lpMsg);
-
-        [DllImport("user32.dll")]
-        private static extern ushort RegisterClassExW([In] ref WNDCLASSEX lpwcx);
-
-        [DllImport("user32.dll")]
-        private static extern IntPtr CreateWindowExW(
-            int dwExStyle,
-            string lpClassName,
-            string lpWindowName,
-            int dwStyle,
-            int x, int y,
-            int nWidth, int nHeight,
-            IntPtr hWndParent,
-            IntPtr hMenu,
-            IntPtr hInstance,
-            IntPtr lpParam);
-
-        [DllImport("kernel32.dll")]
-        private static extern IntPtr GetModuleHandle(string lpModuleName);
-
-        private delegate IntPtr WndProcDelegate(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
-
-
-        // ---------------------------------------------------------------
-        // Liefert den Anzeigenamen der Taste aus ScanCode + Flags
-        // ---------------------------------------------------------------
-        public static string GetKeyName(ushort scanCode, bool isExtended)
+        [StructLayout(LayoutKind.Sequential)]
+        struct RAWINPUT
         {
-            int lParam = (scanCode << 16);
-            if (isExtended)
-                lParam |= (1 << 24); // Extended-Bit setzen
-
-            // Puffer für Keynamen
-            var sb = new System.Text.StringBuilder(64);
-            int result = GetKeyNameTextW(lParam, sb, sb.Capacity);
-            if (result > 0)
-                return sb.ToString();
-            else
-                return $"ScanCode {scanCode}";
+            public RAWINPUTHEADER header;
+            public RAWKEYBOARD keyboard;
         }
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern bool RegisterRawInputDevices(ref RAWINPUTDEVICE pRawInputDevices, uint uiNumDevices, uint cbSize);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern uint GetRawInputData(IntPtr hRawInput, uint uiCommand, IntPtr pData, ref uint pcbSize, uint cbSizeHeader);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        private static extern uint GetRawInputData(IntPtr hRawInput, uint uiCommand, out RAWINPUT pData, ref uint pcbSize, uint cbSizeHeader);
 
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         private static extern int GetKeyNameTextW(int lParam, System.Text.StringBuilder lpString, int nSize);
-
     }
 }
