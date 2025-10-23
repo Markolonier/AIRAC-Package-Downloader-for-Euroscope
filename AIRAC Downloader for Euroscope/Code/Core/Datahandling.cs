@@ -1,4 +1,5 @@
-﻿using AIRAC_Downloader_for_Euroscope.Code.UI;
+﻿using AIRAC_Downloader_for_Euroscope.Code.Core;
+using AIRAC_Downloader_for_Euroscope.Code.UI;
 using System;
 using System.Configuration;
 using System.Text;
@@ -12,6 +13,16 @@ namespace AIRAC_Downloader.Code.Core
         {
             this.Main_Form = Main_Form;
         }
+
+        // G2A Key Data
+        public static uint G2A_ScanCode { get; set; }
+        public static bool G2A_IsExtended { get; set; }
+
+        // G2G Key Data
+        public static uint G2G_ScanCode { get; set; }
+        public static bool G2G_IsExtended { get; set; }
+
+
         public void Export_Data()
         {
             if (Main_Form.callsign_cb.Checked)
@@ -153,6 +164,26 @@ namespace AIRAC_Downloader.Code.Core
             else
             {
                 SetSetting("nickname_cb", "false");
+            }
+
+            if (Main_Form.g2a_ptt_cb.Checked)
+            {
+                SetSetting("G2A_PTT", "true");
+                SetSetting("G2A_Scancode", G2A_ScanCode.ToString());
+            }
+            else
+            {
+                SetSetting("G2A_PTT", "false");
+            }
+
+            if (Main_Form.g2g_ptt_cb.Checked)
+            {
+                SetSetting("G2G_PTT", "true");
+                SetSetting("G2G_Scancode", G2G_ScanCode.ToString());
+            }
+            else
+            {
+                SetSetting("G2G_PTT", "false");
             }
 
             if (Main_Form.capture_mode_cb.Checked)
@@ -363,6 +394,36 @@ namespace AIRAC_Downloader.Code.Core
             else
             {
                 Main_Form.nickname_cb.Checked = false;
+            }
+
+            if (GetSetting("G2A_PTT") == "true")
+            {
+                Main_Form.g2a_ptt_cb.Checked = true;
+                uint euroScopeCode = Convert.ToUInt32(GetSetting("G2A_Scancode"));
+
+                ushort G2A_ScanCode = (ushort)((euroScopeCode >> 16) & 0xFF);
+                bool G2A_IsExtended = ((euroScopeCode >> 16) & 0x100) != 0;
+
+                Main_Form.g2a_btn.Text = VCCS_Keyboard_Listener.GetKeyName((ushort)G2A_ScanCode, G2A_IsExtended);
+            }
+            else
+            {
+                Main_Form.g2a_ptt_cb.Checked = false;
+            }
+
+            if (GetSetting("G2G_PTT") == "true")
+            {
+                Main_Form.g2g_ptt_cb.Checked = true;
+                uint euroScopeCode = Convert.ToUInt32(GetSetting("G2G_Scancode"));
+
+                ushort G2G_ScanCode = (ushort)((euroScopeCode >> 16) & 0xFF);
+                bool G2G_IsExtended = ((euroScopeCode >> 16) & 0x100) != 0;
+
+                Main_Form.g2g_btn.Text = VCCS_Keyboard_Listener.GetKeyName((ushort)G2G_ScanCode, G2G_IsExtended);
+            }
+            else
+            {
+                Main_Form.g2g_ptt_cb.Checked = false;
             }
 
             if (GetSetting("capture_mode_cb") == "true")

@@ -1,4 +1,5 @@
-﻿using AIRAC_Downloader_for_Euroscope.Code.Core;
+﻿using AIRAC_Downloader.Code.Core;
+using AIRAC_Downloader_for_Euroscope.Code.Core;
 using NAudio.CoreAudioApi;
 using System;
 using System.Collections.Generic;
@@ -106,9 +107,10 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
         public async void G2a_btn_Click(object sender, EventArgs e)
         {
             g2a_btn.Text = "Listening to Keyboard Input";
-            var (code, name) = await VCCS_Keyboard_Listener.Instance.ListenAsync();
+            var (code, name, isExtended) = await VCCS_Keyboard_Listener.Instance.ListenAsync();
             g2a_btn.Text = name;
-            MessageBox.Show($"EuroScope-Code: {code}");
+            Datahandling.G2A_ScanCode = (uint)code;
+            Datahandling.G2A_IsExtended = isExtended;
         }
 
         public void G2g_ptt_cb_CheckedChanged(object sender, EventArgs e)
@@ -126,9 +128,10 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
         public async void G2g_btn_Click(object sender, EventArgs e)
         {
             g2g_btn.Text = "Listening to Keyboard Input";
-            var (code, name) = await VCCS_Keyboard_Listener.Instance.ListenAsync();
+            var (code, name, isExtended) = await VCCS_Keyboard_Listener.Instance.ListenAsync();
             g2g_btn.Text = name;
-            MessageBox.Show($"EuroScope-Code: {code}");
+            Datahandling.G2G_ScanCode = (uint)code;
+            Datahandling.G2G_IsExtended = isExtended;
         }
 
 

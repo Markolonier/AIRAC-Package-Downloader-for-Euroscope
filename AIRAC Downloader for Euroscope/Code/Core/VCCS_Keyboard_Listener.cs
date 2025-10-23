@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AIRAC_Downloader.Code.Core;
+using System;
 using System.Runtime.InteropServices;
 using System.Threading;
 
@@ -7,7 +8,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
     public class VCCS_Keyboard_Listener : NativeWindow
     {
         private static VCCS_Keyboard_Listener? instance;
-        private TaskCompletionSource<(uint code, string name)>? keyTcs;
+        private TaskCompletionSource<(uint code, string name, bool isExtended)>? keyTcs;
 
         private VCCS_Keyboard_Listener()
         {
@@ -17,9 +18,9 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
 
         public static VCCS_Keyboard_Listener Instance => instance ??= new VCCS_Keyboard_Listener();
 
-        public Task<(uint code, string name)> ListenAsync()
+        public Task<(uint code, string name, bool isExtended)> ListenAsync()
         {
-            keyTcs = new TaskCompletionSource<(uint, string)>();
+            keyTcs = new TaskCompletionSource<(uint, string, bool)>();
             return keyTcs.Task;
         }
 
@@ -59,13 +60,13 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
                 uint euro = (uint)(((make & 0xFF) | (isExt ? 0x100u : 0u)) << 16);
                 string name = GetKeyName(make, isExt);
 
-                keyTcs?.TrySetResult((euro, name));
+                keyTcs?.TrySetResult((euro, name, isExt));
             }
 
             base.WndProc(ref m);
         }
 
-        private static string GetKeyName(ushort scanCode, bool isExtended)
+        public static string GetKeyName(ushort scanCode, bool isExtended)
         {
             int lParam = (scanCode << 16) | (isExtended ? 1 << 24 : 0);
             var sb = new System.Text.StringBuilder(64);
