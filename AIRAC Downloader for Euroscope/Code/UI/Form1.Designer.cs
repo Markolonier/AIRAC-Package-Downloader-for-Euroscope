@@ -32,57 +32,6 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
         /// </summary>
         private void InitializeComponent()//ES_Events ES_Events, VCCS_Events VCCS_Events, AeroNav_Events AeroNav_Events)
         {
-
-            List<string> facilities = new List<string>
-            {
-                "Observer",
-                "Flight Service Station",
-                "Clearance/Delivery",
-                "Ground",
-                "Tower",
-                "Approach/Departure",
-                "Center"
-            };
-            List<string> ratings = new List<string>
-            {
-                "Observer",
-                "Ground/Delivery (STU1)",
-                "Tower Controller (STU2)",
-                "TMA Controller (STU3)",
-                "Enroute Controller (CTR1)",
-                "Controller 2(not in use)",
-                "Senior controller (CTR3)",
-                "Instructor 1", "Instructor 2",
-                "Instructor 3",
-                "Supervisor",
-                "Administrator"
-            };
-            List<string> soundtypes = new List<string>
-            {
-                "Handoff Request",
-                "Handoff Accept",
-                "Conflict Alert",
-                "Radio Message",
-                "Private Message",
-                "ATC Message",
-                "Broadcast Message",
-                "Landline request",
-                "Supervisor call",
-                "Connected",
-                "Disconnected",
-                "Ongoing coordination request",
-                "Ongoing coordination accepted",
-                "Ongoing coordination refused",
-                "New ATIS message",
-                "Handoff Refused",
-                "Pointout",
-                "Startup"
-            };
-            List<string> sound1 = new List<string>(soundtypes);
-            List<string> sound2 = new List<string>(soundtypes);
-            List<string> sound3 = new List<string>(soundtypes);
-
-
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main_Form));
             es_setup = new GroupBox();
@@ -152,12 +101,12 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             pck_fold_lbl = new Label();
             package_info_lbl = new Label();
             package_lbl = new Label();
+            save_data = new Button();
             Download = new Button();
             save_to_btn = new Button();
             vacc_lbl = new Label();
             toolTip1 = new ToolTip(components);
             save_folder = new FolderBrowserDialog();
-            save_data = new Button();
             es_setup.SuspendLayout();
             vccs_setup.SuspendLayout();
             aeronav_setup.SuspendLayout();
@@ -211,7 +160,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // sound3_cb
             // 
-            sound3_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            sound3_cb.Font = new Font("Segoe UI", 11F);
             sound3_cb.Location = new Point(16, 512);
             sound3_cb.Name = "sound3_cb";
             sound3_cb.Size = new Size(104, 27);
@@ -222,7 +171,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // plugin3_cb
             // 
-            plugin3_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            plugin3_cb.Font = new Font("Segoe UI", 11F);
             plugin3_cb.Location = new Point(16, 392);
             plugin3_cb.Name = "plugin3_cb";
             plugin3_cb.Size = new Size(104, 27);
@@ -233,7 +182,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // sound2_cb
             // 
-            sound2_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            sound2_cb.Font = new Font("Segoe UI", 11F);
             sound2_cb.Location = new Point(16, 472);
             sound2_cb.Name = "sound2_cb";
             sound2_cb.Size = new Size(104, 27);
@@ -244,7 +193,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // plugin2_cb
             // 
-            plugin2_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            plugin2_cb.Font = new Font("Segoe UI", 11F);
             plugin2_cb.Location = new Point(16, 352);
             plugin2_cb.Name = "plugin2_cb";
             plugin2_cb.Size = new Size(104, 27);
@@ -256,7 +205,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // s3_open
             // 
             s3_open.Enabled = false;
-            s3_open.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            s3_open.Font = new Font("Segoe UI", 11F);
             s3_open.Location = new Point(592, 512);
             s3_open.Name = "s3_open";
             s3_open.Size = new Size(75, 28);
@@ -268,7 +217,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // p3_open
             // 
             p3_open.Enabled = false;
-            p3_open.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            p3_open.Font = new Font("Segoe UI", 11F);
             p3_open.Location = new Point(592, 392);
             p3_open.Name = "p3_open";
             p3_open.Size = new Size(75, 27);
@@ -280,7 +229,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // s2_open
             // 
             s2_open.Enabled = false;
-            s2_open.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            s2_open.Font = new Font("Segoe UI", 11F);
             s2_open.Location = new Point(592, 472);
             s2_open.Name = "s2_open";
             s2_open.Size = new Size(75, 28);
@@ -292,7 +241,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // p2_open
             // 
             p2_open.Enabled = false;
-            p2_open.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            p2_open.Font = new Font("Segoe UI", 11F);
             p2_open.Location = new Point(592, 352);
             p2_open.Name = "p2_open";
             p2_open.Size = new Size(75, 27);
@@ -304,7 +253,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // s1_open
             // 
             s1_open.Enabled = false;
-            s1_open.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            s1_open.Font = new Font("Segoe UI", 11F);
             s1_open.Location = new Point(592, 432);
             s1_open.Name = "s1_open";
             s1_open.Size = new Size(75, 28);
@@ -316,7 +265,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // p1_open
             // 
             p1_open.Enabled = false;
-            p1_open.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            p1_open.Font = new Font("Segoe UI", 11F);
             p1_open.Location = new Point(592, 312);
             p1_open.Name = "p1_open";
             p1_open.Size = new Size(75, 27);
@@ -329,7 +278,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             show_hoppie.BackgroundImage = (Image)resources.GetObject("show_hoppie.BackgroundImage");
             show_hoppie.BackgroundImageLayout = ImageLayout.Zoom;
-            show_hoppie.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            show_hoppie.Font = new Font("Segoe UI", 11F);
             show_hoppie.Location = new Point(592, 272);
             show_hoppie.Margin = new Padding(0);
             show_hoppie.Name = "show_hoppie";
@@ -343,7 +292,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             show_pwd.BackgroundImage = (Image)resources.GetObject("show_pwd.BackgroundImage");
             show_pwd.BackgroundImageLayout = ImageLayout.Zoom;
-            show_pwd.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            show_pwd.Font = new Font("Segoe UI", 11F);
             show_pwd.Location = new Point(592, 152);
             show_pwd.Margin = new Padding(0);
             show_pwd.Name = "show_pwd";
@@ -356,7 +305,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // s3_tb
             // 
             s3_tb.Enabled = false;
-            s3_tb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            s3_tb.Font = new Font("Segoe UI", 11F);
             s3_tb.Location = new Point(128, 512);
             s3_tb.Name = "s3_tb";
             s3_tb.ReadOnly = true;
@@ -366,7 +315,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // p3_tb
             // 
             p3_tb.Enabled = false;
-            p3_tb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            p3_tb.Font = new Font("Segoe UI", 11F);
             p3_tb.Location = new Point(128, 392);
             p3_tb.Name = "p3_tb";
             p3_tb.ReadOnly = true;
@@ -376,7 +325,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // s2_tb
             // 
             s2_tb.Enabled = false;
-            s2_tb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            s2_tb.Font = new Font("Segoe UI", 11F);
             s2_tb.Location = new Point(128, 472);
             s2_tb.Name = "s2_tb";
             s2_tb.ReadOnly = true;
@@ -386,7 +335,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // p2_tb
             // 
             p2_tb.Enabled = false;
-            p2_tb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            p2_tb.Font = new Font("Segoe UI", 11F);
             p2_tb.Location = new Point(128, 352);
             p2_tb.Name = "p2_tb";
             p2_tb.ReadOnly = true;
@@ -396,7 +345,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // s1_tb
             // 
             s1_tb.Enabled = false;
-            s1_tb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            s1_tb.Font = new Font("Segoe UI", 11F);
             s1_tb.Location = new Point(128, 432);
             s1_tb.Name = "s1_tb";
             s1_tb.ReadOnly = true;
@@ -405,7 +354,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // sound1_cb
             // 
-            sound1_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            sound1_cb.Font = new Font("Segoe UI", 11F);
             sound1_cb.Location = new Point(16, 432);
             sound1_cb.Name = "sound1_cb";
             sound1_cb.Size = new Size(104, 27);
@@ -417,7 +366,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // p1_tb
             // 
             p1_tb.Enabled = false;
-            p1_tb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            p1_tb.Font = new Font("Segoe UI", 11F);
             p1_tb.Location = new Point(128, 312);
             p1_tb.Name = "p1_tb";
             p1_tb.ReadOnly = true;
@@ -426,7 +375,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // plugin1_cb
             // 
-            plugin1_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            plugin1_cb.Font = new Font("Segoe UI", 11F);
             plugin1_cb.Location = new Point(16, 312);
             plugin1_cb.Name = "plugin1_cb";
             plugin1_cb.Size = new Size(104, 27);
@@ -437,44 +386,42 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // sound_dd_3
             // 
+            sound_dd_3.DataSource = resources.GetObject("sound_dd_3.DataSource");
             sound_dd_3.Enabled = false;
-            sound_dd_3.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            sound_dd_3.Font = new Font("Segoe UI", 11F);
             sound_dd_3.FormattingEnabled = true;
             sound_dd_3.Location = new Point(360, 512);
             sound_dd_3.Name = "sound_dd_3";
             sound_dd_3.Size = new Size(224, 28);
             sound_dd_3.TabIndex = 36;
-            sound_dd_3.DataSource = sound3;
             // 
             // sound_dd_2
             // 
             sound_dd_2.DataSource = resources.GetObject("sound_dd_2.DataSource");
             sound_dd_2.Enabled = false;
-            sound_dd_2.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            sound_dd_2.Font = new Font("Segoe UI", 11F);
             sound_dd_2.FormattingEnabled = true;
             sound_dd_2.Location = new Point(360, 472);
             sound_dd_2.Name = "sound_dd_2";
             sound_dd_2.Size = new Size(224, 28);
             sound_dd_2.TabIndex = 32;
-            sound_dd_2.DataSource = sound2;
             // 
             // sound_dd_1
             // 
             sound_dd_1.DataSource = resources.GetObject("sound_dd_1.DataSource");
             sound_dd_1.Enabled = false;
-            sound_dd_1.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            sound_dd_1.Font = new Font("Segoe UI", 11F);
             sound_dd_1.FormattingEnabled = true;
             sound_dd_1.Location = new Point(360, 432);
             sound_dd_1.Name = "sound_dd_1";
             sound_dd_1.Size = new Size(224, 28);
             sound_dd_1.TabIndex = 28;
-            sound_dd_1.DataSource = sound1;
             // 
             // hoppie_cb
             // 
             hoppie_cb.Checked = true;
             hoppie_cb.CheckState = CheckState.Checked;
-            hoppie_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            hoppie_cb.Font = new Font("Segoe UI", 11F);
             hoppie_cb.Location = new Point(16, 272);
             hoppie_cb.Name = "hoppie_cb";
             hoppie_cb.Size = new Size(104, 27);
@@ -485,8 +432,8 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // rating_dd
             // 
-            rating_dd.DataSource = ratings;
-            rating_dd.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            rating_dd.DataSource = resources.GetObject("rating_dd.DataSource");
+            rating_dd.Font = new Font("Segoe UI", 11F);
             rating_dd.FormattingEnabled = true;
             rating_dd.Location = new Point(128, 232);
             rating_dd.Name = "rating_dd";
@@ -497,7 +444,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             rating_cb.Checked = true;
             rating_cb.CheckState = CheckState.Checked;
-            rating_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            rating_cb.Font = new Font("Segoe UI", 11F);
             rating_cb.Location = new Point(16, 232);
             rating_cb.Name = "rating_cb";
             rating_cb.Size = new Size(104, 28);
@@ -508,8 +455,8 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // facility_dd
             // 
-            facility_dd.DataSource = facilities;
-            facility_dd.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            facility_dd.DataSource = resources.GetObject("facility_dd.DataSource");
+            facility_dd.Font = new Font("Segoe UI", 11F);
             facility_dd.FormattingEnabled = true;
             facility_dd.Location = new Point(128, 192);
             facility_dd.Name = "facility_dd";
@@ -520,7 +467,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             facility_cb.Checked = true;
             facility_cb.CheckState = CheckState.Checked;
-            facility_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            facility_cb.Font = new Font("Segoe UI", 11F);
             facility_cb.Location = new Point(16, 192);
             facility_cb.Name = "facility_cb";
             facility_cb.Size = new Size(104, 28);
@@ -531,7 +478,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // hoppie_tb
             // 
-            hoppie_tb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            hoppie_tb.Font = new Font("Segoe UI", 11F);
             hoppie_tb.Location = new Point(128, 272);
             hoppie_tb.Name = "hoppie_tb";
             hoppie_tb.PlaceholderText = "******";
@@ -541,7 +488,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // password_tb
             // 
-            password_tb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            password_tb.Font = new Font("Segoe UI", 11F);
             password_tb.Location = new Point(128, 152);
             password_tb.Name = "password_tb";
             password_tb.PlaceholderText = "******";
@@ -553,7 +500,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             password_cb.Checked = true;
             password_cb.CheckState = CheckState.Checked;
-            password_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            password_cb.Font = new Font("Segoe UI", 11F);
             password_cb.Location = new Point(16, 152);
             password_cb.Name = "password_cb";
             password_cb.Size = new Size(104, 27);
@@ -564,7 +511,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // certificate_tb
             // 
-            certificate_tb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            certificate_tb.Font = new Font("Segoe UI", 11F);
             certificate_tb.Location = new Point(128, 112);
             certificate_tb.Name = "certificate_tb";
             certificate_tb.PlaceholderText = "1234567";
@@ -575,7 +522,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             certificate_cb.Checked = true;
             certificate_cb.CheckState = CheckState.Checked;
-            certificate_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            certificate_cb.Font = new Font("Segoe UI", 11F);
             certificate_cb.Location = new Point(16, 112);
             certificate_cb.Name = "certificate_cb";
             certificate_cb.Size = new Size(104, 27);
@@ -586,7 +533,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // realname_tb
             // 
-            realname_tb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            realname_tb.Font = new Font("Segoe UI", 11F);
             realname_tb.Location = new Point(128, 72);
             realname_tb.Name = "realname_tb";
             realname_tb.PlaceholderText = "Max Mustermann";
@@ -597,7 +544,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             realname_cb.Checked = true;
             realname_cb.CheckState = CheckState.Checked;
-            realname_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            realname_cb.Font = new Font("Segoe UI", 11F);
             realname_cb.Location = new Point(16, 72);
             realname_cb.Name = "realname_cb";
             realname_cb.Size = new Size(104, 27);
@@ -608,7 +555,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // callsign_tb
             // 
-            callsign_tb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            callsign_tb.Font = new Font("Segoe UI", 11F);
             callsign_tb.Location = new Point(128, 32);
             callsign_tb.Name = "callsign_tb";
             callsign_tb.PlaceholderText = "%%_OBS";
@@ -619,7 +566,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             callsign_cb.Checked = true;
             callsign_cb.CheckState = CheckState.Checked;
-            callsign_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            callsign_cb.Font = new Font("Segoe UI", 11F);
             callsign_cb.Location = new Point(16, 32);
             callsign_cb.Name = "callsign_cb";
             callsign_cb.Size = new Size(104, 27);
@@ -684,7 +631,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // nickname_tb
             // 
             nickname_tb.Enabled = false;
-            nickname_tb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            nickname_tb.Font = new Font("Segoe UI", 11F);
             nickname_tb.Location = new Point(160, 32);
             nickname_tb.Name = "nickname_tb";
             nickname_tb.PlaceholderText = "1234567";
@@ -693,7 +640,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // playback_device_cb
             // 
-            playback_device_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            playback_device_cb.Font = new Font("Segoe UI", 11F);
             playback_device_cb.Location = new Point(16, 272);
             playback_device_cb.Name = "playback_device_cb";
             playback_device_cb.Size = new Size(136, 27);
@@ -704,7 +651,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // playback_mode_cb
             // 
-            playback_mode_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            playback_mode_cb.Font = new Font("Segoe UI", 11F);
             playback_mode_cb.Location = new Point(16, 232);
             playback_mode_cb.Name = "playback_mode_cb";
             playback_mode_cb.Size = new Size(136, 27);
@@ -715,7 +662,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // capture_device_cb
             // 
-            capture_device_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            capture_device_cb.Font = new Font("Segoe UI", 11F);
             capture_device_cb.Location = new Point(16, 192);
             capture_device_cb.Name = "capture_device_cb";
             capture_device_cb.Size = new Size(136, 27);
@@ -726,7 +673,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // capture_mode_cb
             // 
-            capture_mode_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            capture_mode_cb.Font = new Font("Segoe UI", 11F);
             capture_mode_cb.Location = new Point(16, 152);
             capture_mode_cb.Name = "capture_mode_cb";
             capture_mode_cb.Size = new Size(136, 27);
@@ -737,8 +684,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // g2g_ptt_cb
             // 
-            g2g_ptt_cb.Enabled = false;
-            g2g_ptt_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            g2g_ptt_cb.Font = new Font("Segoe UI", 11F);
             g2g_ptt_cb.Location = new Point(16, 112);
             g2g_ptt_cb.Name = "g2g_ptt_cb";
             g2g_ptt_cb.Size = new Size(136, 27);
@@ -749,8 +695,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // g2a_ptt_cb
             // 
-            g2a_ptt_cb.Enabled = false;
-            g2a_ptt_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            g2a_ptt_cb.Font = new Font("Segoe UI", 11F);
             g2a_ptt_cb.Location = new Point(16, 72);
             g2a_ptt_cb.Name = "g2a_ptt_cb";
             g2a_ptt_cb.Size = new Size(136, 27);
@@ -761,7 +706,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // nickname_cb
             // 
-            nickname_cb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            nickname_cb.Font = new Font("Segoe UI", 11F);
             nickname_cb.Location = new Point(16, 32);
             nickname_cb.Name = "nickname_cb";
             nickname_cb.Size = new Size(136, 27);
@@ -773,7 +718,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // playback_device_dd
             // 
             playback_device_dd.Enabled = false;
-            playback_device_dd.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            playback_device_dd.Font = new Font("Segoe UI", 11F);
             playback_device_dd.FormattingEnabled = true;
             playback_device_dd.Location = new Point(160, 272);
             playback_device_dd.Name = "playback_device_dd";
@@ -783,7 +728,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // playback_mode_dd
             // 
             playback_mode_dd.Enabled = false;
-            playback_mode_dd.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            playback_mode_dd.Font = new Font("Segoe UI", 11F);
             playback_mode_dd.FormattingEnabled = true;
             playback_mode_dd.Location = new Point(160, 232);
             playback_mode_dd.Name = "playback_mode_dd";
@@ -793,7 +738,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // capture_device_dd
             // 
             capture_device_dd.Enabled = false;
-            capture_device_dd.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            capture_device_dd.Font = new Font("Segoe UI", 11F);
             capture_device_dd.FormattingEnabled = true;
             capture_device_dd.Location = new Point(160, 192);
             capture_device_dd.Name = "capture_device_dd";
@@ -803,7 +748,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // capture_mode_dd
             // 
             capture_mode_dd.Enabled = false;
-            capture_mode_dd.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            capture_mode_dd.Font = new Font("Segoe UI", 11F);
             capture_mode_dd.FormattingEnabled = true;
             capture_mode_dd.Location = new Point(160, 152);
             capture_mode_dd.Name = "capture_mode_dd";
@@ -843,7 +788,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // pack_dd
             // 
-            pack_dd.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            pack_dd.Font = new Font("Segoe UI", 11F);
             pack_dd.FormattingEnabled = true;
             pack_dd.Location = new Point(160, 72);
             pack_dd.Name = "pack_dd";
@@ -853,7 +798,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // vacc_dd
             // 
-            vacc_dd.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            vacc_dd.Font = new Font("Segoe UI", 11F);
             vacc_dd.FormattingEnabled = true;
             vacc_dd.Location = new Point(160, 32);
             vacc_dd.Name = "vacc_dd";
@@ -863,7 +808,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // save_to_tb
             // 
-            save_to_tb.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            save_to_tb.Font = new Font("Segoe UI", 11F);
             save_to_tb.Location = new Point(160, 152);
             save_to_tb.Name = "save_to_tb";
             save_to_tb.PlaceholderText = "Select the Folder, where all the Packages should be saved";
@@ -874,7 +819,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // Pack_Released
             // 
-            Pack_Released.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            Pack_Released.Font = new Font("Segoe UI", 11F);
             Pack_Released.Location = new Point(464, 112);
             Pack_Released.Name = "Pack_Released";
             Pack_Released.Size = new Size(232, 28);
@@ -884,7 +829,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // Pack_Version
             // 
-            Pack_Version.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            Pack_Version.Font = new Font("Segoe UI", 11F);
             Pack_Version.Location = new Point(320, 112);
             Pack_Version.Name = "Pack_Version";
             Pack_Version.Size = new Size(136, 28);
@@ -894,7 +839,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // Pack_AIRAC
             // 
-            Pack_AIRAC.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            Pack_AIRAC.Font = new Font("Segoe UI", 11F);
             Pack_AIRAC.Location = new Point(160, 112);
             Pack_AIRAC.Name = "Pack_AIRAC";
             Pack_AIRAC.Size = new Size(136, 28);
@@ -904,7 +849,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // download_lbl
             // 
-            download_lbl.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            download_lbl.Font = new Font("Segoe UI", 11F);
             download_lbl.Location = new Point(16, 192);
             download_lbl.Name = "download_lbl";
             download_lbl.Size = new Size(136, 28);
@@ -914,7 +859,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // pck_fold_lbl
             // 
-            pck_fold_lbl.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            pck_fold_lbl.Font = new Font("Segoe UI", 11F);
             pck_fold_lbl.Location = new Point(16, 152);
             pck_fold_lbl.Name = "pck_fold_lbl";
             pck_fold_lbl.Size = new Size(136, 28);
@@ -924,7 +869,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // package_info_lbl
             // 
-            package_info_lbl.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            package_info_lbl.Font = new Font("Segoe UI", 11F);
             package_info_lbl.Location = new Point(16, 112);
             package_info_lbl.Name = "package_info_lbl";
             package_info_lbl.Size = new Size(136, 28);
@@ -934,7 +879,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // package_lbl
             // 
-            package_lbl.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            package_lbl.Font = new Font("Segoe UI", 11F);
             package_lbl.Location = new Point(16, 72);
             package_lbl.Name = "package_lbl";
             package_lbl.Size = new Size(136, 28);
@@ -942,20 +887,32 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             package_lbl.Text = "Select Package";
             package_lbl.TextAlign = ContentAlignment.MiddleLeft;
             // 
+            // save_data
+            // 
+            save_data.Font = new Font("Segoe UI", 11F);
+            save_data.Location = new Point(608, 152);
+            save_data.Name = "save_data";
+            save_data.Size = new Size(88, 72);
+            save_data.TabIndex = 67;
+            save_data.Text = "Save all Entries";
+            save_data.UseVisualStyleBackColor = true;
+            save_data.Click += Save_Data_Click;
+            // 
             // Download
             // 
-            Download.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            Download.Enabled = false;
+            Download.Font = new Font("Segoe UI", 11F);
             Download.Location = new Point(512, 192);
             Download.Name = "Download";
             Download.Size = new Size(88, 28);
             Download.TabIndex = 66;
-            Download.Text = "Download";
+            Download.Text = "Inject";
             Download.UseVisualStyleBackColor = true;
             Download.Click += Download_Click;
             // 
             // save_to_btn
             // 
-            save_to_btn.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            save_to_btn.Font = new Font("Segoe UI", 11F);
             save_to_btn.Location = new Point(512, 152);
             save_to_btn.Name = "save_to_btn";
             save_to_btn.Size = new Size(88, 28);
@@ -966,24 +923,13 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // vacc_lbl
             // 
-            vacc_lbl.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            vacc_lbl.Font = new Font("Segoe UI", 11F);
             vacc_lbl.Location = new Point(16, 32);
             vacc_lbl.Name = "vacc_lbl";
             vacc_lbl.Size = new Size(136, 28);
             vacc_lbl.TabIndex = 54;
             vacc_lbl.Text = "Select VACC";
             vacc_lbl.TextAlign = ContentAlignment.MiddleLeft;
-            // 
-            // save_data
-            // 
-            save_data.Font = new Font("Segoe UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            save_data.Location = new Point(608, 152);
-            save_data.Name = "save_data";
-            save_data.Size = new Size(88, 72);
-            save_data.TabIndex = 67;
-            save_data.Text = "Save all Entries";
-            save_data.UseVisualStyleBackColor = true;
-            save_data.Click += Save_Data_Click;
             // 
             // Main_Form
             // 
@@ -1073,7 +1019,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
         public Label Pack_AIRAC;
         private Label pck_fold_lbl;
         public TextBox save_to_tb;
-        private Label download_lbl;
+        public Label download_lbl;
         public Button Download;
         public Button save_to_btn;
         public ProgressBar download_bar;
