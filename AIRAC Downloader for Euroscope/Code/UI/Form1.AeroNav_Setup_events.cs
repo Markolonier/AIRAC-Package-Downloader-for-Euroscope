@@ -61,7 +61,22 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
 
         public void Download_Click(object sender, EventArgs e)
         {
-            HandleFinishedDownloads handleFinishedDownloads = new(this);
+            AiracAutoInstaller.StartBrowserAndWatch(this.pack_dd.Text.Split(" ")[0], this.save_to_tb.Text, (extractedFolder) =>
+            {
+                // this.Invoke sorgt dafür, dass Search_and_Inject_Data auf UI-Thread läuft
+                try
+                {
+                    this.Invoke(new Action(() =>
+                    {
+                        Injector inject = new Injector (this);
+                        inject.Search_and_Inject_Data(extractedFolder);
+                    }));
+                }
+                catch (ObjectDisposedException)
+                {
+                    // Form geschlossen; ignoriere
+                }
+            });
         }
 
 

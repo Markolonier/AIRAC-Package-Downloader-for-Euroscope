@@ -906,7 +906,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             Download.Name = "Download";
             Download.Size = new Size(88, 28);
             Download.TabIndex = 66;
-            Download.Text = "Inject";
+            Download.Text = "Update";
             Download.UseVisualStyleBackColor = true;
             Download.Click += Download_Click;
             // 
