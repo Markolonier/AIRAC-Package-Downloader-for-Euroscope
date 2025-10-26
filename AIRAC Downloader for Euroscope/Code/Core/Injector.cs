@@ -16,6 +16,7 @@ namespace AIRAC_Downloader.Code.Core
 
         public void Search_and_Inject_Data(string VACC_Folder)
         {
+
             string[] files = Directory.GetFiles(VACC_Folder, "*.prf", SearchOption.AllDirectories);
 
             string prf_inject_string = "";
@@ -62,6 +63,14 @@ namespace AIRAC_Downloader.Code.Core
             if (Main_Form.nickname_cb.Checked)
             {
                 prf_inject_string += "TeamSpeakVccs\tTs3NickName\t" + Main_Form.nickname_tb.Text + "\n";
+            }
+            if (Main_Form.g2a_ptt_cb.Checked)
+            {
+                prf_inject_string += "TeamSpeakVccs\tTs3G2APtt\t" + Datahandling.G2A_ScanCode + "\n";
+            }
+            if (Main_Form.g2g_ptt_cb.Checked)
+            {
+                prf_inject_string += "TeamSpeakVccs\tTs3G2GPtt\t" + Datahandling.G2G_ScanCode + "\n";
             }
             if (Main_Form.playback_mode_cb.Checked)
             {
@@ -151,6 +160,7 @@ namespace AIRAC_Downloader.Code.Core
 
 
             Main_Form.Download.Enabled = true;
+            MessageBox.Show("Injection finished", "AIRAC Downloader");
         }
     }
 }
