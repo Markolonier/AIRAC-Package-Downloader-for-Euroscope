@@ -153,8 +153,19 @@ namespace AIRAC_Downloader.Code.Core
             //Hoppie
             if (Main_Form.hoppie_cb.Checked)
             {
-                string[] hoppie_File = Directory.GetFiles(VACC_Folder, "TopSkyCPDLChoppieCode.txt", SearchOption.AllDirectories);
-                foreach (string hoppie in hoppie_File) { File.WriteAllText(hoppie, Main_Form.hoppie_tb.Text); }
+                var all_folders = Directory.GetDirectories(VACC_Folder, "*", SearchOption.AllDirectories);
+                
+                foreach (string folder in all_folders)
+                {
+                    if(Directory.GetFiles(folder).ToList().Exists(x => x.Contains("TopSkyCPDLChoppieCode")))
+                    {
+                        var template = Path.Combine(folder, "TopSkyCPDLChoppieCode.template.txt");
+                        if (File.Exists(template)) File.Delete(template);
+
+                        File.WriteAllText(Path.Combine(folder, "TopSkyCPDLChoppieCode.txt"), Main_Form.hoppie_tb.Text);
+
+                    }
+                }
             }
 
 
