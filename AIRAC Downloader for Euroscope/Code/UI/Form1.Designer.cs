@@ -842,6 +842,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             save_to_tb.ReadOnly = true;
             save_to_tb.Size = new Size(411, 27);
             save_to_tb.TabIndex = 62;
+            save_to_tb.TextChanged += save_to_tb_TextChanged;
             save_to_tb.MouseHover += save_vacc_MouseHover;
             // 
             // Pack_Released

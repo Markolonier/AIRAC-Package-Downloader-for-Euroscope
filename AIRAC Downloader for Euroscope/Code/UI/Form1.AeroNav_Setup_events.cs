@@ -49,7 +49,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             Pack_Version.Text = string.Join(": ", "Version", Packages_list[pack_dd.SelectedIndex][2]);
             Pack_Released.Text = string.Join(": ", "Released", Packages_list[pack_dd.SelectedIndex][3]);
 
-            if (vacc_dd.Text != "" && pack_dd.Text != "")
+            if (vacc_dd.Text != "" && pack_dd.Text != "" && save_to_tb.Text != "")
             {
                 Download.Enabled = true;
                 (string AIRAC, string version, string releasedate) = Core.CurrentInstalledAirac.getCurrentInstalledAIRAC(Path.Combine(save_to_tb.Text, Packages_list[pack_dd.SelectedIndex][0].Split(" ")[0]));
@@ -60,6 +60,17 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             else
             {
                 Download.Enabled = false;
+            }
+        }
+
+        private void save_to_tb_TextChanged(object sender, EventArgs e)
+        {
+            if (vacc_dd.Text != "" && pack_dd.Text != "" && save_to_tb.Text != "")
+            {
+                (string AIRAC, string version, string releasedate) = Core.CurrentInstalledAirac.getCurrentInstalledAIRAC(Path.Combine(save_to_tb.Text, Packages_list[pack_dd.SelectedIndex][0].Split(" ")[0]));
+                currently_installed_AIRAC.Text = $"AIRAC: {AIRAC}";
+                currently_installed_released.Text = $"Released: {releasedate}";
+                currently_installed_version.Text = $"Version: {version}";
             }
         }
 
