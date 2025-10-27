@@ -47,7 +47,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
         {
             Pack_AIRAC.Text = string.Join(": ", "AIRAC", Packages_list[pack_dd.SelectedIndex][1]);
             Pack_Version.Text = string.Join(": ", "Version", Packages_list[pack_dd.SelectedIndex][2]);
-            Pack_Released.Text = string.Join(": ", "Released", Packages_list[pack_dd.SelectedIndex][3]);
+            Pack_Released.Text = string.Join(": ", "Released", Packages_list[pack_dd.SelectedIndex][3].Split(" ")[0]);
 
             if (vacc_dd.Text != "" && pack_dd.Text != "" && save_to_tb.Text != "")
             {
