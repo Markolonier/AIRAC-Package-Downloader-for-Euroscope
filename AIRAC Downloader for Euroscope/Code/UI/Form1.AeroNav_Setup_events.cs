@@ -32,7 +32,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
                 pack_dd.SelectedIndex = 0;
             }
 
-            if (vacc_dd.Text != "" && pack_dd.Text != "")
+            if (vacc_dd.Text != "" && pack_dd.Text != "" && save_to_tb.Text != "")
             {
                 Download.Enabled = true;
             }
@@ -49,7 +49,19 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             Pack_Version.Text = string.Join(": ", "Version", Packages_list[pack_dd.SelectedIndex][2]);
             Pack_Released.Text = string.Join(": ", "Released", Packages_list[pack_dd.SelectedIndex][3]);
 
-            if (vacc_dd.Text != "" && pack_dd.Text != "")
+            if (vacc_dd.Text != "" && pack_dd.Text != "" && save_to_tb.Text != "")
+            {
+                Download.Enabled = true;
+            }
+            else
+            {
+                Download.Enabled = false;
+            }
+        }
+
+        private void save_to_tb_TextChanged(object sender, EventArgs e)
+        {
+            if (vacc_dd.Text != "" && pack_dd.Text != "" && save_to_tb.Text != "")
             {
                 Download.Enabled = true;
             }
