@@ -52,6 +52,10 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             if (vacc_dd.Text != "" && pack_dd.Text != "")
             {
                 Download.Enabled = true;
+                (string AIRAC, string version, string releasedate) = Core.CurrentInstalledAirac.getCurrentInstalledAIRAC(Path.Combine(save_to_tb.Text, Packages_list[pack_dd.SelectedIndex][0].Split(" ")[0]));
+                currently_installed_AIRAC.Text = $"AIRAC: {AIRAC}";
+                currently_installed_released.Text = $"Released: {releasedate}";
+                currently_installed_version.Text = $"Version: {version}";
             }
             else
             {
