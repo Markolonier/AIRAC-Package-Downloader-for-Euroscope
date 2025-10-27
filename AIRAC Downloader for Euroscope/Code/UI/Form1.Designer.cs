@@ -142,14 +142,16 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             capture_device_dd = new ComboBox();
             capture_mode_dd = new ComboBox();
             aeronav_setup = new GroupBox();
-            download_bar = new ProgressBar();
+            currently_installed_released = new Label();
+            currently_installed_version = new Label();
+            currently_installed_AIRAC = new Label();
             pack_dd = new ComboBox();
             vacc_dd = new ComboBox();
             save_to_tb = new TextBox();
             Pack_Released = new Label();
             Pack_Version = new Label();
             Pack_AIRAC = new Label();
-            download_lbl = new Label();
+            currently_installed = new Label();
             pck_fold_lbl = new Label();
             package_info_lbl = new Label();
             package_lbl = new Label();
@@ -697,7 +699,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             playback_device_cb.Name = "playback_device_cb";
             playback_device_cb.Size = new Size(136, 27);
             playback_device_cb.TabIndex = 51;
-            playback_device_cb.Text = "Playback Device";
+            playback_device_cb.Text = "Playback device";
             playback_device_cb.UseVisualStyleBackColor = true;
             playback_device_cb.CheckedChanged += Playback_device_cb_CheckedChanged;
             // 
@@ -708,7 +710,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             playback_mode_cb.Name = "playback_mode_cb";
             playback_mode_cb.Size = new Size(136, 27);
             playback_mode_cb.TabIndex = 49;
-            playback_mode_cb.Text = "Playback Mode";
+            playback_mode_cb.Text = "Playback mode";
             playback_mode_cb.UseVisualStyleBackColor = true;
             playback_mode_cb.CheckedChanged += Playback_mode_cb_CheckedChanged;
             // 
@@ -719,7 +721,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             capture_device_cb.Name = "capture_device_cb";
             capture_device_cb.Size = new Size(136, 27);
             capture_device_cb.TabIndex = 47;
-            capture_device_cb.Text = "Capture Device";
+            capture_device_cb.Text = "Capture device";
             capture_device_cb.UseVisualStyleBackColor = true;
             capture_device_cb.CheckedChanged += Capture_device_cb_CheckedChanged;
             // 
@@ -730,7 +732,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             capture_mode_cb.Name = "capture_mode_cb";
             capture_mode_cb.Size = new Size(136, 27);
             capture_mode_cb.TabIndex = 45;
-            capture_mode_cb.Text = "Capture Mode";
+            capture_mode_cb.Text = "Capture mode";
             capture_mode_cb.UseVisualStyleBackColor = true;
             capture_mode_cb.CheckedChanged += Capture_mode_cb_CheckedChanged;
             // 
@@ -809,14 +811,16 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // aeronav_setup
             // 
-            aeronav_setup.Controls.Add(download_bar);
+            aeronav_setup.Controls.Add(currently_installed_released);
+            aeronav_setup.Controls.Add(currently_installed_version);
+            aeronav_setup.Controls.Add(currently_installed_AIRAC);
             aeronav_setup.Controls.Add(pack_dd);
             aeronav_setup.Controls.Add(vacc_dd);
             aeronav_setup.Controls.Add(save_to_tb);
             aeronav_setup.Controls.Add(Pack_Released);
             aeronav_setup.Controls.Add(Pack_Version);
             aeronav_setup.Controls.Add(Pack_AIRAC);
-            aeronav_setup.Controls.Add(download_lbl);
+            aeronav_setup.Controls.Add(currently_installed);
             aeronav_setup.Controls.Add(pck_fold_lbl);
             aeronav_setup.Controls.Add(package_info_lbl);
             aeronav_setup.Controls.Add(package_lbl);
@@ -831,12 +835,35 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             aeronav_setup.TabStop = false;
             aeronav_setup.Text = "AeroNav Setup";
             // 
-            // download_bar
+            // currently_installed_released
             // 
-            download_bar.Location = new Point(160, 192);
-            download_bar.Name = "download_bar";
-            download_bar.Size = new Size(344, 27);
-            download_bar.TabIndex = 65;
+            currently_installed_released.Font = new Font("Segoe UI", 11F);
+            currently_installed_released.Location = new Point(381, 192);
+            currently_installed_released.Name = "currently_installed_released";
+            currently_installed_released.Size = new Size(190, 28);
+            currently_installed_released.TabIndex = 70;
+            currently_installed_released.Text = "Released: ";
+            currently_installed_released.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // currently_installed_version
+            // 
+            currently_installed_version.Font = new Font("Segoe UI", 11F);
+            currently_installed_version.Location = new Point(296, 192);
+            currently_installed_version.Name = "currently_installed_version";
+            currently_installed_version.Size = new Size(79, 28);
+            currently_installed_version.TabIndex = 69;
+            currently_installed_version.Text = "Version:";
+            currently_installed_version.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // currently_installed_AIRAC
+            // 
+            currently_installed_AIRAC.Font = new Font("Segoe UI", 11F);
+            currently_installed_AIRAC.Location = new Point(160, 192);
+            currently_installed_AIRAC.Name = "currently_installed_AIRAC";
+            currently_installed_AIRAC.Size = new Size(130, 28);
+            currently_installed_AIRAC.TabIndex = 68;
+            currently_installed_AIRAC.Text = "AIRAC:";
+            currently_installed_AIRAC.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // pack_dd
             // 
@@ -865,7 +892,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             save_to_tb.Name = "save_to_tb";
             save_to_tb.PlaceholderText = "Select the Folder, where all the Packages should be saved";
             save_to_tb.ReadOnly = true;
-            save_to_tb.Size = new Size(344, 27);
+            save_to_tb.Size = new Size(411, 27);
             save_to_tb.TabIndex = 62;
             save_to_tb.TextChanged += save_to_tb_TextChanged;
             save_to_tb.MouseHover += save_vacc_MouseHover;
@@ -873,9 +900,9 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // Pack_Released
             // 
             Pack_Released.Font = new Font("Segoe UI", 11F);
-            Pack_Released.Location = new Point(464, 112);
+            Pack_Released.Location = new Point(381, 112);
             Pack_Released.Name = "Pack_Released";
-            Pack_Released.Size = new Size(232, 28);
+            Pack_Released.Size = new Size(190, 28);
             Pack_Released.TabIndex = 60;
             Pack_Released.Text = "Released: ";
             Pack_Released.TextAlign = ContentAlignment.MiddleLeft;
@@ -883,9 +910,9 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // Pack_Version
             // 
             Pack_Version.Font = new Font("Segoe UI", 11F);
-            Pack_Version.Location = new Point(320, 112);
+            Pack_Version.Location = new Point(296, 112);
             Pack_Version.Name = "Pack_Version";
-            Pack_Version.Size = new Size(136, 28);
+            Pack_Version.Size = new Size(79, 28);
             Pack_Version.TabIndex = 59;
             Pack_Version.Text = "Version:";
             Pack_Version.TextAlign = ContentAlignment.MiddleLeft;
@@ -895,20 +922,20 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             Pack_AIRAC.Font = new Font("Segoe UI", 11F);
             Pack_AIRAC.Location = new Point(160, 112);
             Pack_AIRAC.Name = "Pack_AIRAC";
-            Pack_AIRAC.Size = new Size(136, 28);
+            Pack_AIRAC.Size = new Size(130, 28);
             Pack_AIRAC.TabIndex = 58;
             Pack_AIRAC.Text = "AIRAC:";
             Pack_AIRAC.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // download_lbl
+            // currently_installed
             // 
-            download_lbl.Font = new Font("Segoe UI", 11F);
-            download_lbl.Location = new Point(16, 192);
-            download_lbl.Name = "download_lbl";
-            download_lbl.Size = new Size(136, 28);
-            download_lbl.TabIndex = 64;
-            download_lbl.Text = "Download";
-            download_lbl.TextAlign = ContentAlignment.MiddleLeft;
+            currently_installed.Font = new Font("Segoe UI", 11F);
+            currently_installed.Location = new Point(16, 192);
+            currently_installed.Name = "currently_installed";
+            currently_installed.Size = new Size(136, 28);
+            currently_installed.TabIndex = 64;
+            currently_installed.Text = "Currently installed";
+            currently_installed.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // pck_fold_lbl
             // 
@@ -917,7 +944,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             pck_fold_lbl.Name = "pck_fold_lbl";
             pck_fold_lbl.Size = new Size(136, 28);
             pck_fold_lbl.TabIndex = 61;
-            pck_fold_lbl.Text = "Packages Folder";
+            pck_fold_lbl.Text = "Packages folder";
             pck_fold_lbl.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // package_info_lbl
@@ -937,17 +964,17 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             package_lbl.Name = "package_lbl";
             package_lbl.Size = new Size(136, 28);
             package_lbl.TabIndex = 56;
-            package_lbl.Text = "Select Package";
+            package_lbl.Text = "Select package";
             package_lbl.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // save_data
             // 
             save_data.Font = new Font("Segoe UI", 11F);
-            save_data.Location = new Point(608, 152);
+            save_data.Location = new Point(577, 108);
             save_data.Name = "save_data";
-            save_data.Size = new Size(88, 72);
+            save_data.Size = new Size(117, 32);
             save_data.TabIndex = 67;
-            save_data.Text = "Save all Entries";
+            save_data.Text = "Save selections";
             save_data.UseVisualStyleBackColor = true;
             save_data.Click += Save_Data_Click;
             // 
@@ -955,9 +982,9 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             Download.Enabled = false;
             Download.Font = new Font("Segoe UI", 11F);
-            Download.Location = new Point(512, 192);
+            Download.Location = new Point(577, 192);
             Download.Name = "Download";
-            Download.Size = new Size(88, 28);
+            Download.Size = new Size(117, 28);
             Download.TabIndex = 66;
             Download.Text = "Update";
             Download.UseVisualStyleBackColor = true;
@@ -966,9 +993,9 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // save_to_btn
             // 
             save_to_btn.Font = new Font("Segoe UI", 11F);
-            save_to_btn.Location = new Point(512, 152);
+            save_to_btn.Location = new Point(577, 152);
             save_to_btn.Name = "save_to_btn";
-            save_to_btn.Size = new Size(88, 28);
+            save_to_btn.Size = new Size(117, 28);
             save_to_btn.TabIndex = 63;
             save_to_btn.Text = "Select";
             save_to_btn.UseVisualStyleBackColor = true;
@@ -1072,13 +1099,15 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
         public Label Pack_AIRAC;
         private Label pck_fold_lbl;
         public TextBox save_to_tb;
-        public Label download_lbl;
+        public Label currently_installed;
         public Button Download;
         public Button save_to_btn;
-        public ProgressBar download_bar;
         public ToolTip toolTip1;
         private Label package_info_lbl;
         private FolderBrowserDialog save_folder;
         public Button save_data;
+        public Label currently_installed_released;
+        public Label currently_installed_version;
+        public Label currently_installed_AIRAC;
     }
 }

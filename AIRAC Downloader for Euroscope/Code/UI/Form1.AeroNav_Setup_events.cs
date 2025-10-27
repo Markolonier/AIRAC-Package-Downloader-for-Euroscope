@@ -47,11 +47,15 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
         {
             Pack_AIRAC.Text = string.Join(": ", "AIRAC", Packages_list[pack_dd.SelectedIndex][1]);
             Pack_Version.Text = string.Join(": ", "Version", Packages_list[pack_dd.SelectedIndex][2]);
-            Pack_Released.Text = string.Join(": ", "Released", Packages_list[pack_dd.SelectedIndex][3]);
+            Pack_Released.Text = string.Join(": ", "Released", Packages_list[pack_dd.SelectedIndex][3].Split(" ")[0]);
 
             if (vacc_dd.Text != "" && pack_dd.Text != "" && save_to_tb.Text != "")
             {
                 Download.Enabled = true;
+                (string AIRAC, string version, string releasedate) = Core.CurrentInstalledAirac.getCurrentInstalledAIRAC(Path.Combine(save_to_tb.Text, Packages_list[pack_dd.SelectedIndex][0].Split(" ")[0]));
+                currently_installed_AIRAC.Text = $"AIRAC: {AIRAC}";
+                currently_installed_released.Text = $"Released: {releasedate}";
+                currently_installed_version.Text = $"Version: {version}";
             }
             else
             {
@@ -64,6 +68,10 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             if (vacc_dd.Text != "" && pack_dd.Text != "" && save_to_tb.Text != "")
             {
                 Download.Enabled = true;
+                (string AIRAC, string version, string releasedate) = Core.CurrentInstalledAirac.getCurrentInstalledAIRAC(Path.Combine(save_to_tb.Text, Packages_list[pack_dd.SelectedIndex][0].Split(" ")[0]));
+                currently_installed_AIRAC.Text = $"AIRAC: {AIRAC}";
+                currently_installed_released.Text = $"Released: {releasedate}";
+                currently_installed_version.Text = $"Version: {version}";
             }
             else
             {
