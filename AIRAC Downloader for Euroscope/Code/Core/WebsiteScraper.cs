@@ -45,7 +45,10 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
             //Iterate TableRows of vACCs and add their 
             foreach (var tr in table.ChildNodes)
             {
-                VACCs.Add((tr.ChildNodes[1].InnerText, tr.ChildNodes[2].InnerText));
+                if(tr.ChildNodes.Count >= 5)
+                {
+                    VACCs.Add((tr.ChildNodes[3].InnerText, tr.ChildNodes[5].InnerText));
+                }
             }
 
 
@@ -67,7 +70,10 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
 
             foreach (var tr in table.ChildNodes)
             {
-                Packs.Add((tr.ChildNodes[1].InnerText, tr.ChildNodes[2].InnerText, tr.ChildNodes[3].InnerText, tr.ChildNodes[4].InnerText));
+                if (tr.ChildNodes.Count >= 4)
+                {
+                    Packs.Add((tr.ChildNodes[1].InnerText, tr.ChildNodes[2].InnerText, tr.ChildNodes[3].InnerText, tr.ChildNodes[4].InnerText));
+                }
             }
 
             return Packs;

@@ -330,7 +330,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // show_hoppie
             // 
-            show_hoppie.BackgroundImage = (Image)resources.GetObject("show_hoppie.BackgroundImage");
+            //show_hoppie.BackgroundImage = (Image)resources.GetObject("show_hoppie.BackgroundImage");
             show_hoppie.BackgroundImageLayout = ImageLayout.Zoom;
             show_hoppie.Font = new Font("Segoe UI", 11F);
             show_hoppie.Location = new Point(592, 272);
@@ -344,7 +344,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // show_pwd
             // 
-            show_pwd.BackgroundImage = (Image)resources.GetObject("show_pwd.BackgroundImage");
+            //show_pwd.BackgroundImage = (Image)resources.GetObject("show_pwd.BackgroundImage");
             show_pwd.BackgroundImageLayout = ImageLayout.Zoom;
             show_pwd.Font = new Font("Segoe UI", 11F);
             show_pwd.Location = new Point(592, 152);
