@@ -17,11 +17,11 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
         {
             pack_dd.UseWaitCursor = true;
 
-            var Packs = await Get_packs();
+            var Packs = scraper.GetPacksList("EDMM");
             pack_dd.Items.Clear();
             foreach (var Pack in Packs)
             {
-                pack_dd.Items.Add(Pack[0]);
+                pack_dd.Items.Add(Pack.Item1);
             }
             if (pack_dd.Items.Contains(GetSetting("pack_dd")))
             {
