@@ -6,10 +6,12 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
     public partial class Main_Form : Form
     {
         WebsiteScraper scraper = new WebsiteScraper();
-
+        List<(String, String, String, String)> availablePackages;
+        List<(String, String)> availableVaccs;
         public Main_Form()
         {
             InitializeComponent();
+            
         }
 
 
@@ -19,9 +21,9 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             Datahandling Datahandler = new(this);
             Datahandler.Import_Data();
 
-            var vACCs = scraper.GetVaccList();
+            availableVaccs = scraper.GetVaccList();
 
-            foreach (var vACC in vACCs)
+            foreach (var vACC in availableVaccs)
             {
                 vacc_dd.Items.Add(vACC.Item1 + " || " + vACC.Item2);
             }

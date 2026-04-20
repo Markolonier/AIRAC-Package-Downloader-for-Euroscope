@@ -68,7 +68,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
             
             var table = HtmlCode.DocumentNode.SelectSingleNode("//table[@class='table table-striped table-hover table-bordered']");
 
-            foreach (var tr in table.ChildNodes)
+            foreach (var tr in table.ChildNodes.Skip(2))
             {
                 if (tr.ChildNodes.Count >= 4)
                 {

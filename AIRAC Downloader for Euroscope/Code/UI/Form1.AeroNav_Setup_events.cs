@@ -1,12 +1,12 @@
 ﻿using AIRAC_Downloader.Code.Core;
 using AIRAC_Downloader_for_Euroscope.Code.Core;
-using System;
 using static AIRAC_Downloader.Code.Core.Datahandling;
 
 namespace AIRAC_Downloader_for_Euroscope.Code.UI
 {
     partial class Main_Form
     {
+        
         public void Save_to_btn_Click(object sender, EventArgs e)
         {
             save_folder.ShowDialog();
@@ -17,9 +17,9 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
         {
             pack_dd.UseWaitCursor = true;
 
-            var Packs = scraper.GetPacksList("EDMM");
+            availablePackages = scraper.GetPacksList(availableVaccs[vacc_dd.SelectedIndex].Item1);
             pack_dd.Items.Clear();
-            foreach (var Pack in Packs)
+            foreach (var Pack in availablePackages)
             {
                 pack_dd.Items.Add(Pack.Item1);
             }
@@ -45,9 +45,9 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
 
         public void Pack_dd_SelectedValueChanged(object sender, EventArgs e)
         {
-            Pack_AIRAC.Text = string.Join(": ", "AIRAC", Packages_list[pack_dd.SelectedIndex][1]);
-            Pack_Version.Text = string.Join(": ", "Version", Packages_list[pack_dd.SelectedIndex][2]);
-            Pack_Released.Text = string.Join(": ", "Released", Packages_list[pack_dd.SelectedIndex][3].Split(" ")[0]);
+            Pack_AIRAC.Text = "AIRAC : " + availablePackages[pack_dd.SelectedIndex].Item2;
+            Pack_Version.Text = "Version : " + availablePackages[pack_dd.SelectedIndex].Item3;
+            Pack_Released.Text = "Released : " + availablePackages[pack_dd.SelectedIndex].Item4; ;
 
             if (vacc_dd.Text != "" && pack_dd.Text != "" && save_to_tb.Text != "")
             {
