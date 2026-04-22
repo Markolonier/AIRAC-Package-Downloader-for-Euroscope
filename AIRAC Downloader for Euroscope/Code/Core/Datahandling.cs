@@ -9,20 +9,27 @@ namespace AIRAC_Downloader.Code.Core
     public class Datahandling
     {
         private Main_Form Main_Form;
+
+        [Obsolete("Class is deprecated and replaced by ConfigControl")]
         public Datahandling(Main_Form Main_Form)
         {
             this.Main_Form = Main_Form;
         }
 
         // G2A Key Data
+        [Obsolete("CS file containing property will be deleted in some future version")]
         public static uint G2A_ScanCode { get; set; }
+        [Obsolete("CS file containing property will be deleted in some future version")]
         public static bool G2A_IsExtended { get; set; }
 
         // G2G Key Data
+        [Obsolete("CS file containing property will be deleted in some future version")]
         public static uint G2G_ScanCode { get; set; }
+        [Obsolete("CS file containing property will be deleted in some future version")]
         public static bool G2G_IsExtended { get; set; }
 
 
+        [Obsolete("Is deprecated and replaced by ConfigControl", true)]
         public void Export_Data()
         {
             if (Main_Form.callsign_cb.Checked)
@@ -239,7 +246,7 @@ namespace AIRAC_Downloader.Code.Core
 
 
 
-
+        [Obsolete("Is deprecated and replaced by ConfigControl", true)]
         public void Import_Data()
         {
             //Callsign
@@ -466,13 +473,13 @@ namespace AIRAC_Downloader.Code.Core
                 Main_Form.playback_device_cb.Checked = false;
             }
             Main_Form.save_to_tb.Text = GetSetting("save_to_tb");
-
         }
 
 
         //
         // Get App.Config Settings
         //
+        [Obsolete("Replaced by ConfigControl", true)]
         public static string GetSetting(string key)
         {
             return ConfigurationManager.AppSettings[key];
@@ -481,6 +488,7 @@ namespace AIRAC_Downloader.Code.Core
         //
         // Set App.Config Settings
         //
+        [Obsolete("Replaced by ConfigControl", true)]
         public static void SetSetting(string key, string value)
         {
             Configuration configuration =

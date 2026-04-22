@@ -1,6 +1,5 @@
 ﻿using AIRAC_Downloader.Code.Core;
 using AIRAC_Downloader_for_Euroscope.Code.Core;
-using static AIRAC_Downloader.Code.Core.Datahandling;
 
 namespace AIRAC_Downloader_for_Euroscope.Code.UI
 {
@@ -23,14 +22,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             {
                 pack_dd.Items.Add(Pack.Item1);
             }
-            if (pack_dd.Items.Contains(GetSetting("pack_dd")))
-            {
-                pack_dd.Text = GetSetting("pack_dd");
-            }
-            else
-            {
-                pack_dd.SelectedIndex = 0;
-            }
+            pack_dd.SelectedIndex = 0;
 
             if (vacc_dd.Text != "" && pack_dd.Text != "" && save_to_tb.Text != "")
             {
@@ -102,8 +94,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
 
         public void Save_Data_Click(object sender, EventArgs e)
         {
-            Datahandling Datahandler = new(this);
-            Datahandler.Export_Data();
+            ExportData();
         }
 
 

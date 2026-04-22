@@ -32,58 +32,6 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
         /// </summary>
         private void InitializeComponent()//ES_Events ES_Events, VCCS_Events VCCS_Events, AeroNav_Events AeroNav_Events)
         {
-
-            List<string> facilities = new List<string>
-            {
-                "Observer",
-                "Flight Service Station",
-                "Clearance/Delivery",
-                "Ground",
-                "Tower",
-                "Approach/Departure",
-                "Center"
-            };
-            List<string> ratings = new List<string>
-            {
-                "Observer",
-                "Ground/Delivery (STU1)",
-                "Tower Controller (STU2)",
-                "TMA Controller (STU3)",
-                "Enroute Controller (CTR1)",
-                "Controller 2(not in use)",
-                "Senior controller (CTR3)",
-                "Instructor 1", "Instructor 2",
-                "Instructor 3",
-                "Supervisor",
-                "Administrator"
-            };
-            List<string> soundtypes = new List<string>
-            {
-                "Handoff Request",
-                "Handoff Accept",
-                "Conflict Alert",
-                "Radio Message",
-                "Private Message",
-                "ATC Message",
-                "Broadcast Message",
-                "Landline request",
-                "Supervisor call",
-                "Connected",
-                "Disconnected",
-                "Ongoing coordination request",
-                "Ongoing coordination accepted",
-                "Ongoing coordination refused",
-                "New ATIS message",
-                "Handoff Refused",
-                "Pointout",
-                "Startup"
-            };
-            List<string> sound1 = new List<string>(soundtypes);
-            List<string> sound2 = new List<string>(soundtypes);
-            List<string> sound3 = new List<string>(soundtypes);
-
-
-
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main_Form));
             es_setup = new GroupBox();
@@ -330,7 +278,6 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // show_hoppie
             // 
-            //show_hoppie.BackgroundImage = (Image)resources.GetObject("show_hoppie.BackgroundImage");
             show_hoppie.BackgroundImageLayout = ImageLayout.Zoom;
             show_hoppie.Font = new Font("Segoe UI", 11F);
             show_hoppie.Location = new Point(592, 272);
@@ -344,7 +291,6 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // show_pwd
             // 
-            //show_pwd.BackgroundImage = (Image)resources.GetObject("show_pwd.BackgroundImage");
             show_pwd.BackgroundImageLayout = ImageLayout.Zoom;
             show_pwd.Font = new Font("Segoe UI", 11F);
             show_pwd.Location = new Point(592, 152);
@@ -440,7 +386,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // sound_dd_3
             // 
-            sound_dd_3.DataSource = sound3;
+            sound_dd_3.DataSource = resources.GetObject("sound_dd_3.DataSource");
             sound_dd_3.Enabled = false;
             sound_dd_3.Font = new Font("Segoe UI", 11F);
             sound_dd_3.FormattingEnabled = true;
@@ -451,7 +397,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // sound_dd_2
             // 
-            sound_dd_2.DataSource = sound2;
+            sound_dd_2.DataSource = resources.GetObject("sound_dd_2.DataSource");
             sound_dd_2.Enabled = false;
             sound_dd_2.Font = new Font("Segoe UI", 11F);
             sound_dd_2.FormattingEnabled = true;
@@ -462,7 +408,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // sound_dd_1
             // 
-            sound_dd_1.DataSource = sound1;
+            sound_dd_1.DataSource = resources.GetObject("sound_dd_1.DataSource");
             sound_dd_1.Enabled = false;
             sound_dd_1.Font = new Font("Segoe UI", 11F);
             sound_dd_1.FormattingEnabled = true;
@@ -486,7 +432,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // rating_dd
             // 
-            rating_dd.DataSource = ratings;
+            rating_dd.DataSource = resources.GetObject("rating_dd.DataSource");
             rating_dd.Font = new Font("Segoe UI", 11F);
             rating_dd.FormattingEnabled = true;
             rating_dd.Location = new Point(128, 232);
@@ -509,7 +455,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // facility_dd
             // 
-            facility_dd.DataSource = facilities;
+            facility_dd.DataSource = resources.GetObject("facility_dd.DataSource");
             facility_dd.Font = new Font("Segoe UI", 11F);
             facility_dd.FormattingEnabled = true;
             facility_dd.Location = new Point(128, 192);
