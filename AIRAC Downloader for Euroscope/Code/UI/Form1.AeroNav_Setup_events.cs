@@ -7,13 +7,13 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
     partial class Main_Form
     {
         
-        public void Save_to_btn_Click(object sender, EventArgs e)
+        private void Save_to_btn_Click(object sender, EventArgs e)
         {
             save_folder.ShowDialog();
             save_to_tb.Text = save_folder.SelectedPath.ToString();
         }
 
-        public async void Vacc_dd_SelectedValueChanged(object sender, EventArgs e)
+        private async void Vacc_dd_SelectedValueChanged(object sender, EventArgs e)
         {
             pack_dd.UseWaitCursor = true;
 
@@ -36,7 +36,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
                 pack_dd.UseWaitCursor = false;
         }
 
-        public void Pack_dd_SelectedValueChanged(object sender, EventArgs e)
+        private void Pack_dd_SelectedValueChanged(object sender, EventArgs e)
         {
             Pack_AIRAC.Text = "AIRAC : " + availablePackages[pack_dd.SelectedIndex].Item2;
             Pack_Version.Text = "Version : " + availablePackages[pack_dd.SelectedIndex].Item3;
@@ -72,7 +72,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             }
         }
 
-        public void Download_Click(object sender, EventArgs e)
+        private void Download_Click(object sender, EventArgs e)
         {
             AiracAutoInstaller.StartBrowserAndWatch(this.pack_dd.Text.Split(" ")[0], this.save_to_tb.Text, (extractedFolder) =>
             {
@@ -134,13 +134,13 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
         }
 
 
-        public void Save_Data_Click(object sender, EventArgs e)
+        private void Save_Data_Click(object sender, EventArgs e)
         {
             ExportData();
         }
 
 
-        public void save_vacc_MouseHover(object sender, EventArgs e)
+        private void save_vacc_MouseHover(object sender, EventArgs e)
         {
             toolTip1.SetToolTip(save_to_tb, "Within the specified Folder there will be an subfolder created for the according VACC Code (e.g. 'EDXX').\nWithin the Subfolder of the VACC you can find the folder of the downloaded Package.");
         }
