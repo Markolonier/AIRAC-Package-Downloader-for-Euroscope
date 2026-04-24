@@ -37,7 +37,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
                 public string Rating { get; set; }
                 public string Hoppie { get; set; }
                 public List<string> Plugins { get; set; } = [];
-                public List<(string Sound, string Soundtype)> Sounds { get; set; } = new List<(string Sound, string Soundtype)>();
+                public List<(string Sound, int Soundtype)> Sounds { get; set; } = new List<(string Sound, int Soundtype)>();
             }
 
             public class VCCS
@@ -146,16 +146,6 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
             {
                 configs = configs.Append(JsonConfigFName).ToArray();
             }
-                //.Append(Directory.GetFiles(Application.StartupPath, JsonConfigFName, SearchOption.TopDirectoryOnly)).ToArray();
-
-            /*foreach (string oldConfig in oldConfigs)
-            {
-                if (configs.Length == 0)
-                {
-                    configs = [oldConfig];
-                }
-                configs = configs.Append(oldConfig).ToArray();
-            }*/
 
             if (configs.Length > 1) throw new Exception("Update failed: more than one config file existing in program folder");
             if (configs.Length == 0) throw new FileNotFoundException("No config file existing");
@@ -189,15 +179,15 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
 
                 if(GetSetting("sound1_cb", "s1_tb") is not null)
                 {
-                    updatedConfig.thisES.Sounds.Add(new(GetSetting("sound1_cb", "s1_tb"), GetSetting("sound1_cb", "sound_dd_1")));
+                    updatedConfig.thisES.Sounds.Add(new(GetSetting("sound1_cb", "s1_tb"), Int32.Parse(GetSetting("sound1_cb", "sound_dd_1"))));
                 }
                 if (GetSetting("sound2_cb", "s2_tb") is not null)
                 {
-                    updatedConfig.thisES.Sounds.Add((GetSetting("sound2_cb", "s2_tb"), GetSetting("sound2_cb", "sound_dd_2")));
+                    updatedConfig.thisES.Sounds.Add((GetSetting("sound2_cb", "s2_tb"), Int32.Parse(GetSetting("sound2_cb", "sound_dd_2"))));
                 }
                 if (GetSetting("sound3_cb", "s3_tb") is not null)
                 {
-                    updatedConfig.thisES.Sounds.Add((GetSetting("sound3_cb", "s3_tb"), GetSetting("sound3_cb", "sound_dd_3")));
+                    updatedConfig.thisES.Sounds.Add((GetSetting("sound3_cb", "s3_tb"), Int32.Parse(GetSetting("sound3_cb", "sound_dd_3"))));
                 }
 
 

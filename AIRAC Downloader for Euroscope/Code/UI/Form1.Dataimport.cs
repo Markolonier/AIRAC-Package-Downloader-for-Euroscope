@@ -389,15 +389,15 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             }
             if (this.sound1_cb.Checked)
             {
-                Data.thisES.Sounds.Add((this.s1_tb.Text, this.sound_dd_1.Text));
+                Data.thisES.Sounds.Add((this.s1_tb.Text, this.sound_dd_1.SelectedIndex));
             }
             if (this.sound2_cb.Checked)
             {
-                Data.thisES.Sounds.Add((this.s2_tb.Text, this.sound_dd_2.Text));
+                Data.thisES.Sounds.Add((this.s2_tb.Text, this.sound_dd_2.SelectedIndex));
             }
             if (this.sound3_cb.Checked)
             {
-                Data.thisES.Sounds.Add((this.s3_tb.Text, this.sound_dd_3.Text));
+                Data.thisES.Sounds.Add((this.s3_tb.Text, this.sound_dd_3.SelectedIndex));
             }
 
             //VCCS Setup

@@ -1,5 +1,6 @@
 ﻿using AIRAC_Downloader.Code.Core;
 using AIRAC_Downloader_for_Euroscope.Code.Core;
+using System.Diagnostics;
 
 namespace AIRAC_Downloader_for_Euroscope.Code.UI
 {
@@ -44,7 +45,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             if (vacc_dd.Text != "" && pack_dd.Text != "" && save_to_tb.Text != "")
             {
                 Download.Enabled = true;
-                (string AIRAC, string version, string releasedate) = Core.CurrentInstalledAirac.getCurrentInstalledAIRAC(Path.Combine(save_to_tb.Text, Packages_list[pack_dd.SelectedIndex][0].Split(" ")[0]));
+                (string AIRAC, string version, string releasedate) = Core.CurrentInstalledAirac.getCurrentInstalledAIRAC(Path.Combine(save_to_tb.Text, availablePackages[pack_dd.SelectedIndex].Item1.Split(" ")[0]));
                 currently_installed_AIRAC.Text = $"AIRAC: {AIRAC}";
                 currently_installed_released.Text = $"Released: {releasedate}";
                 currently_installed_version.Text = $"Version: {version}";
@@ -60,7 +61,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             if (vacc_dd.Text != "" && pack_dd.Text != "" && save_to_tb.Text != "")
             {
                 Download.Enabled = true;
-                (string AIRAC, string version, string releasedate) = Core.CurrentInstalledAirac.getCurrentInstalledAIRAC(Path.Combine(save_to_tb.Text, Packages_list[pack_dd.SelectedIndex][0].Split(" ")[0]));
+                (string AIRAC, string version, string releasedate) = Core.CurrentInstalledAirac.getCurrentInstalledAIRAC(Path.Combine(save_to_tb.Text, availablePackages[pack_dd.SelectedIndex].Item1.Split(" ")[0]));
                 currently_installed_AIRAC.Text = $"AIRAC: {AIRAC}";
                 currently_installed_released.Text = $"Released: {releasedate}";
                 currently_installed_version.Text = $"Version: {version}";
@@ -75,13 +76,54 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
         {
             AiracAutoInstaller.StartBrowserAndWatch(this.pack_dd.Text.Split(" ")[0], this.save_to_tb.Text, (extractedFolder) =>
             {
-                // this.Invoke sorgt dafür, dass Search_and_Inject_Data auf UI-Thread läuft
                 try
                 {
                     this.Invoke(new Action(() =>
                     {
-                        Injector inject = new Injector (this);
-                        inject.Search_and_Inject_Data(extractedFolder);
+                        Injector inject = new();
+
+                        //Create a list out of all plugins
+                        string?[] pluginsWithNull = [
+                            plugin1_cb.Checked ? p1_tb.Text : null,
+                            plugin2_cb.Checked ? p2_tb.Text : null,
+                            plugin3_cb.Checked ? p3_tb.Text : null
+                        ];
+                        List<string> plugins = pluginsWithNull.Where(i => i != null).ToList();
+
+                        //Create a list out of all sounds
+                        List<(string, int?)> soundsWithNull = [
+                            sound1_cb.Checked ? (s1_tb.Text, sound_dd_1.SelectedIndex) : (null, null),
+                            sound2_cb.Checked ? (s2_tb.Text, sound_dd_2.SelectedIndex) : (null, null),
+                            sound3_cb.Checked ? (s3_tb.Text, sound_dd_3.SelectedIndex) : (null, null)
+                        ];
+                        List<(string? Sound, int? Soundtype)>? sounds = soundsWithNull.Where(i => i != (null, null)).ToList();
+
+                        //Call the Constructor of the Data Object that is required for the InjectAllDatas() call
+                        Injector.Data currentData = new(
+                            callsign: callsign_cb.Checked ? callsign_tb.Text : null,
+                            realname: realname_cb.Checked ? realname_tb.Text : null,
+                            certificate: certificate_cb.Checked ? certificate_tb.Text : null,
+                            password: password_cb.Checked ? password_tb.Text : null,
+                            facility: facility_cb.Checked ? facility_dd.SelectedIndex : null,
+                            rating: rating_cb.Checked ? rating_dd.SelectedIndex : null,
+                            hoppie: hoppie_cb.Checked ? hoppie_tb.Text : null,
+                            plugins: plugins,
+                            Sounds: sounds,
+
+                            vccsNickname: nickname_cb.Checked ? nickname_tb.Text : null,
+                            g2aptt: g2a_ptt_cb.Checked ? G2Abttn.Code : null,
+                            g2gptt: g2g_ptt_cb.Checked ? G2Gbttn.Code : null,
+                            captureMode: capture_mode_cb.Checked ? capture_mode_dd.Text : null,
+                            captureDevice: capture_device_cb.Checked ? capture_device_dd.Text : null,
+                            playbackMode: playback_mode_cb.Checked ? playback_mode_dd.Text : null,
+                            playbackDevice: playback_device_cb.Checked ? playback_device_dd.Text : null
+                        );
+
+
+                        inject.InjectAllDatas(currentData, extractedFolder);
+
+
+                        MessageBox.Show("Injection finished", "AIRAC Downloader");
                     }));
                 }
                 catch (ObjectDisposedException)

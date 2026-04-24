@@ -104,8 +104,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
             };
 
             // Info für Benutzer
-            MessageBox.Show($"Browser opened. Please download the {fir}-ZIP file into {dlFolder}.\n\n" +
-                            $"I will unzip the file and edit it automatically.", "AIRAC Downloader");
+            MessageBox.Show($"Browser opened. Please download the {fir}-ZIP file into {dlFolder}.\n\nI will unzip the file and edit it automatically.", "AIRAC Downloader");
         }
 
         private static async Task<bool> WaitForFileAvailable(string path, TimeSpan timeout)
