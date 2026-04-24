@@ -24,7 +24,39 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
             public VCCS thisVCCS { get; set; } = new();
             public AeroNav thisAN { get; set; } = new();
 
-            public string? Version { get; set; }
+            public Config() { }
+            public Config(string? Version,
+                string? Callsign, string? Realname, string? Certificate, string? Password, string? Facility, string? Rating, string? Hoppie, List<string>? Plugins, List<(string Sound, int Soundtypes)>? Sounds,
+                string? Nickname, uint G2Aptt, uint G2Gptt, string? CaptureMode, string? CaptureDevice, string? PlaybackMode, string? PlaybackDevice,
+                string? VACC, string? Package, string? Folder
+            )
+            {
+                this.Version =Version;
+
+                this.thisES.Callsign = Callsign;
+                this.thisES.Realname = Realname;
+                this.thisES.Certificate = Certificate;
+                this.thisES.Password = Password;
+                this.thisES.Facility = Facility;
+                this.thisES.Rating = Rating;
+                this.thisES.Hoppie = Hoppie;
+                this.thisES.Plugins = Plugins;
+                this.thisES.Sounds = Sounds;
+
+                this.thisVCCS.Nickname = Nickname;
+                this.thisVCCS.G2Aptt = G2Aptt;
+                this.thisVCCS.G2Gptt = G2Gptt;
+                this.thisVCCS.CaptureMode = CaptureMode;
+                this.thisVCCS.CaptureDevice = CaptureDevice;
+                this.thisVCCS.PlaybackMode = PlaybackMode;
+                this.thisVCCS.PlaybackDevice = PlaybackDevice;
+
+                this.thisAN.VACC = VACC;
+                this.thisAN.Package = Package;
+                this.thisAN.Folder = Folder;
+            }
+
+            public string Version { get; set; }
 
             public class Euroscope
             {
