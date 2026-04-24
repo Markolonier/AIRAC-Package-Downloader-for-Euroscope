@@ -12,6 +12,9 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
     partial class Main_Form
     {
 
+        private VCCS_Keyboard_Listener.KeyResult G2Abttn= new();
+        private VCCS_Keyboard_Listener.KeyResult G2Gbttn = new();
+
         public void Nickname_cb_CheckedChanged(object sender, EventArgs e)
         {
             if (nickname_cb.Checked)
@@ -107,10 +110,23 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
         public async void G2a_btn_Click(object sender, EventArgs e)
         {
             g2a_btn.Text = "Listening to Keyboard Input";
-            var (code, name, isExtended) = await VCCS_Keyboard_Listener.Instance.ListenAsync();
-            g2a_btn.Text = name;
-            Datahandling.G2A_ScanCode = (uint)code;
-            Datahandling.G2A_IsExtended = isExtended;
+            var possibleScan = await VCCS_Keyboard_Listener.Instance.ListenAsync();
+            if (possibleScan != null)
+            {
+                G2Abttn = (VCCS_Keyboard_Listener.KeyResult) possibleScan;
+                g2a_btn.Text = G2Abttn.Name;
+            }
+            else
+            {
+                if (G2Abttn.Name is null)
+                {
+                    g2a_btn.Text = "Set Hotkey";
+                }
+                else
+                {
+                    g2a_btn.Text = G2Abttn.Name;
+                }
+            }
         }
 
         public void G2g_ptt_cb_CheckedChanged(object sender, EventArgs e)
@@ -128,10 +144,23 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
         public async void G2g_btn_Click(object sender, EventArgs e)
         {
             g2g_btn.Text = "Listening to Keyboard Input";
-            var (code, name, isExtended) = await VCCS_Keyboard_Listener.Instance.ListenAsync();
-            g2g_btn.Text = name;
-            Datahandling.G2G_ScanCode = (uint)code;
-            Datahandling.G2G_IsExtended = isExtended;
+            var possibleScan = await VCCS_Keyboard_Listener.Instance.ListenAsync();
+            if (possibleScan != null)
+            {
+                G2Gbttn = (VCCS_Keyboard_Listener.KeyResult)possibleScan;
+                g2g_btn.Text = G2Gbttn.Name;
+            }
+            else
+            {
+                if (G2Gbttn.Name is null)
+                {
+                    g2g_btn.Text = "Set Hotkey";
+                }
+                else
+                {
+                    g2g_btn.Text = G2Gbttn.Name;
+                }
+            }
         }
 
 
