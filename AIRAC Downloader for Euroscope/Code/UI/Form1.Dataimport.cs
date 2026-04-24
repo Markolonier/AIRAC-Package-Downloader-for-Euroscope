@@ -1,4 +1,5 @@
 ﻿using AIRAC_Downloader_for_Euroscope.Code.Core;
+using System.Diagnostics;
 using System.Reflection.Metadata;
 
 namespace AIRAC_Downloader_for_Euroscope.Code.UI
@@ -159,12 +160,8 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
                 if (config.thisES.Sounds.Count > 0)
                 {
                     this.sound1_cb.Checked = true;
-                    this.s1_tb.Text = config.thisES.Sounds[0].ToTuple().Item1.ToString();
-                    if (this.sound_dd_1.Items.Contains(config.thisES.Sounds[0].ToTuple().Item2.ToString()))
-                    {
-                        this.sound_dd_1.Text = config.thisES.Sounds[0].ToTuple().Item2.ToString();
-                    }
-                    else this.sound_dd_1.Text = string.Empty;
+                    this.s1_tb.Text = config.thisES.Sounds[0].Item1;
+                    this.sound_dd_1.SelectedIndex = config.thisES.Sounds[0].Item2;
                 }
                 else
                 {
@@ -176,12 +173,8 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
                 if (config.thisES.Sounds.Count > 1)
                 {
                     this.sound2_cb.Checked = true;
-                    this.s2_tb.Text = config.thisES.Sounds[1].ToTuple().Item1.ToString();
-                    if (this.sound_dd_2.Items.Contains(config.thisES.Sounds[1].ToTuple().Item2.ToString()))
-                    {
-                        this.sound_dd_2.Text = config.thisES.Sounds[1].ToTuple().Item2.ToString();
-                    }
-                    else this.sound_dd_2.Text = string.Empty;
+                    this.s2_tb.Text = config.thisES.Sounds[1].Item1;
+                    this.sound_dd_2.SelectedIndex = config.thisES.Sounds[1].Item2;
                 }
                 else
                 {
@@ -194,12 +187,8 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
                 if (config.thisES.Sounds.Count > 2)
                 {
                     this.sound3_cb.Checked = true;
-                    this.s3_tb.Text = config.thisES.Sounds[2].ToTuple().Item1.ToString();
-                    if (this.sound_dd_3.Items.Contains(config.thisES.Sounds[2].ToTuple().Item2.ToString()))
-                    {
-                        this.sound_dd_3.Text = config.thisES.Sounds[2].ToTuple().Item2.ToString();
-                    }
-                    else this.sound_dd_3.Text = string.Empty;
+                    this.s3_tb.Text = config.thisES.Sounds[2].Item1;
+                    this.sound_dd_3.SelectedIndex = config.thisES.Sounds[2].Item2;
                 }
                 else
                 {
