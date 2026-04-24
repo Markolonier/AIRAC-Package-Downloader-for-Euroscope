@@ -17,15 +17,15 @@ namespace AIRAC_Downloader.Code.Core
         }
 
         // G2A Key Data
-        [Obsolete("CS file containing property will be deleted in some future version")]
+        [Obsolete("Deprecated, replaced by VCCS_Keyboard_Listener.KeyResult", true)]
         public static uint G2A_ScanCode { get; set; }
-        [Obsolete("CS file containing property will be deleted in some future version")]
+        [Obsolete("Deprecated, replaced by VCCS_Keyboard_Listener.KeyResult", true)]
         public static bool G2A_IsExtended { get; set; }
 
         // G2G Key Data
-        [Obsolete("CS file containing property will be deleted in some future version")]
+        [Obsolete("Deprecated, replaced by VCCS_Keyboard_Listener.KeyResult", true)]
         public static uint G2G_ScanCode { get; set; }
-        [Obsolete("CS file containing property will be deleted in some future version")]
+        [Obsolete("Deprecated, replaced by VCCS_Keyboard_Listener.KeyResult", true)]
         public static bool G2G_IsExtended { get; set; }
 
 
