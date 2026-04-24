@@ -43,8 +43,8 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
             public class VCCS
             {
                 public string Nickname { get; set; }
-                public string G2Aptt { get; set; }
-                public string G2Gptt { get; set; }
+                public uint G2Aptt { get; set; }
+                public uint G2Gptt { get; set; }
                 public string CaptureMode { get; set; }
                 public string CaptureDevice { get; set; }
                 public string PlaybackMode { get; set; }
@@ -203,8 +203,6 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
 
                 //VCCS Part
                 updatedConfig.thisVCCS.Nickname = GetSetting("nickname_cb", "nickname_tb");
-                updatedConfig.thisVCCS.G2Aptt = GetSetting("G2A_PTT", "G2A_Scancode");
-                updatedConfig.thisVCCS.G2Gptt = GetSetting("G2G_PTT", "G2G_Scancode");
                 updatedConfig.thisVCCS.CaptureMode = GetSetting("capture_mode_cb", "capture_mode_dd");
                 updatedConfig.thisVCCS.CaptureDevice = GetSetting("capture_device_cb", "capture_device_dd");
                 updatedConfig.thisVCCS.PlaybackMode = GetSetting("playback_mode_cb", "playback_mode_dd");
