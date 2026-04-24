@@ -92,9 +92,9 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
 
                         //Create a list out of all sounds
                         List<(string, int?)> soundsWithNull = [
-                            sound1_cb.Checked ? (s1_tb.Text, sound_dd_1.SelectedIndex) : (null, null),
-                            sound2_cb.Checked ? (s2_tb.Text, sound_dd_2.SelectedIndex) : (null, null),
-                            sound3_cb.Checked ? (s3_tb.Text, sound_dd_3.SelectedIndex) : (null, null)
+                            sound1_cb.Checked ? (s1_tb.Text, sound_dd_1.SelectedIndex + 1) : (null, null),
+                            sound2_cb.Checked ? (s2_tb.Text, sound_dd_2.SelectedIndex + 1) : (null, null),
+                            sound3_cb.Checked ? (s3_tb.Text, sound_dd_3.SelectedIndex + 1) : (null, null)
                         ];
                         List<(string? Sound, int? Soundtype)>? sounds = soundsWithNull.Where(i => i != (null, null)).ToList();
 
