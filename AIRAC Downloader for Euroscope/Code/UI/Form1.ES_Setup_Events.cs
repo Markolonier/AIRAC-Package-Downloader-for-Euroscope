@@ -6,7 +6,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
     partial class Main_Form
     {
 
-        public void OpenPlugin(TextBox textbox)
+        private void OpenPlugin(TextBox textbox)
         {
             plugin_opendialogue.DefaultExt = "dll";
             plugin_opendialogue.Filter = "EuroScope plugins (*.dll)|*.dll";
@@ -17,7 +17,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
 
             textbox.Text = plugin_opendialogue.FileName;
         }
-        public void OpenSound(TextBox textbox)
+        private void OpenSound(TextBox textbox)
         {
             sound_opendialogue.DefaultExt = "wav";
             sound_opendialogue.Filter = "Wave files (*.wav)|*.wav";
@@ -30,7 +30,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
         }
 
 
-        public void Callsign_cb_CheckedChanged(object sender, EventArgs e)
+        private void Callsign_cb_CheckedChanged(object sender, EventArgs e)
         {
             if (callsign_cb.Checked == false)
             {
@@ -42,7 +42,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             }
         }
 
-        public void Realname_cb_CheckedChanged(object sender, EventArgs e)
+        private void Realname_cb_CheckedChanged(object sender, EventArgs e)
         {
             if (realname_cb.Checked == false)
             {
@@ -54,7 +54,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             }
         }
 
-        public void Certificate_cb_CheckedChanged(object sender, EventArgs e)
+        private void Certificate_cb_CheckedChanged(object sender, EventArgs e)
         {
             if (certificate_cb.Checked == false)
             {
@@ -66,7 +66,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             }
         }
 
-        public void Password_cb_CheckedChanged(object sender, EventArgs e)
+        private void Password_cb_CheckedChanged(object sender, EventArgs e)
         {
             if (password_cb.Checked == false)
             {
@@ -80,7 +80,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             }
         }
 
-        public void Facility_cb_CheckedChanged(object sender, EventArgs e)
+        private void Facility_cb_CheckedChanged(object sender, EventArgs e)
         {
             if (facility_cb.Checked == false)
             {
@@ -92,7 +92,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             }
         }
 
-        public void Rating_cb_CheckedChanged(object sender, EventArgs e)
+        private void Rating_cb_CheckedChanged(object sender, EventArgs e)
         {
             if (rating_cb.Checked == false)
             {
@@ -104,7 +104,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             }
         }
 
-        public void plugin1_cb_CheckedChanged(object sender, EventArgs e)
+        private void plugin1_cb_CheckedChanged(object sender, EventArgs e)
         {
             if (plugin1_cb.Checked == false)
             {
@@ -118,7 +118,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             }
         }
 
-        public void plugin2_cb_CheckedChanged(object sender, EventArgs e)
+        private void plugin2_cb_CheckedChanged(object sender, EventArgs e)
         {
             if (plugin2_cb.Checked == false)
             {
@@ -132,7 +132,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             }
         }
 
-        public void plugin3_cb_CheckedChanged(object sender, EventArgs e)
+        private void plugin3_cb_CheckedChanged(object sender, EventArgs e)
         {
             if (plugin3_cb.Checked == false)
             {
@@ -146,7 +146,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             }
         }
 
-        public void sound1_cb_CheckedChanged(object sender, EventArgs e)
+        private void sound1_cb_CheckedChanged(object sender, EventArgs e)
         {
             if (sound1_cb.Checked == false)
             {
@@ -162,7 +162,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             }
         }
 
-        public void sound2_cb_CheckedChanged(object sender, EventArgs e)
+        private void sound2_cb_CheckedChanged(object sender, EventArgs e)
         {
             if (sound2_cb.Checked == false)
             {
@@ -178,7 +178,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             }
         }
 
-        public void sound3_cb_CheckedChanged(object sender, EventArgs e)
+        private void sound3_cb_CheckedChanged(object sender, EventArgs e)
         {
             if (sound3_cb.Checked == false)
             {
@@ -194,56 +194,56 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             }
         }
 
-        public void p1_open_Click(object sender, EventArgs e)
+        private void p1_open_Click(object sender, EventArgs e)
         {
             OpenPlugin(p1_tb);
         }
 
-        public void p2_open_Click(object sender, EventArgs e)
+        private void p2_open_Click(object sender, EventArgs e)
         {
             OpenPlugin(p2_tb);
         }
 
-        public void p3_open_Click(object sender, EventArgs e)
+        private void p3_open_Click(object sender, EventArgs e)
         {
             OpenPlugin(p3_tb);
         }
-        public void s1_open_Click(object sender, EventArgs e)
+        private void s1_open_Click(object sender, EventArgs e)
         {
             OpenSound(s1_tb);
         }
 
-        public void s2_open_Click(object sender, EventArgs e)
+        private void s2_open_Click(object sender, EventArgs e)
         {
             OpenSound(s2_tb);
         }
 
-        public void s3_open_Click(object sender, EventArgs e)
+        private void s3_open_Click(object sender, EventArgs e)
         {
             OpenSound(s3_tb);
         }
 
-        public void show_pwd_MouseDown(object sender, MouseEventArgs e)
+        private void show_pwd_MouseDown(object sender, MouseEventArgs e)
         {
             password_tb.UseSystemPasswordChar = false;
         }
 
-        public void show_pwd_MouseUp(object sender, MouseEventArgs e)
+        private void show_pwd_MouseUp(object sender, MouseEventArgs e)
         {
             password_tb.UseSystemPasswordChar = true;
         }
 
-        public void show_hoppie_MouseDown(object sender, MouseEventArgs e)
+        private void show_hoppie_MouseDown(object sender, MouseEventArgs e)
         {
             hoppie_tb.UseSystemPasswordChar = false;
         }
 
-        public void show_hoppie_MouseUp(object sender, MouseEventArgs e)
+        private void show_hoppie_MouseUp(object sender, MouseEventArgs e)
         {
             hoppie_tb.UseSystemPasswordChar = true;
         }
 
-        public void Hoppie_cb_CheckedChanged(object sender, EventArgs e)
+        private void Hoppie_cb_CheckedChanged(object sender, EventArgs e)
         {
             if (hoppie_cb.Checked)
             {
