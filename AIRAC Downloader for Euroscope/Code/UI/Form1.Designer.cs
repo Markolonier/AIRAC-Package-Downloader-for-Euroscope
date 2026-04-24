@@ -386,7 +386,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // sound_dd_3
             // 
-            //sound_dd_3.DataSource = resources.GetObject("sound_dd_3.DataSource");
+            sound_dd_3.DataSource = resources.GetObject("sound_dd_3.DataSource");
             sound_dd_3.Enabled = false;
             sound_dd_3.Font = new Font("Segoe UI", 11F);
             sound_dd_3.FormattingEnabled = true;
@@ -397,7 +397,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // sound_dd_2
             // 
-            //sound_dd_2.DataSource = resources.GetObject("sound_dd_2.DataSource");
+            sound_dd_2.DataSource = resources.GetObject("sound_dd_2.DataSource");
             sound_dd_2.Enabled = false;
             sound_dd_2.Font = new Font("Segoe UI", 11F);
             sound_dd_2.FormattingEnabled = true;
@@ -408,7 +408,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // sound_dd_1
             // 
-            //sound_dd_1.DataSource = resources.GetObject("sound_dd_1.DataSource");
+            sound_dd_1.DataSource = resources.GetObject("sound_dd_1.DataSource");
             sound_dd_1.Enabled = false;
             sound_dd_1.Font = new Font("Segoe UI", 11F);
             sound_dd_1.FormattingEnabled = true;
@@ -432,7 +432,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // rating_dd
             // 
-            //rating_dd.DataSource = resources.GetObject("rating_dd.DataSource");
+            rating_dd.DataSource = resources.GetObject("rating_dd.DataSource");
             rating_dd.Font = new Font("Segoe UI", 11F);
             rating_dd.FormattingEnabled = true;
             rating_dd.Location = new Point(128, 232);
@@ -455,7 +455,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // facility_dd
             // 
-            //facility_dd.DataSource = resources.GetObject("facility_dd.DataSource");
+            facility_dd.DataSource = resources.GetObject("facility_dd.DataSource");
             facility_dd.Font = new Font("Segoe UI", 11F);
             facility_dd.FormattingEnabled = true;
             facility_dd.Location = new Point(128, 192);
