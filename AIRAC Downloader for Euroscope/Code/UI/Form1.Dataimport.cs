@@ -219,21 +219,28 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
                     this.nickname_cb.Checked = false;
                 }
 
-                if (config.thisVCCS.G2Aptt is not null)
+                if (config.thisVCCS.G2Aptt != 0)
                 {
+                    G2Abttn = VCCS_Keyboard_Listener.FromScanCode(config.thisVCCS.G2Aptt);
                     this.g2a_ptt_cb.Checked = true;
-                    this.g2a_btn.Text = config.thisVCCS.G2Aptt.ToString();
+                    this.g2a_btn.Text = G2Abttn.Name;
                 }
                 else
                 {
-                    this.g2a_btn.Text = string.Empty;
+                    this.g2a_btn.Text = "Set Hotkey";
                     this.g2a_ptt_cb.Checked= false;
                 }
 
-                if (config.thisVCCS.G2Gptt is not null)
+                if (config.thisVCCS.G2Gptt != 0)
                 {
+                    G2Gbttn = VCCS_Keyboard_Listener.FromScanCode(config.thisVCCS.G2Gptt);
                     this.g2g_ptt_cb.Checked = true;
-                    this.g2g_btn.Text = config.thisVCCS.G2Gptt.ToString();
+                    this.g2g_btn.Text = G2Gbttn.Name;
+                }
+                else
+                {
+                    this.g2g_btn.Text = "Set Hotkey";
+                    this.g2g_ptt_cb.Checked = false;
                 }
 
                 if (config.thisVCCS.CaptureMode is not null)
@@ -400,11 +407,11 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             }
             if (this.g2a_ptt_cb.Checked)
             {
-                Data.thisVCCS.G2Aptt = this.g2a_btn.Text;
+                Data.thisVCCS.G2Aptt = this.G2Abttn.Code;
             }
             if (this.g2g_ptt_cb.Checked)
             {
-                Data.thisVCCS.G2Gptt = this.g2g_btn.Text;
+                Data.thisVCCS.G2Gptt = this.G2Gbttn.Code;
             }
             if (this.capture_mode_cb.Checked)
             {
