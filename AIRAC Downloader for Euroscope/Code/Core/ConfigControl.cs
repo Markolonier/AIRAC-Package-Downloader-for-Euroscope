@@ -100,7 +100,12 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
                 return null;
             }
             string Jsonfile = File.ReadAllText(JsonConfigPath);
-            Config importConfig = JsonSerializer.Deserialize<Config>(Jsonfile);
+            Config importConfig = JsonSerializer.Deserialize<Config>(Jsonfile, new JsonSerializerOptions
+            {
+                WriteIndented = true,
+                IncludeFields = true,
+                DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+            });
             if (importConfig.Version.ToString() != currentVersion) throw new Exception("Config outdated. Please update at Program Startup");
             return importConfig;
         }
@@ -126,7 +131,6 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
             foreach (string filename in oldVersion)
             {
                 Config Configuration = JsonSerializer.Deserialize<Config>(File.ReadAllText(filename));
-                //using var jsonConfig = JsonDocument.Parse(filename);
                 if (currentVersion != Configuration.Version) return true;
             }
             return false;
