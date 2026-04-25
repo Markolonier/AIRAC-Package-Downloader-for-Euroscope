@@ -21,6 +21,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
         /// Extracts the AIRAC, release date and version from the FIR folder
         /// <\summary>
         /// <param name="path">The directory path to and including the FIR folder </param>
+        /// <returns>A tuple of the currently installed AIRAC e.g. (AIRAC / AIRAC Rev., Version, AIRAC Date [Y-M-D]) or ("n/a", "n/a", "n/a")</returns>
 
         public static (string, string, string) getCurrentInstalledAIRAC(string path)
         {
@@ -28,10 +29,13 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
             {
                 return ("n/a", "n/a", "n/a");
             }
+
+            //Search for Windows Script Component file and return Filename as String
             var WindowsScriptComponents = Directory.GetFiles(path, "*.sct", SearchOption.TopDirectoryOnly);
             if (WindowsScriptComponents.Length > 1) return ("n/a","n/a","n/a") ;
             string WindowsScriptComponent = WindowsScriptComponents[0];
 
+            //Format Filename to Create List with Data
             WindowsScriptComponent = WindowsScriptComponent.Replace(".sct", "");
             string Packagedata = GetLast(WindowsScriptComponent);
             string[] releasedata = Packagedata.Split("-");

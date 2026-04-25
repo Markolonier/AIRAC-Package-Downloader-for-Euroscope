@@ -32,58 +32,6 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
         /// </summary>
         private void InitializeComponent()//ES_Events ES_Events, VCCS_Events VCCS_Events, AeroNav_Events AeroNav_Events)
         {
-
-            List<string> facilities = new List<string>
-            {
-                "Observer",
-                "Flight Service Station",
-                "Clearance/Delivery",
-                "Ground",
-                "Tower",
-                "Approach/Departure",
-                "Center"
-            };
-            List<string> ratings = new List<string>
-            {
-                "Observer",
-                "Ground/Delivery (STU1)",
-                "Tower Controller (STU2)",
-                "TMA Controller (STU3)",
-                "Enroute Controller (CTR1)",
-                "Controller 2(not in use)",
-                "Senior controller (CTR3)",
-                "Instructor 1", "Instructor 2",
-                "Instructor 3",
-                "Supervisor",
-                "Administrator"
-            };
-            List<string> soundtypes = new List<string>
-            {
-                "Handoff Request",
-                "Handoff Accept",
-                "Conflict Alert",
-                "Radio Message",
-                "Private Message",
-                "ATC Message",
-                "Broadcast Message",
-                "Landline request",
-                "Supervisor call",
-                "Connected",
-                "Disconnected",
-                "Ongoing coordination request",
-                "Ongoing coordination accepted",
-                "Ongoing coordination refused",
-                "New ATIS message",
-                "Handoff Refused",
-                "Pointout",
-                "Startup"
-            };
-            List<string> sound1 = new List<string>(soundtypes);
-            List<string> sound2 = new List<string>(soundtypes);
-            List<string> sound3 = new List<string>(soundtypes);
-
-
-
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main_Form));
             es_setup = new GroupBox();
@@ -330,7 +278,6 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // show_hoppie
             // 
-            show_hoppie.BackgroundImage = (Image)resources.GetObject("show_hoppie.BackgroundImage");
             show_hoppie.BackgroundImageLayout = ImageLayout.Zoom;
             show_hoppie.Font = new Font("Segoe UI", 11F);
             show_hoppie.Location = new Point(592, 272);
@@ -344,7 +291,6 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // show_pwd
             // 
-            show_pwd.BackgroundImage = (Image)resources.GetObject("show_pwd.BackgroundImage");
             show_pwd.BackgroundImageLayout = ImageLayout.Zoom;
             show_pwd.Font = new Font("Segoe UI", 11F);
             show_pwd.Location = new Point(592, 152);
@@ -440,7 +386,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // sound_dd_3
             // 
-            sound_dd_3.DataSource = sound3;
+            //sound_dd_3.DataSource = resources.GetObject("sound_dd_3.DataSource");
             sound_dd_3.Enabled = false;
             sound_dd_3.Font = new Font("Segoe UI", 11F);
             sound_dd_3.FormattingEnabled = true;
@@ -451,7 +397,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // sound_dd_2
             // 
-            sound_dd_2.DataSource = sound2;
+            //sound_dd_2.DataSource = resources.GetObject("sound_dd_2.DataSource");
             sound_dd_2.Enabled = false;
             sound_dd_2.Font = new Font("Segoe UI", 11F);
             sound_dd_2.FormattingEnabled = true;
@@ -462,7 +408,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // sound_dd_1
             // 
-            sound_dd_1.DataSource = sound1;
+            //sound_dd_1.DataSource = resources.GetObject("sound_dd_1.DataSource");
             sound_dd_1.Enabled = false;
             sound_dd_1.Font = new Font("Segoe UI", 11F);
             sound_dd_1.FormattingEnabled = true;
@@ -486,7 +432,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // rating_dd
             // 
-            rating_dd.DataSource = ratings;
+            //rating_dd.DataSource = resources.GetObject("rating_dd.DataSource");
             rating_dd.Font = new Font("Segoe UI", 11F);
             rating_dd.FormattingEnabled = true;
             rating_dd.Location = new Point(128, 232);
@@ -509,7 +455,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             // 
             // facility_dd
             // 
-            facility_dd.DataSource = facilities;
+            //facility_dd.DataSource = resources.GetObject("facility_dd.DataSource");
             facility_dd.Font = new Font("Segoe UI", 11F);
             facility_dd.FormattingEnabled = true;
             facility_dd.Location = new Point(128, 192);
@@ -1034,80 +980,80 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
 
         #endregion
 
-        public GroupBox es_setup;
-        public CheckBox callsign_cb;
-        public TextBox callsign_tb;
-        public CheckBox realname_cb;
-        public TextBox realname_tb;
-        public CheckBox certificate_cb;
-        public TextBox certificate_tb;
-        public CheckBox password_cb;
-        public TextBox password_tb;
-        public CheckBox facility_cb;
-        public ComboBox facility_dd;
-        public ComboBox rating_dd;
-        public CheckBox rating_cb;
-        public CheckBox plugin1_cb;
-        public TextBox p1_tb;
-        public Button show_pwd;
-        public Button p1_open;
-        public CheckBox plugin2_cb;
-        public CheckBox sound3_cb;
-        public CheckBox plugin3_cb;
-        public CheckBox sound2_cb;
-        public Button s3_open;
-        public Button p3_open;
-        public Button s2_open;
-        public Button p2_open;
-        public Button s1_open;
-        public TextBox s3_tb;
-        public TextBox p3_tb;
-        public TextBox s2_tb;
-        public TextBox p2_tb;
-        public TextBox s1_tb;
-        public CheckBox sound1_cb;
-        public CheckBox hoppie_cb;
-        public ComboBox sound_dd_3;
-        public ComboBox sound_dd_2;
-        public ComboBox sound_dd_1;
-        public Button show_hoppie;
-        public TextBox hoppie_tb;
-        public OpenFileDialog sound_opendialogue;
-        public OpenFileDialog plugin_opendialogue;
-        public GroupBox vccs_setup;
-        public CheckBox nickname_cb;
-        public CheckBox g2a_ptt_cb;
-        public TextBox nickname_tb;
-        public Button g2g_btn;
-        public Button g2a_btn;
-        public CheckBox g2g_ptt_cb;
-        public CheckBox capture_mode_cb;
-        public CheckBox playback_device_cb;
-        public CheckBox playback_mode_cb;
-        public CheckBox capture_device_cb;
-        public ComboBox capture_mode_dd;
-        public ComboBox playback_device_dd;
-        public ComboBox playback_mode_dd;
-        public ComboBox capture_device_dd;
+        private GroupBox es_setup;
+        private CheckBox callsign_cb;
+        private TextBox callsign_tb;
+        private CheckBox realname_cb;
+        private TextBox realname_tb;
+        private CheckBox certificate_cb;
+        private TextBox certificate_tb;
+        private CheckBox password_cb;
+        private TextBox password_tb;
+        private CheckBox facility_cb;
+        private ComboBox facility_dd;
+        private ComboBox rating_dd;
+        private CheckBox rating_cb;
+        private CheckBox plugin1_cb;
+        private TextBox p1_tb;
+        private Button show_pwd;
+        private Button p1_open;
+        private CheckBox plugin2_cb;
+        private CheckBox sound3_cb;
+        private CheckBox plugin3_cb;
+        private CheckBox sound2_cb;
+        private Button s3_open;
+        private Button p3_open;
+        private Button s2_open;
+        private Button p2_open;
+        private Button s1_open;
+        private TextBox s3_tb;
+        private TextBox p3_tb;
+        private TextBox s2_tb;
+        private TextBox p2_tb;
+        private TextBox s1_tb;
+        private CheckBox sound1_cb;
+        private CheckBox hoppie_cb;
+        private ComboBox sound_dd_3;
+        private ComboBox sound_dd_2;
+        private ComboBox sound_dd_1;
+        private Button show_hoppie;
+        private TextBox hoppie_tb;
+        private OpenFileDialog sound_opendialogue;
+        private OpenFileDialog plugin_opendialogue;
+        private GroupBox vccs_setup;
+        private CheckBox nickname_cb;
+        private CheckBox g2a_ptt_cb;
+        private TextBox nickname_tb;
+        private Button g2g_btn;
+        private Button g2a_btn;
+        private CheckBox g2g_ptt_cb;
+        private CheckBox capture_mode_cb;
+        private CheckBox playback_device_cb;
+        private CheckBox playback_mode_cb;
+        private CheckBox capture_device_cb;
+        private ComboBox capture_mode_dd;
+        private ComboBox playback_device_dd;
+        private ComboBox playback_mode_dd;
+        private ComboBox capture_device_dd;
         private GroupBox aeronav_setup;
         private Label vacc_lbl;
-        public ComboBox vacc_dd;
-        public ComboBox pack_dd;
+        private ComboBox vacc_dd;
+        private ComboBox pack_dd;
         private Label package_lbl;
-        public Label Pack_Released;
-        public Label Pack_Version;
-        public Label Pack_AIRAC;
+        private Label Pack_Released;
+        private Label Pack_Version;
+        private Label Pack_AIRAC;
         private Label pck_fold_lbl;
-        public TextBox save_to_tb;
-        public Label currently_installed;
-        public Button Download;
-        public Button save_to_btn;
-        public ToolTip toolTip1;
+        private TextBox save_to_tb;
+        private Label currently_installed;
+        private Button Download;
+        private Button save_to_btn;
+        private ToolTip toolTip1;
         private Label package_info_lbl;
         private FolderBrowserDialog save_folder;
-        public Button save_data;
-        public Label currently_installed_released;
-        public Label currently_installed_version;
-        public Label currently_installed_AIRAC;
+        private Button save_data;
+        private Label currently_installed_released;
+        private Label currently_installed_version;
+        private Label currently_installed_AIRAC;
     }
 }

@@ -1,14 +1,34 @@
-﻿using AIRAC_Downloader.Code.Core;
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace AIRAC_Downloader_for_Euroscope.Code.Core
 {
-    public class VCCS_Keyboard_Listener : NativeWindow
+
+    // ChatGPT did this and I have no clue what happens here.
+    // Ain't touching this because it works somehow...
+    public class VCCS_Keyboard_Listener : NativeWindow, IDisposable
     {
         private static VCCS_Keyboard_Listener? instance;
-        private TaskCompletionSource<(uint code, string name, bool isExtended)>? keyTcs;
+
+        private TaskCompletionSource<KeyResult>? keyTcs;
+        private bool disposed;
+
+        public struct KeyResult
+        {
+            public uint Code { get; set; }
+            public string Name { get; set; }
+            public bool IsExtended { get; set; }
+            public KeyResult(uint Code, string Name, bool IsExtended)
+            {
+                this.Code = Code;
+                this.Name = Name;
+                this.IsExtended = IsExtended;
+            }
+        }
 
         private VCCS_Keyboard_Listener()
         {
@@ -16,12 +36,38 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
             RegisterRawInput();
         }
 
-        public static VCCS_Keyboard_Listener Instance => instance ??= new VCCS_Keyboard_Listener();
+        public static VCCS_Keyboard_Listener Instance
+            => instance ??= new VCCS_Keyboard_Listener();
 
-        public Task<(uint code, string name, bool isExtended)> ListenAsync()
+        public Task<KeyResult?> ListenAsync(CancellationToken cancellationToken = default)
         {
-            keyTcs = new TaskCompletionSource<(uint, string, bool)>();
-            return keyTcs.Task;
+            // Falls bereits aktiv → abbrechen und NULL zurückgeben
+            if (keyTcs != null && !keyTcs.Task.IsCompleted)
+            {
+                keyTcs.TrySetCanceled();
+                keyTcs = null;
+
+                return Task.FromResult<KeyResult?>(null);
+            }
+
+            keyTcs = new TaskCompletionSource<KeyResult>(
+                TaskCreationOptions.RunContinuationsAsynchronously);
+
+            if (cancellationToken != default)
+            {
+                cancellationToken.Register(() =>
+                {
+                    keyTcs?.TrySetCanceled(cancellationToken);
+                });
+            }
+
+            return keyTcs.Task.ContinueWith(t =>
+            {
+                if (t.IsCanceled)
+                    return (KeyResult?)null;
+
+                return t.Result;
+            });
         }
 
         private void RegisterRawInput()
@@ -33,7 +79,9 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
                 dwFlags = 0,
                 hwndTarget = Handle
             };
-            RegisterRawInputDevices(ref rid, 1, (uint)Marshal.SizeOf(rid));
+
+            if (!RegisterRawInputDevices(ref rid, 1, (uint)Marshal.SizeOf(rid)))
+                throw new InvalidOperationException("Failed to register raw input device.");
         }
 
         protected override void WndProc(ref Message m)
@@ -41,26 +89,36 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
             const int WM_INPUT = 0x00FF;
             const int RID_INPUT = 0x10000003;
             const int RIM_TYPEKEYBOARD = 1;
+
             const int RI_KEY_E0 = 0x02;
             const int RI_KEY_E1 = 0x04;
+            const int RI_KEY_BREAK = 0x01;
 
             if (m.Msg == WM_INPUT)
             {
                 uint size = 0;
                 GetRawInputData(m.LParam, RID_INPUT, IntPtr.Zero, ref size, (uint)Marshal.SizeOf<RAWINPUTHEADER>());
-                if (size == 0) return;
+                if (size == 0)
+                    return;
 
                 GetRawInputData(m.LParam, RID_INPUT, out RAWINPUT raw, ref size, (uint)Marshal.SizeOf<RAWINPUTHEADER>());
-                if (raw.header.dwType != RIM_TYPEKEYBOARD) return;
+
+                if (raw.header.dwType != RIM_TYPEKEYBOARD)
+                    return;
 
                 ushort make = raw.keyboard.MakeCode;
                 ushort flags = raw.keyboard.Flags;
+
+                bool isKeyUp = (flags & RI_KEY_BREAK) != 0;
+                if (isKeyUp)
+                    return; // nur KeyDown
+
                 bool isExt = (flags & RI_KEY_E0) != 0 || (flags & RI_KEY_E1) != 0;
 
-                uint euro = (uint)(((make & 0xFF) | (isExt ? 0x100u : 0u)) << 16);
+                uint code = (uint)(((make & 0xFF) | (isExt ? 0x100u : 0u)) << 16);
                 string name = GetKeyName(make, isExt);
 
-                keyTcs?.TrySetResult((euro, name, isExt));
+                keyTcs?.TrySetResult(new KeyResult(code, name, isExt));
             }
 
             base.WndProc(ref m);
@@ -69,16 +127,44 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
         public static string GetKeyName(ushort scanCode, bool isExtended)
         {
             int lParam = (scanCode << 16) | (isExtended ? 1 << 24 : 0);
-            var sb = new System.Text.StringBuilder(64);
+            var sb = new StringBuilder(64);
+
             int len = GetKeyNameTextW(lParam, sb, sb.Capacity);
             return len > 0 ? sb.ToString() : $"Scan {scanCode}";
         }
 
+        public void Dispose()
+        {
+            if (disposed)
+                return;
+
+            DestroyHandle();
+            disposed = true;
+        }
+
+
+        /// <summary>
+        /// Returns the Struct of the Keycode from the Parameters
+        /// </summary>
+        /// <param name="scanCode">ScanCode of the keyboard Key</param>
+        /// <returns></returns>
+        public static KeyResult FromScanCode(uint code)
+        {
+            ushort scanCode = (ushort)((code >> 16) & 0xFF);
+            bool isExtended = ((code >> 16) & 0x100) != 0;
+
+            string name = GetKeyName(scanCode, isExtended);
+
+            return new KeyResult(code, name, isExtended);
+        }
+
         // ---- native structs / imports ----
+
         [StructLayout(LayoutKind.Sequential)]
         struct RAWINPUTDEVICE
         {
-            public ushort usUsagePage, usUsage;
+            public ushort usUsagePage;
+            public ushort usUsage;
             public uint dwFlags;
             public IntPtr hwndTarget;
         }
@@ -86,15 +172,21 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
         [StructLayout(LayoutKind.Sequential)]
         struct RAWINPUTHEADER
         {
-            public uint dwType, dwSize;
-            public IntPtr hDevice, wParam;
+            public uint dwType;
+            public uint dwSize;
+            public IntPtr hDevice;
+            public IntPtr wParam;
         }
 
         [StructLayout(LayoutKind.Sequential)]
         struct RAWKEYBOARD
         {
-            public ushort MakeCode, Flags, Reserved, VKey;
-            public uint Message, ExtraInformation;
+            public ushort MakeCode;
+            public ushort Flags;
+            public ushort Reserved;
+            public ushort VKey;
+            public uint Message;
+            public uint ExtraInformation;
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -105,15 +197,31 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
         }
 
         [DllImport("user32.dll", SetLastError = true)]
-        private static extern bool RegisterRawInputDevices(ref RAWINPUTDEVICE pRawInputDevices, uint uiNumDevices, uint cbSize);
+        private static extern bool RegisterRawInputDevices(
+            ref RAWINPUTDEVICE pRawInputDevices,
+            uint uiNumDevices,
+            uint cbSize);
 
         [DllImport("user32.dll", SetLastError = true)]
-        private static extern uint GetRawInputData(IntPtr hRawInput, uint uiCommand, IntPtr pData, ref uint pcbSize, uint cbSizeHeader);
+        private static extern uint GetRawInputData(
+            IntPtr hRawInput,
+            uint uiCommand,
+            IntPtr pData,
+            ref uint pcbSize,
+            uint cbSizeHeader);
 
         [DllImport("user32.dll", SetLastError = true)]
-        private static extern uint GetRawInputData(IntPtr hRawInput, uint uiCommand, out RAWINPUT pData, ref uint pcbSize, uint cbSizeHeader);
+        private static extern uint GetRawInputData(
+            IntPtr hRawInput,
+            uint uiCommand,
+            out RAWINPUT pData,
+            ref uint pcbSize,
+            uint cbSizeHeader);
 
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
-        private static extern int GetKeyNameTextW(int lParam, System.Text.StringBuilder lpString, int nSize);
+        private static extern int GetKeyNameTextW(
+            int lParam,
+            StringBuilder lpString,
+            int nSize);
     }
 }
