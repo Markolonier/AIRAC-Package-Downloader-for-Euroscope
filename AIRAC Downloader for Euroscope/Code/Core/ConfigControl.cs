@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.DirectoryServices.ActiveDirectory;
 using System.Runtime.CompilerServices;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -18,12 +19,16 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
         private static string dotConfigFName= "AIRAC Downloader for Euroscope.dll.config";
         private static string dotConfigPath = Application.StartupPath + "\\" + dotConfigFName;
 
+
+        //Class to be used for import and export of configs
         public class Config
         {
             public Euroscope thisES { get; set; } = new();
             public VCCS thisVCCS { get; set; } = new();
             public AeroNav thisAN { get; set; } = new();
-
+            
+            
+            // 2 Constructors
             public Config() { }
             public Config(string? Version,
                 string? Callsign, string? Realname, string? Certificate, string? Password, string? Facility, string? Rating, string? Hoppie, List<string>? Plugins, List<(string Sound, int Soundtypes)>? Sounds,
@@ -56,8 +61,10 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
                 this.thisAN.Folder = Folder;
             }
 
+            // Config Version
             public string Version { get; set; }
 
+            // Config main content
             public class Euroscope
             {
 
@@ -154,8 +161,12 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
         /// <returns>Boolean if Config is old</returns>
         public bool ExistsOldConfig()
         {
+            //old .cfg config files
             string[] oldConfigFiles = Directory.GetFiles(Application.StartupPath, dotConfigFName, SearchOption.TopDirectoryOnly);
+            //old .json config files
             string[] oldVersion = Directory.GetFiles(Application.StartupPath, JsonConfigFName, SearchOption.TopDirectoryOnly);
+            
+            //check for old version and return true
             if (oldConfigFiles.Length > 0)
             {
                 return true;
@@ -165,6 +176,8 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
                 Config Configuration = JsonSerializer.Deserialize<Config>(File.ReadAllText(filename));
                 if (currentVersion != Configuration.Version) return true;
             }
+
+
             return false;
         }
 
@@ -190,11 +203,18 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
                 Config updatedConfig = new Config();
                 updatedConfig.Version = currentVersion;
 
+                //Decoding for Password
+                Encoding enc = new UTF8Encoding(true, true);
+                var parts = GetSetting("password_cb", "password_tb").Split(new[] { ',' } , StringSplitOptions.RemoveEmptyEntries);
+                if (parts.Length > 0)
+                {
+                    byte[] bytes = Array.ConvertAll(parts, p => byte.Parse(p));
+                    updatedConfig.thisES.Password = enc.GetString(bytes);
+                }
                 //Euroscope Part
                 updatedConfig.thisES.Callsign = GetSetting("callsign_cb", "callsign_tb");
                 updatedConfig.thisES.Realname = GetSetting("realname_cb", "realname_tb");
                 updatedConfig.thisES.Certificate = GetSetting("certificate_cb", "certificate_tb");
-                updatedConfig.thisES.Password = GetSetting("password_cb", "password_tb");
                 updatedConfig.thisES.Facility = GetSetting("facility_cb", "facility_dd");
                 updatedConfig.thisES.Rating = GetSetting("rating_cb", "rating_dd");
                 updatedConfig.thisES.Hoppie = GetSetting("hoppie_cb", "hoppie_tb");
