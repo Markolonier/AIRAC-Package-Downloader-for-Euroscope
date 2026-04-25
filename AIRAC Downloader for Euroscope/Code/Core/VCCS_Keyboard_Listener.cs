@@ -7,6 +7,9 @@ using System.Windows.Forms;
 
 namespace AIRAC_Downloader_for_Euroscope.Code.Core
 {
+
+    // ChatGPT did this and I have no clue what happens here.
+    // Ain't touching this because it works somehow...
     public class VCCS_Keyboard_Listener : NativeWindow, IDisposable
     {
         private static VCCS_Keyboard_Listener? instance;

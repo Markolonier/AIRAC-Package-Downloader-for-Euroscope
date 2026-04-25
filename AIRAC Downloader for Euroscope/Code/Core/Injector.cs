@@ -7,11 +7,14 @@ namespace AIRAC_Downloader.Code.Core
     public class Injector
     {
 
+
+        //Class to be used for injection
         public class Data
         {
             public Euroscope thisES { get; set; } = new();
             public VCCS thisVCCS { get; set; } = new();
-
+            
+            // Constructor
             public Data(
                 string? callsign = null, string? realname = null, string? certificate= null, string? password = null, int? facility = null, int? rating = null, string? hoppie = null, List<string>? plugins = null, List<(string? Sound, int? Soundtype)>? Sounds = null,
                 string? vccsNickname = null, uint? g2aptt = null, uint? g2gptt = null, string? captureMode = null, string? captureDevice = null, string? playbackMode = null, string? playbackDevice = null
@@ -37,6 +40,7 @@ namespace AIRAC_Downloader.Code.Core
 
             }
 
+            //Injection content
             public class Euroscope
             {
 
@@ -80,8 +84,8 @@ namespace AIRAC_Downloader.Code.Core
             //Splitting the content to receive ["0 \Link\to\first.dll", "1 \Link\to\second.dll", "2 \Link\to\third.dll"] need to parse the integer before the first whitespace
             string[] Splits = content.Split(keyWord);
 
-            int Count = 0;
-            int currentNum = 0;
+            int Count = 0; // Highest number
+            int currentNum = 0; // number of current iteration
             foreach (string Split in Splits)
             {
                 try
@@ -103,7 +107,7 @@ namespace AIRAC_Downloader.Code.Core
         /// <param name="PackageFolder"></param>
         public void InjectAllDatas(Data toInject, string PackageFolder)
         {
-
+            //List of all Profiles
             string[] files = Directory.GetFiles(PackageFolder, "*.prf", SearchOption.AllDirectories);
 
             

@@ -161,7 +161,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
         /// <returns>Boolean if Config is old</returns>
         public bool ExistsOldConfig()
         {
-            //old .cfg config files
+            //old .conf config files
             string[] oldConfigFiles = Directory.GetFiles(Application.StartupPath, dotConfigFName, SearchOption.TopDirectoryOnly);
             //old .json config files
             string[] oldVersion = Directory.GetFiles(Application.StartupPath, JsonConfigFName, SearchOption.TopDirectoryOnly);
