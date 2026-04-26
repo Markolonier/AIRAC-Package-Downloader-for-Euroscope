@@ -1,4 +1,5 @@
 using AIRAC_Downloader_for_Euroscope.Code.Core;
+using System.Drawing.Text;
 
 namespace AIRAC_Downloader_for_Euroscope.Code.UI
 {
@@ -65,8 +66,18 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             
         }
 
-        private void Main_Form_Load(object sender, EventArgs e)
+        private async void Main_Form_Load(object sender, EventArgs e)
         {
+            //Check for Updates
+            GithubUpdater GitChecker = new();
+            Task<bool> CheckForUpdates = GitChecker.CheckUpdates();
+
+            bool DownloadNewVersion = await CheckForUpdates;
+            if (DownloadNewVersion && MessageBox.Show("A new update for this App is available.\nWould you like to update now?", "App Update available", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+            {
+                GitChecker.DownloadUpdate();
+            }
+
             //Get vACCs and add them to the Dropdown
             availableVaccs = scraper.GetVaccList();
             foreach (var vACC in availableVaccs)
