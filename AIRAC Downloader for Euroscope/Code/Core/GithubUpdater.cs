@@ -12,7 +12,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
     internal class GithubUpdater
     {
         private static readonly string RepoUrl = "https://api.github.com/repos/Markolonier/AIRAC-Package-Downloader-for-Euroscope/releases/latest";
-        private static readonly string ThisVersion = "v2.1.0";
+        private static readonly string ThisVersion = "v2.5.0";
 
         private GithubRelease CurrentRelease = null;
 
