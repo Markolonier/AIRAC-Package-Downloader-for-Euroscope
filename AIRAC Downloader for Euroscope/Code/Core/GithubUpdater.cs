@@ -1,18 +1,24 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Security.Policy;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using static System.Windows.Forms.DataFormats;
 
 namespace AIRAC_Downloader_for_Euroscope.Code.Core
 {
     internal class GithubUpdater
     {
         private static readonly string RepoUrl = "https://api.github.com/repos/Markolonier/AIRAC-Package-Downloader-for-Euroscope/releases/latest";
-        private static readonly string ThisVersion = "v2.5.0";
+        private static readonly string ThisVersion = "v2.5.1";
 
         private GithubRelease CurrentRelease = null;
 
@@ -49,7 +55,8 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
         {
             if (CurrentRelease?.assets == null || CurrentRelease.assets.Count == 0) await CheckUpdates();
             // variables
-            var asset = CurrentRelease.assets.FirstOrDefault(a => a.browser_download_url.EndsWith(".zip"));
+            var asset = CurrentRelease.assets.FirstOrDefault(a => a.browser_download_url.EndsWith(".exe"));
+            if (asset == null) asset = CurrentRelease.assets.FirstOrDefault(a => a.browser_download_url.EndsWith(".zip"));
             string DownloadUrl = asset.browser_download_url;
             string DownloadsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
             string zipPath = Path.Combine(DownloadsFolder, DownloadUrl.Split('/').Last());
@@ -58,22 +65,25 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
             // Download data
             using var client = new HttpClient();
             var data = await client.GetByteArrayAsync(asset.browser_download_url);
-            File.WriteAllBytes(zipPath, data);
+            await File.WriteAllBytesAsync(zipPath, data);
 
             string appDir = AppContext.BaseDirectory;
             string extractDir = Path.Combine(DownloadsFolder, "_temp AIRAC Download updater");
+            string procName = Process.GetCurrentProcess().ProcessName;
 
 
-            // Powershell Delete existing installation -> Extract zip file -> Delete temporary Download Files -> Start exe again
+            // Powershell Delete existing installation -> Extract zip file (if existing) -> Copy File(s) -> Delete temporary Download Files -> Start exe again
             string psCommand =
-                $"$zip = '{zipPath}'; " +
+                "$ErrorActionPreference = 'Continue'; " +
+                $"$file = '{zipPath}'; " +
                 $"$dest = '{extractDir}'; " +
                 $"$app = '{appDir}'; " +
+                $"$procName = '{procName}'; " +
                 "$exe = Join-Path $app 'AIRAC Downloader for Euroscope.exe'; " +
-                "Start-Sleep -Milliseconds 800; " +
+                "while (Get-Process -Name '$procName' -ErrorAction SilentlyContinue) { Start-Sleep -Milliseconds 200 }; " +
 
-                // CONFIGS SICHERN
-                "$config1 = Get-ChildItem -Path $app -Filter '*.config' -File -ErrorAction SilentlyContinue; " +
+            // CONFIGS SICHERN
+            "$config1 = Get-ChildItem -Path $app -Filter '*.config' -File -ErrorAction SilentlyContinue; " +
                 "$config2 = Get-ChildItem -Path $app -Filter 'AIRAC Downloader Configuration.json' -File -ErrorAction SilentlyContinue; " +
                 "$backup = @(); if ($config1) { $backup += $config1 }; if ($config2) { $backup += $config2 }; " +
                 "$backupPaths = $backup.FullName; " +
@@ -81,26 +91,39 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
                 // APP ORDNER LEEREN OHNE CONFIGS
                 "Get-ChildItem -Path $app | Where-Object { $backupPaths -notcontains $_.FullName } | Remove-Item -Recurse -Force; " +
 
-                // ZIP ENTAPCKEN & UNTERORDNER FINDEN
-                "if (Test-Path $dest) { Remove-Item $dest -Recurse -Force }; " +
-                "Expand-Archive -Path $zip -DestinationPath $dest -Force; " +
-                "$sub = Get-ChildItem -Path $dest -Directory | Select-Object -First 1; " +
-                "$source = $sub.FullName; " +
+                // FALL 3: DIREKTE EXE
+                "if ($file.ToLower().EndsWith('.exe')) { " +
 
-                // DATEIEN KOPIEREN
-                "Copy-Item -Path ($source + '\\*') -Destination $app -Recurse -Force; " +
+                    // EXE unter ihrem echten Namen kopieren
+                    "$targetExe = Join-Path $app (Split-Path $file -Leaf); " +
+                    "Copy-Item -Path $file -Destination $targetExe -Force; " +
+
+                "} " +
+
+                // FALL 1 & 2: ZIP ENTAPCKEN
+                "else {" +
+                    "if (Test-Path $dest) { Remove-Item $dest -Recurse -Force }; " +
+                    "Expand-Archive -Path $file -DestinationPath $dest -Force; " +
+
+                    // UNTERORDNER ERKENNEN
+                    "$sub = Get-ChildItem -Path $dest -Directory | Select-Object -First 1; " +
+                    "if ($sub) { $source = $sub.FullName } else { $source = $dest }; " +
+
+                    // DATEIEN KOPIEREN
+                    "Copy-Item -Path ($source + '\\*') -Destination $app -Recurse -Force; " +
+                "}" +
 
                 // CONFIGS WIEDERHERSTELLEN
                 "foreach ($c in $backup) { Copy-Item -Path $c.FullName -Destination $app -Force }; " +
 
-                // Delete downloads Folder
+                // ZIP + TEMP LÖSCHEN (mit Fehler-Ignore)
                 "Start-Sleep -Milliseconds 300; " +
-                "try { Remove-Item $zip -Force -ErrorAction Stop } catch {}; " +
+                "try { Remove-Item $file -Force -ErrorAction Stop } catch {}; " +
                 "try { Remove-Item $dest -Recurse -Force -ErrorAction Stop } catch {}; " +
 
-
                 // APP STARTEN
-                "Start-Process $exe";
+                "Start-Process $exe; ";
+
 
 
 
