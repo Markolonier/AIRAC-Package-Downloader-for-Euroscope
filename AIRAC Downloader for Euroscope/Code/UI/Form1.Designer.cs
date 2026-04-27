@@ -967,7 +967,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
             Controls.Add(es_setup);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "Main_Form";
-            Text = "AIRAC Updater for Euroscope";
+            Text = $"AIRAC Updater for Euroscope {version}";
             Load += Main_Form_Load;
             es_setup.ResumeLayout(false);
             es_setup.PerformLayout();

@@ -8,6 +8,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
         private WebsiteScraper scraper = new WebsiteScraper();
         private List<(String, String, String, String)>? availablePackages;
         private List<(String, String)>? availableVaccs;
+        private static readonly string version = "v2.5.1";
 
         private static readonly List<string> Facilities =
         [
@@ -70,14 +71,14 @@ namespace AIRAC_Downloader_for_Euroscope.Code.UI
         {
             //Check for Updates
             GithubUpdater GitChecker = new();
-            Task<bool> CheckForUpdates = GitChecker.CheckUpdates();
+            Task<string> CheckForUpdates = GitChecker.CheckUpdates();
 
-            bool DownloadNewVersion = await CheckForUpdates;
-            if (DownloadNewVersion && MessageBox.Show("A new update for this App is available.\nWould you like to update now?", "App Update available", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+            string DownloadNewVersion = await CheckForUpdates;
+            if ((DownloadNewVersion != version) && MessageBox.Show("A new update for this App is available.\nWould you like to update now?", "App Update available", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
             {
                 GitChecker.DownloadUpdate();
             }
-
+            
             //Get vACCs and add them to the Dropdown
             availableVaccs = scraper.GetVaccList();
             foreach (var vACC in availableVaccs)
