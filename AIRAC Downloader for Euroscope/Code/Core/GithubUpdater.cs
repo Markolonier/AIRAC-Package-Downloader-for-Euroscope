@@ -18,7 +18,6 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
     internal class GithubUpdater
     {
         private static readonly string RepoUrl = "https://api.github.com/repos/Markolonier/AIRAC-Package-Downloader-for-Euroscope/releases/latest";
-        private static readonly string ThisVersion = "v2.5.1";
 
         private GithubRelease CurrentRelease = null;
 
@@ -34,7 +33,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
             public string body { get; set; }
         }
 
-        public async Task<bool> CheckUpdates()
+        public async Task<string> CheckUpdates()
         {
             // Create and prepare client
             using var client = new HttpClient();
@@ -48,7 +47,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
             Debug.WriteLine(JsonSerializer.Serialize<GithubRelease>(CurrentRelease));
 
             // Return true if update is available
-            return (ThisVersion != CurrentRelease.tag_name);
+            return CurrentRelease.tag_name;
         }
 
         public async void DownloadUpdate()
