@@ -18,14 +18,14 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
 
         private class GithubRelease()
         {
-            public string Tag_name { get; set; }
-            public List<Asset> Assets { get; set; }
+            public string tag_name { get; set; }
+            public List<Asset> assets { get; set; }
 
             public class Asset
             {
-                public string Browser_download_url { get; set; }
+                public string browser_download_url { get; set; }
             }
-            public string Body { get; set; }
+            public string body { get; set; }
         }
 
         public async Task<bool> CheckUpdates()
@@ -42,22 +42,22 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
             Debug.WriteLine(JsonSerializer.Serialize<GithubRelease>(CurrentRelease));
 
             // Return true if update is available
-            return (ThisVersion != CurrentRelease.Tag_name);
+            return (ThisVersion != CurrentRelease.tag_name);
         }
 
         public async void DownloadUpdate()
         {
-            if (CurrentRelease?.Assets == null || CurrentRelease.Assets.Count == 0) await CheckUpdates();
+            if (CurrentRelease?.assets == null || CurrentRelease.assets.Count == 0) await CheckUpdates();
             // variables
-            var asset = CurrentRelease.Assets.FirstOrDefault(a => a.Browser_download_url.EndsWith(".zip"));
-            string DownloadUrl = asset.Browser_download_url;
+            var asset = CurrentRelease.assets.FirstOrDefault(a => a.browser_download_url.EndsWith(".zip"));
+            string DownloadUrl = asset.browser_download_url;
             string DownloadsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
             string zipPath = Path.Combine(DownloadsFolder, DownloadUrl.Split('/').Last());
             
 
             // Download data
             using var client = new HttpClient();
-            var data = await client.GetByteArrayAsync(asset.Browser_download_url);
+            var data = await client.GetByteArrayAsync(asset.browser_download_url);
             File.WriteAllBytes(zipPath, data);
 
             string appDir = AppContext.BaseDirectory;
