@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace UI.WPF
+namespace AIRAC_Downloader_for_Euroscope
 {
     /// <summary>
     /// Interaction logic for App.xaml
