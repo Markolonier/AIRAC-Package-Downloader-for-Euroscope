@@ -1,10 +1,7 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Windows;
 
 namespace AIRAC_Downloader_for_Euroscope.Code.Core
 {
@@ -58,7 +55,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
                     bool ok = await WaitForFileAvailable(e.FullPath, TimeSpan.FromMinutes(10));
                     if (!ok)
                     {
-                        MessageBox.Show($"The file {fileName} could not be opened.", "AIRAC Downloader", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show($"The file {fileName} could not be opened.", "AIRAC Downloader", MessageBoxButton.OK, MessageBoxImage.Warning);
                         return;
                     }
 
@@ -94,12 +91,12 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
                     catch (Exception exCallback)
                     {
                         // Swallow exceptions from the callback but log them
-                        MessageBox.Show($"Error while editing unpacked files: {exCallback.Message}", "AIRAC Downloader", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show($"Error while editing unpacked files: {exCallback.Message}", "AIRAC Downloader", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error while editing on downloads: {ex.Message}", "AIRAC Downloader", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"Error while editing on downloads: {ex.Message}", "AIRAC Downloader", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             };
 

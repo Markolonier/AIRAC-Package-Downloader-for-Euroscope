@@ -1,6 +1,4 @@
-﻿using AIRAC_Downloader_for_Euroscope.Code.UI;
-using System.Diagnostics;
-using Windows.Security.Cryptography.Certificates;
+﻿using System.IO;
 
 namespace AIRAC_Downloader.Code.Core
 {

@@ -1,9 +1,7 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿/*using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace AIRAC_Downloader_for_Euroscope.Code.Core
 {
@@ -224,4 +222,4 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
             StringBuilder lpString,
             int nSize);
     }
-}
+}*/

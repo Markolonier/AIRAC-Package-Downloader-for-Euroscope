@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Diagnostics.Metrics;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
+﻿using System.Diagnostics;
+using System.IO;
+using System.Net.Http;
 using System.Text.Json;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using static System.Windows.Forms.DataFormats;
 
 namespace AIRAC_Downloader_for_Euroscope.Code.Core
 {

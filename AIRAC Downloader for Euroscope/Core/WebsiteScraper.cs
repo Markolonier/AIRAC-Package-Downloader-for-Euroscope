@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.Media.Protection.PlayReady;
+﻿using System.Net.Http;
 
 namespace AIRAC_Downloader_for_Euroscope.Code.Core
 {

@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using System.Diagnostics;
 using System.DirectoryServices.ActiveDirectory;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
@@ -14,10 +15,10 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
         private static string currentVersion = "V1.1";
         //new Json Config File
         private static string JsonConfigFName = "AIRAC Downloader Configuration.json";
-        private static string JsonConfigPath = Application.StartupPath + "\\" + JsonConfigFName;
+        private static string JsonConfigPath = AppDomain.CurrentDomain.BaseDirectory + "\\" + JsonConfigFName;
         //old Config File
         private static string dotConfigFName= "AIRAC Downloader for Euroscope.dll.config";
-        private static string dotConfigPath = Application.StartupPath + "\\" + dotConfigFName;
+        private static string dotConfigPath = AppDomain.CurrentDomain.BaseDirectory + "\\" + dotConfigFName;
 
 
         //Class to be used for import and export of configs
@@ -162,9 +163,9 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
         public bool ExistsOldConfig()
         {
             //old .conf config files
-            string[] oldConfigFiles = Directory.GetFiles(Application.StartupPath, dotConfigFName, SearchOption.TopDirectoryOnly);
+            string[] oldConfigFiles = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, dotConfigFName, SearchOption.TopDirectoryOnly);
             //old .json config files
-            string[] oldVersion = Directory.GetFiles(Application.StartupPath, JsonConfigFName, SearchOption.TopDirectoryOnly);
+            string[] oldVersion = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, JsonConfigFName, SearchOption.TopDirectoryOnly);
             
             //check for old version and return true
             if (oldConfigFiles.Length > 0)
