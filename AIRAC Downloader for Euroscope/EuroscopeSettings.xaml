@@ -32,6 +32,7 @@
         <CheckBox x:Name="CheckCallsign"
                   Grid.Column="0"
                   Grid.Row="1"
+                  Margin="0,7,0,0"
                   HorizontalAlignment="Center"/>
         <TextBox x:Name="Callsign"
                  Grid.Column="1"
@@ -44,6 +45,7 @@
         <CheckBox x:Name="CheckRealName"
                   Grid.Column="0"
                   Grid.Row="2"
+                  Margin="0,7,0,0"
                   HorizontalAlignment="Center"/>
         <TextBox x:Name="Realname"
                  Grid.Column="1"
@@ -56,6 +58,7 @@
         <CheckBox x:Name="CheckCertificate"
                   Grid.Column="0"
                   Grid.Row="3"
+                  Margin="0,7,0,0"
                   HorizontalAlignment="Center"/>
         <TextBox x:Name="Certificate"
                  Grid.Column="1"
@@ -68,6 +71,7 @@
         <CheckBox x:Name="CheckPassword"
                   Grid.Column="0"
                   Grid.Row="4"
+                  Margin="0,7,0,0"
                   HorizontalAlignment="Center"/>
         <PasswordBox x:Name="Password"
                      Grid.Column="1"
@@ -83,6 +87,7 @@
         <CheckBox x:Name="CheckFacility"
                   Grid.Column="0"
                   Grid.Row="5"
+                  Margin="0,7,0,0"
                   HorizontalAlignment="Center"/>
         <ComboBox x:Name="Facility"
                   Grid.Column="1"
@@ -102,15 +107,16 @@
 
         <!--Rating-->
         <CheckBox x:Name="CheckRating"
-          Grid.Column="0"
-          Grid.Row="6"
-          HorizontalAlignment="Center"/>
+                  Grid.Column="0"
+                  Grid.Row="6"
+                  Margin="0,7,0,0"
+                  HorizontalAlignment="Center"/>
         <ComboBox x:Name="Rating"
-          Grid.Column="1"
-          Grid.Row="6"
-          Margin="0,7,0,0"
-          materialDesign:HintAssist.Hint="Rating"
-          Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                  Grid.Column="1"
+                  Grid.Row="6"
+                  Margin="0,7,0,0"
+                  materialDesign:HintAssist.Hint="Rating"
+                  Style="{StaticResource MaterialDesignOutlinedComboBox}">
             <ComboBoxItem Content="Observer"/>
             <ComboBoxItem Content="Ground/Delivery (STU1)"/>
             <ComboBoxItem Content="Tower Controller (STU2)"/>
@@ -128,18 +134,19 @@
         
         <!--Hoppie-->
         <CheckBox x:Name="CheckHoppie"
-          Grid.Column="0"
-          Grid.Row="7"
-          HorizontalAlignment="Center"/>
+                  Grid.Column="0"
+                  Grid.Row="7"
+                  Margin="0,7,0,0"
+                  HorizontalAlignment="Center"/>
         <PasswordBox x:Name="Hoppie"
-             Grid.Column="1"
-             Grid.Row="7"
-             Margin="0,7,0,0"
-             materialDesign:HintAssist.Hint="Hoppie"
-             materialDesign:TextFieldAssist.HasClearButton="True"
-             materialDesign:PasswordBoxAssist.Password="{Binding Password2, Mode=TwoWay}"
-             IsEnabled="{Binding ElementName=RevealPasswordFilledEnabled}"
-             Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}"/>
+                     Grid.Column="1"
+                     Grid.Row="7"
+                     Margin="0,7,0,0"
+                     materialDesign:HintAssist.Hint="Hoppie"
+                     materialDesign:TextFieldAssist.HasClearButton="True"
+                     materialDesign:PasswordBoxAssist.Password="{Binding Password2, Mode=TwoWay}"
+                     IsEnabled="{Binding ElementName=RevealPasswordFilledEnabled}"
+                     Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}"/>
 
         <materialDesign:Card Grid.Row="8"
                              Grid.Column="0"
