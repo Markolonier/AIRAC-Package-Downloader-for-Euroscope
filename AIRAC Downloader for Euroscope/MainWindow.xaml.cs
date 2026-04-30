@@ -1,4 +1,6 @@
-﻿using MaterialDesignThemes.Wpf;
+﻿using AIRAC_Downloader_for_Euroscope.Code.Core;
+using AIRAC_Downloader_for_Euroscope.Services;
+using MaterialDesignThemes.Wpf;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -14,7 +16,24 @@ namespace AIRAC_Downloader_for_Euroscope
         public MainWindow()
         {
             InitializeComponent();
+            AeroNavSettings.ToggleDownload += ToggleDownloadButton;
+            AeroNavSettings.SaveRequested += OnSaveRequested;
         }
+
+        private void ToggleDownloadButton(object sender, ToggleDownloadButtonArgs e)
+        {
+            this.Download.IsEnabled = e.Enabled;
+            if (e.Enabled)
+                this.DownloadButtonText.Text = $"Download {e.PackageName} now";
+            else
+                this.DownloadButtonText.Text = "Download not possible. Select Folder and Package in AeroNav first";
+        }
+
+        private void OnSaveRequested()
+        {
+            //TBD
+        }
+
 
         // dragging the window
         private bool RestoreIfMoved;
