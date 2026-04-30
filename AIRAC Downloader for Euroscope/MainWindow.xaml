@@ -70,6 +70,7 @@
                     </StackPanel>
                 </TabItem.Header>
                 <ScrollViewer>
+                    <local:VccsSettings Height="Auto" Width="Auto"/>
                 </ScrollViewer>
             </TabItem>
 
