@@ -55,7 +55,7 @@
                     </StackPanel>
                 </TabItem.Header>
                 <ScrollViewer>
-                    <local:EuroscopeSettings Height="Auto" Width="Auto"/>
+                    <local:EuroscopeSettings x:Name="EuroscopeSettigs" Height="Auto" Width="Auto"/>
                 </ScrollViewer>
             </TabItem>
 
@@ -70,7 +70,7 @@
                     </StackPanel>
                 </TabItem.Header>
                 <ScrollViewer>
-                    <local:VccsSettings Height="Auto" Width="Auto"/>
+                    <local:VccsSettings x:Name="VccsSettings" Height="Auto" Width="Auto"/>
                 </ScrollViewer>
             </TabItem>
 
@@ -85,14 +85,14 @@
                     </StackPanel>
                 </TabItem.Header>
                 <ScrollViewer>
-                    <local:AeroNavSettings Width="Auto" Height="Auto"/>
+                    <local:AeroNavSettings x:Name="AeroNavSettings" Width="Auto" Height="Auto"/>
                 </ScrollViewer>
             </TabItem>
         </TabControl>
         <Button x:Name="Download" Grid.Row="2" Height="57" Style="{StaticResource MaterialDesignFlatMidBgButton}">
             <StackPanel Orientation="Horizontal">
                 <materialDesign:PackIcon Kind="DownloadBox" Height="30" Width="30" VerticalAlignment="Center"/>
-                <TextBlock Text="Download" Margin="10,0,0,0" VerticalAlignment="Center"  Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
+                <TextBlock x:Name="DownloadButtonText" Text="Download" Margin="10,0,0,0" VerticalAlignment="Center"  Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
             </StackPanel>
         </Button>
     </Grid>
