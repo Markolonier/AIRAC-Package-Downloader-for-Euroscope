@@ -54,7 +54,9 @@
                         <TextBlock HorizontalAlignment="Center" Text="Euroscope"/>
                     </StackPanel>
                 </TabItem.Header>
-                <local:EuroscopeSettings Height="Auto" Width="Auto"/>
+                <ScrollViewer>
+                    <local:EuroscopeSettings Height="Auto" Width="Auto"/>
+                </ScrollViewer>
             </TabItem>
 
             <TabItem Width="auto" Height="auto">
@@ -67,6 +69,8 @@
                         <TextBlock HorizontalAlignment="Center" Text="VCCS"/>
                     </StackPanel>
                 </TabItem.Header>
+                <ScrollViewer>
+                </ScrollViewer>
             </TabItem>
 
             <TabItem Width="auto" Height="auto">
@@ -80,6 +84,8 @@
                     </StackPanel>
                 </TabItem.Header>
             </TabItem>
+            <ScrollViewer>
+            </ScrollViewer>
         </TabControl>
         <Button Grid.Row="2" Height="57">
             <StackPanel Orientation="Horizontal">
