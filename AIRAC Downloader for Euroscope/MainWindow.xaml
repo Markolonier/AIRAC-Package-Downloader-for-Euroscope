@@ -84,14 +84,15 @@
                         <TextBlock HorizontalAlignment="Center" Text="AeroNav"/>
                     </StackPanel>
                 </TabItem.Header>
+                <ScrollViewer>
+                    <local:AeroNavSettings Width="Auto" Height="Auto"/>
+                </ScrollViewer>
             </TabItem>
-            <ScrollViewer>
-            </ScrollViewer>
         </TabControl>
-        <Button Grid.Row="2" Height="57">
+        <Button x:Name="Download" Grid.Row="2" Height="57" Style="{StaticResource MaterialDesignFlatMidBgButton}">
             <StackPanel Orientation="Horizontal">
                 <materialDesign:PackIcon Kind="DownloadBox" Height="30" Width="30" VerticalAlignment="Center"/>
-                <TextBlock Text="Download" Margin="8,10,0,10" Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
+                <TextBlock Text="Download" Margin="10,0,0,0" VerticalAlignment="Center"  Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
             </StackPanel>
         </Button>
     </Grid>
