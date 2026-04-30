@@ -28,7 +28,7 @@
                   Grid.Column="0"
                   Grid.ColumnSpan="2"/>
 
-
+        <!--Callsign-->
         <CheckBox x:Name="CheckCallsign"
                   Grid.Column="0"
                   Grid.Row="1"
@@ -40,6 +40,7 @@
                  materialDesign:HintAssist.Hint="Callsign"
                  Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
 
+        <!--Realname-->
         <CheckBox x:Name="CheckRealName"
                   Grid.Column="0"
                   Grid.Row="2"
@@ -51,6 +52,7 @@
                  materialDesign:HintAssist.Hint="Realname"
                  Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
 
+        <!--Certificate-->
         <CheckBox x:Name="CheckCertificate"
                   Grid.Column="0"
                   Grid.Row="3"
@@ -62,6 +64,7 @@
                  materialDesign:HintAssist.Hint="Certificate"
                  Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
 
+        <!--Password-->
         <CheckBox x:Name="CheckPassword"
                   Grid.Column="0"
                   Grid.Row="4"
@@ -76,8 +79,7 @@
                      IsEnabled="{Binding ElementName=RevealPasswordFilledEnabled}"
                      Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}"/>
 
-
-
+        <!--Facility-->
         <CheckBox x:Name="CheckFacility"
                   Grid.Column="0"
                   Grid.Row="5"
@@ -98,6 +100,7 @@
             <ComboBoxItem Content=""/>
         </ComboBox>
 
+        <!--Rating-->
         <CheckBox x:Name="CheckRating"
           Grid.Column="0"
           Grid.Row="6"
@@ -122,7 +125,8 @@
             <ComboBoxItem Content="Administrator"/>
             <ComboBoxItem Content=""/>
         </ComboBox>
-
+        
+        <!--Hoppie-->
         <CheckBox x:Name="CheckHoppie"
           Grid.Column="0"
           Grid.Row="7"
@@ -139,18 +143,81 @@
 
         <materialDesign:Card Grid.Row="8"
                              Grid.Column="0"
-                             Grid.ColumnSpan="2"
+                             Grid.ColumnSpan="3"
                              Margin="0,7,0,0">
-            <TabControl Width="300"
-                        materialDesign:ColorZoneAssist.Mode="PrimaryLight"
-                        Style="{StaticResource MaterialDesignFilledTabControl}">
+            <TabControl materialDesign:ColorZoneAssist.Mode="PrimaryLight"
+                        Style="{StaticResource MaterialDesignFilledUniformTabControl}">
+                
+                <!--Sounds Tab-->
                 <TabItem Header="Sounds">
-                    <TextBlock Margin="8"
-                               Text="SecondaryLight Tab 1" />
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <!--Headerthingy-->
+                        <TextBlock Text="Add custom Sounds" Grid.Row="0" Grid.Column="0" Margin="0,7,0,0" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <Button x:Name="addSoundRow"  Grid.Row="0" Grid.Column="1" Margin="30,7,0,0" HorizontalAlignment="Right">
+                            <materialDesign:PackIcon Kind="TableRowPlusBefore" Height="24" Width="24"/>
+                        </Button>
+                        <Button x:Name="RemoveSoundRow"  Grid.Row="0" Grid.Column="2" Margin="7,7,0,0" HorizontalAlignment="Right">
+                            <materialDesign:PackIcon Kind="TableRowRemove" Height="24" Width="24"/>
+                        </Button>
+                        <!--Datagrid-->
+                        <DataGrid x:Name="SoundsList"
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        Grid.ColumnSpan="3"
+                                        Margin="0,7,0,0"
+                                        CanUserAddRows="True">
+                            <DataGrid.Columns>
+                                <DataGridCheckBoxColumn Header="Select"/>
+                                <DataGridTextColumn Header="Soundfile"/>
+                                <DataGridComboBoxColumn Header="Soundtype"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
                 </TabItem>
+                
+                <!--Plugins Tab-->
                 <TabItem Header="Plugins">
-                    <TextBlock Margin="8"
-                               Text="SecondaryLight Tab 2" />
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <!--Headerthingy-->
+                        <TextBlock Text="Add custom Plugins" Grid.Row="0" Grid.Column="0" Margin="0,7,0,0" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <Button x:Name="addPluginRow"  Grid.Row="0" Grid.Column="1" Margin="30,7,0,0" HorizontalAlignment="Right">
+                            <materialDesign:PackIcon Kind="TableRowPlusBefore" Height="24" Width="24"/>
+                        </Button>
+
+                        <Button x:Name="RemovePluginRow"  Grid.Row="0" Grid.Column="2" Margin="7,7,0,0" HorizontalAlignment="Right">
+                            <materialDesign:PackIcon Kind="TableRowRemove" Height="24" Width="24"/>
+                        </Button>
+                        <!--Datagrid-->
+                        <DataGrid x:Name="PluginsList"
+                                  Grid.Row="1"
+                                  Grid.Column="0"
+                                  Grid.ColumnSpan="3"
+                                  Margin="0,7,0,0"
+                                  CanUserAddRows="True">
+                            <DataGrid.Columns>
+                                <DataGridCheckBoxColumn Header="Select"/>
+                                <DataGridTextColumn Header="Pluginfile (.dll)"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
                 </TabItem>
             </TabControl>
         </materialDesign:Card>
