@@ -7,9 +7,9 @@ using NAudio.Wave.Asio;
 namespace AIRAC_Downloader_for_Euroscope
 {
     /// <summary>
-    /// Interaktionslogik für VccsSettings.xaml
+    /// Interaktionslogik für VccsSettingsControl.xaml
     /// </summary>
-    public partial class VccsSettings : UserControl
+    public partial class VccsSettingsControl : UserControl
     {
 
         public ObservableCollection<string> InputAudioDevices { get; set; } = new();
@@ -25,7 +25,7 @@ namespace AIRAC_Downloader_for_Euroscope
             "Windows Audio Session"
         };
 
-        public VccsSettings()
+        public VccsSettingsControl()
         {
             InitializeComponent();
             DataContext = this;

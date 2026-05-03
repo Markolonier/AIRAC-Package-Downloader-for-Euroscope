@@ -11,9 +11,9 @@ using System.Windows.Documents;
 namespace AIRAC_Downloader_for_Euroscope
 {
     /// <summary>
-    /// Interaktionslogik für AeroNavSettings.xaml
+    /// Interaktionslogik für AeroNavSettingsControl.xaml
     /// </summary>
-    public partial class AeroNavSettings : UserControl
+    public partial class AeroNavSettingsControl : UserControl
     {
         public event EventHandler<ToggleDownloadButtonArgs> ToggleDownload;
         public event Action SaveRequested;
@@ -24,7 +24,7 @@ namespace AIRAC_Downloader_for_Euroscope
         public ObservableCollection<string> VaccList { get; set; } = new();
         public ObservableCollection<string> PackageList { get; set; } = new();
 
-        public AeroNavSettings()
+        public AeroNavSettingsControl()
         {
             InitializeComponent();
             DataContext = this;

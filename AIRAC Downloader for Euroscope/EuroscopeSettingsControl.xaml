@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="AIRAC_Downloader_for_Euroscope.EuroscopeSettings"
+﻿<UserControl x:Class="AIRAC_Downloader_for_Euroscope.EuroscopeSettingsControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -201,7 +201,7 @@
                                                     Binding="{Binding SoundFile}"/>
                                 <DataGridComboBoxColumn Header="Soundtype"
                                                         SelectedItemBinding="{Binding SoundType}"
-                                                        ItemsSource="{x:Static local:EuroscopeSettings.SoundTypes}"/>
+                                                        ItemsSource="{x:Static local:EuroscopeSettingsControl.SoundTypes}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>

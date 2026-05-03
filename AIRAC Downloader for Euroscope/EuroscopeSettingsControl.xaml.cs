@@ -15,13 +15,13 @@ using System.Windows.Shapes;
 namespace AIRAC_Downloader_for_Euroscope
 {
     /// <summary>
-    /// Interaktionslogik für EuroscopeSettings.xaml
+    /// Interaktionslogik für EuroscopeSettingsControl.xaml
     /// </summary>
-    public partial class EuroscopeSettings : UserControl
+    public partial class EuroscopeSettingsControl : UserControl
     {
 
         //Custom Sounds
-        public static ObservableCollection<string> SoundTypes { get; set; } = new()
+        public static List<string> SoundTypes { get; } = new()
         {
             "Handoff Request",
             "Handoff Accept",
@@ -91,7 +91,7 @@ namespace AIRAC_Downloader_for_Euroscope
             ""
         };
 
-        public EuroscopeSettings()
+        public EuroscopeSettingsControl()
         {
             InitializeComponent();
             DataContext = this;
