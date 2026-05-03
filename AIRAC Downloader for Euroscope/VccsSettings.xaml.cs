@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
+using NAudio.CoreAudioApi;
+using NAudio.Wave;
+using NAudio.Wave.Asio;
 namespace AIRAC_Downloader_for_Euroscope
 {
     /// <summary>
@@ -18,9 +11,40 @@ namespace AIRAC_Downloader_for_Euroscope
     /// </summary>
     public partial class VccsSettings : UserControl
     {
+
+        public ObservableCollection<string> InputAudioDevices { get; set; } = new();
+        public ObservableCollection<string> InputAudioAPIs { get; set; } = new()
+        {
+            "Direct Sound",
+            "Windows Audio Session"
+        };
+        public ObservableCollection<string> OutputAudioDevices { get; set; } = new();
+        public ObservableCollection<string> OutputAudioAPIs { get; set; } = new()
+        {
+            "Direct Sound",
+            "Windows Audio Session"
+        };
+
         public VccsSettings()
         {
             InitializeComponent();
+            DataContext = this;
+
+            var enumerator = new MMDeviceEnumerator();
+
+            //Parse and add Input Devices
+            var inputDevices = enumerator.EnumerateAudioEndPoints(DataFlow.Capture, DeviceState.Active);
+            foreach (var dev in inputDevices)
+            {
+                this.InputAudioDevices.Add(dev.FriendlyName);
+            }
+
+            //Parse and add Output Devices
+            var outputDevices = enumerator.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active);
+            foreach (var dev in outputDevices)
+            {
+                this.OutputAudioDevices.Add(dev.FriendlyName);
+            }
         }
     }
 }
