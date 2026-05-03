@@ -1,12 +1,9 @@
 ﻿using AIRAC_Downloader_for_Euroscope.Code.Core;
-using AIRAC_Downloader_for_Euroscope.Services;
 using Microsoft.Win32;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 
 namespace AIRAC_Downloader_for_Euroscope
 {
@@ -15,8 +12,6 @@ namespace AIRAC_Downloader_for_Euroscope
     /// </summary>
     public partial class AeroNavSettingsControl : UserControl
     {
-        public event EventHandler<ToggleDownloadButtonArgs> ToggleDownload;
-        public event Action SaveRequested;
 
         private List<(string, string)>? availableVaccs;
         private List<(string, string, string, string)>? availablePackages;
@@ -147,30 +142,16 @@ namespace AIRAC_Downloader_for_Euroscope
 
         private void triggerDownloadToggleEvent()
         {
-            ToggleDownloadButtonArgs args;
-
             if (!string.IsNullOrWhiteSpace(Package.Text) &&
                 !string.IsNullOrEmpty(PackageFolder.Text))
-            {
-                args = new ToggleDownloadButtonArgs(
-                    enabled: true,
-                    packageName: availablePackages[Package.SelectedIndex].Item1
-                );
-
-            }
+                MainWindow.Instance.ToggleDownloadButton(true, Package.Text);
             else
-            {
-                args = new ToggleDownloadButtonArgs(
-                    enabled: false,
-                    packageName: string.Empty
-                );
-            }
-            ToggleDownload?.Invoke(this, args);
+                MainWindow.Instance.ToggleDownloadButton(false, null);
         }
 
         private void SaveUserConfig(object sender, RoutedEventArgs e)
         {
-            SaveRequested?.Invoke();
+            MainWindow.Instance?.OnSaveRequested();
         }
     }
 }
