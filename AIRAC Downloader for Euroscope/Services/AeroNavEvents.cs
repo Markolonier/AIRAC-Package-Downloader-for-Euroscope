@@ -1,4 +1,6 @@
-﻿namespace AIRAC_Downloader_for_Euroscope.Services
+﻿using AIRAC_Downloader_for_Euroscope.Code.Core;
+
+namespace AIRAC_Downloader_for_Euroscope.Services
 {
     public class ToggleDownloadButtonArgs : EventArgs
     {
