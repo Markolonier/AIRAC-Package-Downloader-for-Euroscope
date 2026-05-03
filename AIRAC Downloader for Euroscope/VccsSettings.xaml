@@ -22,7 +22,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <CheckBox Content="Enable"
+        <CheckBox Content="Enable all"
                   Grid.Row="0"
                   Grid.Column="0"
                   Grid.ColumnSpan="2"/> 
@@ -75,7 +75,8 @@
                   Grid.Row="4"
                   Margin="0,7,0,0"
                   materialDesign:HintAssist.Hint="Capture Mode"
-                  Style="{StaticResource MaterialDesignOutlinedComboBox}"/>
+                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                  ItemsSource="{Binding InputAudioAPIs}"/>
         
         <!--Capture Device-->
         <CheckBox x:Name="CheckCaptureDevice"
@@ -88,7 +89,8 @@
                   Grid.Row="5"
                   Margin="0,7,0,0"
                   materialDesign:HintAssist.Hint="Capture Device"
-                  Style="{StaticResource MaterialDesignOutlinedComboBox}"/>
+                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                  ItemsSource="{Binding InputAudioDevices}"/>
         
         <!--Playback Mode-->
         <CheckBox x:Name="CheckPlaybackMode"
@@ -101,7 +103,8 @@
                   Grid.Row="6"
                   Margin="0,7,0,0"
                   materialDesign:HintAssist.Hint="Playback Mode"
-                  Style="{StaticResource MaterialDesignOutlinedComboBox}"/>
+                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                  ItemsSource="{Binding OutputAudioAPIs}"/>
         
         <!--Playback Device-->
         <CheckBox x:Name="CheckPlaybackDevice"
@@ -114,6 +117,7 @@
                   Grid.Row="7"
                   Margin="0,7,0,0"
                   materialDesign:HintAssist.Hint="Playback Device"
-                  Style="{StaticResource MaterialDesignOutlinedComboBox}"/>
+                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                  ItemsSource="{Binding OutputAudioDevices}"/>
     </Grid>
 </UserControl>
