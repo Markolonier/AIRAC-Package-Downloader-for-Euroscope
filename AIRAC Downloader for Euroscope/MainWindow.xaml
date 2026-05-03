@@ -55,7 +55,7 @@
                     </StackPanel>
                 </TabItem.Header>
                 <ScrollViewer>
-                    <local:EuroscopeSettings x:Name="EuroscopeSettigs" Height="Auto" Width="Auto"/>
+                    <local:EuroscopeSettingsControl x:Name="EuroscopeSettigs" Height="Auto" Width="Auto"/>
                 </ScrollViewer>
             </TabItem>
 
@@ -70,7 +70,7 @@
                     </StackPanel>
                 </TabItem.Header>
                 <ScrollViewer>
-                    <local:VccsSettings x:Name="VccsSettings" Height="Auto" Width="Auto"/>
+                    <local:VccsSettingsControl x:Name="VccsSettings" Height="Auto" Width="Auto"/>
                 </ScrollViewer>
             </TabItem>
 
@@ -85,7 +85,7 @@
                     </StackPanel>
                 </TabItem.Header>
                 <ScrollViewer>
-                    <local:AeroNavSettings x:Name="AeroNavSettings" Width="Auto" Height="Auto"/>
+                    <local:AeroNavSettingsControl x:Name="AeroNavSettings" Width="Auto" Height="Auto"/>
                 </ScrollViewer>
             </TabItem>
         </TabControl>

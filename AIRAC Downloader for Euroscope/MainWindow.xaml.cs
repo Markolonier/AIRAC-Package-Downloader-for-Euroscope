@@ -35,7 +35,42 @@ namespace AIRAC_Downloader_for_Euroscope
 
         private void OnSaveRequested()
         {
-            //TBD
+            ConfigControl config = new();
+            ConfigControl.Config newConfig = new();
+
+            //Euroscope Settings
+            newConfig.thisES.Callsign = (bool)EuroscopeSettigs.CheckCallsign.IsChecked ? EuroscopeSettigs.Callsign.Text : null;
+            newConfig.thisES.Realname = (bool)EuroscopeSettigs.CheckRealName.IsChecked ? EuroscopeSettigs.Realname.Text : null;
+            newConfig.thisES.Certificate = (bool)EuroscopeSettigs.CheckCertificate.IsChecked ? EuroscopeSettigs.Certificate.Text : null;
+            newConfig.thisES.Password = (bool)EuroscopeSettigs.CheckPassword.IsChecked ? EuroscopeSettigs.Password.Password : null;
+            newConfig.thisES.Facility = (bool)EuroscopeSettigs.CheckFacility.IsChecked ? (string)EuroscopeSettigs.Facility.SelectedValue : null;
+            newConfig.thisES.Rating = (bool)EuroscopeSettigs.CheckRating.IsChecked ? (string)EuroscopeSettigs.Rating.SelectedValue : null;
+            newConfig.thisES.Hoppie = (bool)EuroscopeSettigs.CheckHoppie.IsChecked ? EuroscopeSettigs.Hoppie.Password : null;
+            foreach(var plugin in EuroscopeSettigs.Plugins) if (plugin.IsEnabled)
+            {
+                newConfig.thisES.Plugins.Add(plugin.PluginPath);
+            }
+            foreach (var sound in EuroscopeSettigs.Sounds) if (sound.IsEnabled)
+            {
+                newConfig.thisES.Sounds.Add((sound.SoundFile, EuroscopeSettingsControl.SoundTypes.IndexOf(sound.SoundType)));
+            }
+
+            //VCCS Setup
+            newConfig.thisVCCS.Nickname = (bool)VccsSettings.CheckNickname.IsChecked ? VccsSettings.Nickname.Text : null;
+            //G2A TBD
+            //G2G TBD
+            newConfig.thisVCCS.CaptureMode = (bool)VccsSettings.CheckCaptureMode.IsChecked ? (string)VccsSettings.CaptureMode.SelectedValue : null;
+            newConfig.thisVCCS.CaptureDevice = (bool)VccsSettings.CheckCaptureDevice.IsChecked ? (string)VccsSettings.CaptureDevice.SelectedValue : null;
+            newConfig.thisVCCS.PlaybackMode = (bool)VccsSettings.CheckPlaybackMode.IsChecked ? (string)VccsSettings.PlaybackMode.SelectedValue : null;
+            newConfig.thisVCCS.PlaybackDevice = (bool)VccsSettings.CheckPlaybackDevice.IsChecked ? (string)VccsSettings.PlaybackDevice.SelectedValue : null;
+
+
+            //AeroNav Setup
+            newConfig.thisAN.VACC = (string)AeroNavSettings.VACC.SelectedValue;
+            newConfig.thisAN.Package = (string)AeroNavSettings.Package.SelectedValue;
+            newConfig.thisAN.Folder = (string)AeroNavSettings.PackageFolder.Text;
+
+            config.ExportIntoJson(newConfig);
         }
 
         private void OnNewConfigImport()
@@ -68,9 +103,9 @@ namespace AIRAC_Downloader_for_Euroscope
 
                 foreach ((string Sound, int Soundtype) Sound in newConfig.thisES.Sounds)
                 {
-                    string name = EuroscopeSettings.SoundTypes[Sound.Item2];
+                    string name = EuroscopeSettingsControl.SoundTypes[Sound.Item2];
 
-                    EuroscopeSettigs.Sounds.Add(new EuroscopeSettings.SoundEntry
+                    EuroscopeSettigs.Sounds.Add(new EuroscopeSettingsControl.SoundEntry
                     {
                         IsSelected = false,
                         IsEnabled = true,
@@ -81,7 +116,7 @@ namespace AIRAC_Downloader_for_Euroscope
 
                 foreach (string plugin in newConfig.thisES.Plugins)
                 {
-                    EuroscopeSettigs.Plugins.Add(new EuroscopeSettings.PluginEntry
+                    EuroscopeSettigs.Plugins.Add(new EuroscopeSettingsControl.PluginEntry
                     {
                         IsSelected = false,
                         IsEnabled = true,
