@@ -1,6 +1,7 @@
 ﻿using AIRAC_Downloader_for_Euroscope.Code.Core;
 using AIRAC_Downloader_for_Euroscope.Services;
 using Microsoft.Win32;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -19,9 +20,14 @@ namespace AIRAC_Downloader_for_Euroscope
 
         private List<(string, string)>? availableVaccs;
         private List<(string, string, string, string)>? availablePackages;
+
+        public ObservableCollection<string> VaccList { get; set; } = new();
+        public ObservableCollection<string> PackageList { get; set; } = new();
+
         public AeroNavSettings()
         {
             InitializeComponent();
+            DataContext = this;
         }
 
         private void loaded(object sender, RoutedEventArgs e)
@@ -29,28 +35,56 @@ namespace AIRAC_Downloader_for_Euroscope
             initVaccList();
         }
 
+
         private void initVaccList()
         {
+            string currentItem = (string)VACC.SelectedValue;
+            VaccList.Clear();
+            
             WebsiteScraper scraper = new();
             availableVaccs = scraper.GetVaccList();
             foreach (var vACC in availableVaccs)
             {
-                VACC.Items.Add(vACC.Item1 + " || " + vACC.Item2);
+                VaccList.Add(vACC.Item1 + " || " + vACC.Item2);
             }
-            VACC.SelectedIndex = 0;
+
             VACC.IsEnabled = true;
+            if(currentItem != null)
+            {
+                VACC.SelectedValue = currentItem;
+            }
+            else { VACC.SelectedIndex = 0; }
+            
         }
+
+
         private void changedVaccSelection(object sender, SelectionChangedEventArgs e)
         {
-            WebsiteScraper scraper = new();
-            availablePackages = scraper.GetPacksList(availableVaccs[VACC.SelectedIndex].Item1);
-            Package.Items.Clear();
-            foreach (var package in availablePackages)
+            if(VACC.SelectedIndex != -1)
             {
-                Package.Items.Add(package.Item1);
+                string currentItem = (string)Package.SelectedValue;
+                PackageList.Clear();
+
+                WebsiteScraper scraper = new();
+                availablePackages = scraper.GetPacksList(availableVaccs[VACC.SelectedIndex].Item1);
+                try
+                {
+                    foreach (var package in availablePackages)
+                    {
+                        PackageList.Add(package.Item1);
+                    }
+                }
+                catch { }
+
+                Package.IsEnabled = true;
+                if(currentItem != null)
+                {
+                    Package.SelectedValue = currentItem;
+                }
+                else { Package.SelectedIndex = 0; }
             }
-            Package.SelectedIndex = 0;
         }
+
 
         private async void selectNewLocalFolder(object sender, RoutedEventArgs e)
         {
@@ -66,12 +100,13 @@ namespace AIRAC_Downloader_for_Euroscope
             }
         }
 
+
         private async void scanNewOfflinePackage(object? sender, RoutedEventArgs? e)
         {
             int count = 0;
             while(Package.Items.Count == 0 && count <= 2)
             { await Task.Delay(500); count++; }
-            if(Package.Items.Count != 0)
+            if(Package.Items.Count != 0 && Package.SelectedIndex != -1)
             {
                 string path = Path.Combine(PackageFolder.Text, availablePackages[Package.SelectedIndex].Item1.Split(" ")[0]);
                 (string rev, string Version, string Date) = CurrentInstalledAirac.getCurrentInstalledAIRAC(path);
@@ -94,9 +129,18 @@ namespace AIRAC_Downloader_for_Euroscope
             int count = 0;
             while (Package.Items.Count == 0 && count <= 2)
             { await Task.Delay(500); count++; }
-            OnlineAirac.Text = $"AIRAC: {availablePackages[Package.SelectedIndex].Item2}";
-            OnlineVersion.Text = $"Version: {availablePackages[Package.SelectedIndex].Item3}";
-            OnlineReleased.Text = $"Released: {availablePackages[Package.SelectedIndex].Item4}";
+            if(Package.SelectedIndex != -1)
+            {
+                OnlineAirac.Text = $"AIRAC: {availablePackages[Package.SelectedIndex].Item2}";
+                OnlineVersion.Text = $"Version: {availablePackages[Package.SelectedIndex].Item3}";
+                OnlineReleased.Text = $"Released: {availablePackages[Package.SelectedIndex].Item4}";
+            }
+            else
+            {
+                OnlineAirac.Text = $"AIRAC: n/a";
+                OnlineVersion.Text = $"Version: n/a";
+                OnlineReleased.Text = $"Released: n/a";
+            }
 
             triggerDownloadToggleEvent();
         }
