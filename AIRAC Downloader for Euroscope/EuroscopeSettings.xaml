@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:AIRAC_Downloader_for_Euroscope"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="1000" d:DesignWidth="800">
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -23,7 +23,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <CheckBox Content="Enable"
+        <CheckBox Content="Enable all"
                   Grid.Row="0"
                   Grid.Column="0"
                   Grid.ColumnSpan="2"/>
@@ -94,16 +94,10 @@
                   Grid.Row="5"
                   Margin="0,7,0,0"
                   materialDesign:HintAssist.Hint="Facility"
-                  Style="{StaticResource MaterialDesignOutlinedComboBox}">
-            <ComboBoxItem Content="Observer"/>
-            <ComboBoxItem Content="Flight Service Station"/>
-            <ComboBoxItem Content="Clearance/Delivery"/>
-            <ComboBoxItem Content="Ground"/>
-            <ComboBoxItem Content="Tower"/>
-            <ComboBoxItem Content="Approach/Departure"/>
-            <ComboBoxItem Content="Center"/>
-            <ComboBoxItem Content=""/>
-        </ComboBox>
+                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                  ItemsSource="{Binding Facilities}"/>
+
+
 
         <!--Rating-->
         <CheckBox x:Name="CheckRating"
@@ -116,22 +110,11 @@
                   Grid.Row="6"
                   Margin="0,7,0,0"
                   materialDesign:HintAssist.Hint="Rating"
-                  Style="{StaticResource MaterialDesignOutlinedComboBox}">
-            <ComboBoxItem Content="Observer"/>
-            <ComboBoxItem Content="Ground/Delivery (STU1)"/>
-            <ComboBoxItem Content="Tower Controller (STU2)"/>
-            <ComboBoxItem Content="TMA Controller (STU3)"/>
-            <ComboBoxItem Content="Enroute Controller (CTR1)"/>
-            <ComboBoxItem Content="Controller 2(not in use)"/>
-            <ComboBoxItem Content="Senior controller (CTR3)"/>
-            <ComboBoxItem Content="Instructor 1"/>
-            <ComboBoxItem Content="Instructor 2"/>
-            <ComboBoxItem Content="Instructor 3"/>
-            <ComboBoxItem Content="Supervisor"/>
-            <ComboBoxItem Content="Administrator"/>
-            <ComboBoxItem Content=""/>
-        </ComboBox>
-        
+                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                  ItemsSource="{Binding Ratings}"/>
+
+
+
         <!--Hoppie-->
         <CheckBox x:Name="CheckHoppie"
                   Grid.Column="0"
@@ -168,24 +151,57 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <!--Headerthingy-->
-                        <TextBlock Text="Add custom Sounds" Grid.Row="0" Grid.Column="0" Margin="0,7,0,0" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <Button x:Name="addSoundRow"  Grid.Row="0" Grid.Column="1" Margin="30,7,0,0" HorizontalAlignment="Right">
-                            <materialDesign:PackIcon Kind="TableRowPlusBefore" Height="24" Width="24"/>
+                        <TextBlock Text="Add custom Sounds" Grid.Row="0" Grid.Column="0" Margin="7,7,0,0" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        
+                        <Button x:Name="RemoveSoundRow"  Grid.Row="0" Grid.Column="2" Margin="7,7,7,0" HorizontalAlignment="Right">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="TableRowRemove" Height="24" Width="24"/>
+                                <TextBlock Text="Remove selected Row(s)" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="7,0,0,0"/>
+                            </StackPanel>
                         </Button>
-                        <Button x:Name="RemoveSoundRow"  Grid.Row="0" Grid.Column="2" Margin="7,7,0,0" HorizontalAlignment="Right">
-                            <materialDesign:PackIcon Kind="TableRowRemove" Height="24" Width="24"/>
-                        </Button>
+                        
                         <!--Datagrid-->
                         <DataGrid x:Name="SoundsList"
-                                        Grid.Row="1"
-                                        Grid.Column="0"
-                                        Grid.ColumnSpan="3"
-                                        Margin="0,7,0,0"
-                                        CanUserAddRows="True">
+                                  Grid.Row="1"
+                                  Grid.Column="0"
+                                  Grid.ColumnSpan="3"
+                                  Margin="7,7,7,7"
+                                  HorizontalAlignment="Stretch"
+                                  ItemsSource="{Binding Sounds}"
+                                  AutoGenerateColumns="False">
                             <DataGrid.Columns>
-                                <DataGridCheckBoxColumn Header="Select"/>
-                                <DataGridTextColumn Header="Soundfile"/>
-                                <DataGridComboBoxColumn Header="Soundtype"/>
+                                <DataGridCheckBoxColumn Binding="{Binding IsSelected}">
+                                    <DataGridCheckBoxColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <StackPanel>
+                                                <TextBlock Text="Select" HorizontalAlignment="Center"/>
+                                                <CheckBox Content=""
+                                                          IsChecked="{Binding DataContext.AllSelected,
+                                                                      RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                          HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                            
+                                        </DataTemplate>
+                                    </DataGridCheckBoxColumn.HeaderTemplate>
+                                </DataGridCheckBoxColumn>
+                                <DataGridCheckBoxColumn Binding="{Binding IsEnabled}">
+                                    <DataGridCheckBoxColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <StackPanel>
+                                                <TextBlock Text="Enabled" HorizontalAlignment="Center"/>
+                                                <CheckBox Content=""
+                                                          IsChecked="{Binding DataContext.AllSelected,
+                                                                      RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                          HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridCheckBoxColumn.HeaderTemplate>
+                                </DataGridCheckBoxColumn>
+                                <DataGridTextColumn Header="Soundfile"
+                                                    Binding="{Binding SoundFile}"/>
+                                <DataGridComboBoxColumn Header="Soundtype"
+                                                        SelectedItemBinding="{Binding SoundType}"
+                                                        ItemsSource="{x:Static local:EuroscopeSettings.SoundTypes}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>
@@ -204,13 +220,12 @@
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <!--Headerthingy-->
-                        <TextBlock Text="Add custom Plugins" Grid.Row="0" Grid.Column="0" Margin="0,7,0,0" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <Button x:Name="addPluginRow"  Grid.Row="0" Grid.Column="1" Margin="30,7,0,0" HorizontalAlignment="Right">
-                            <materialDesign:PackIcon Kind="TableRowPlusBefore" Height="24" Width="24"/>
-                        </Button>
-
-                        <Button x:Name="RemovePluginRow"  Grid.Row="0" Grid.Column="2" Margin="7,7,0,0" HorizontalAlignment="Right">
-                            <materialDesign:PackIcon Kind="TableRowRemove" Height="24" Width="24"/>
+                        <TextBlock Text="Add custom Plugins" Grid.Row="0" Grid.Column="0" Margin="7,7,0,0" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        <Button x:Name="RemovePluginRow"  Grid.Row="0" Grid.Column="2" Margin="7,7,7,0" HorizontalAlignment="Right">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="TableRowRemove" Height="24" Width="24"/>
+                                <TextBlock Text="Remove selected Row(s)" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="7,0,0,0"/>
+                            </StackPanel>
                         </Button>
                         <!--Datagrid-->
                         <DataGrid x:Name="PluginsList"
@@ -218,10 +233,39 @@
                                   Grid.Column="0"
                                   Grid.ColumnSpan="3"
                                   Margin="0,7,0,0"
+                                  ItemsSource="{Binding Plugins}"
+                                  AutoGenerateColumns="False"
                                   CanUserAddRows="True">
                             <DataGrid.Columns>
-                                <DataGridCheckBoxColumn Header="Select"/>
-                                <DataGridTextColumn Header="Pluginfile (.dll)"/>
+                                <DataGridCheckBoxColumn Binding="{Binding IsSelected}">
+                                    <DataGridCheckBoxColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <StackPanel>
+                                                <TextBlock Text="Select" HorizontalAlignment="Center"/>
+                                                <CheckBox Content=""
+                                                          IsChecked="{Binding DataContext.AllSelected,
+                                                                      RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                          HorizontalAlignment="Center"/>
+                                            </StackPanel>
+
+                                        </DataTemplate>
+                                    </DataGridCheckBoxColumn.HeaderTemplate>
+                                </DataGridCheckBoxColumn>
+                                <DataGridCheckBoxColumn Binding="{Binding IsEnabled}">
+                                    <DataGridCheckBoxColumn.HeaderTemplate>
+                                        <DataTemplate>
+                                            <StackPanel>
+                                                <TextBlock Text="Enabled" HorizontalAlignment="Center"/>
+                                                <CheckBox Content=""
+                                                          IsChecked="{Binding DataContext.AllSelected,
+                                                                      RelativeSource={RelativeSource AncestorType=DataGrid}}"
+                                                          HorizontalAlignment="Center"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridCheckBoxColumn.HeaderTemplate>
+                                </DataGridCheckBoxColumn>
+                                <DataGridTextColumn Header="Soundfile"
+                                                    Binding="{Binding PluginPath}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>
