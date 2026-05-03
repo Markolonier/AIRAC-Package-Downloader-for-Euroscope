@@ -36,6 +36,7 @@
                   Margin="0,7,0,0"
                   materialDesign:HintAssist.Hint="VACC"
                   Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                  ItemsSource="{Binding VaccList}"
                   SelectionChanged="changedVaccSelection"/>
         
         <!--Package-->
@@ -45,7 +46,9 @@
                   Grid.Row="1"
                   Margin="0,7,0,0"
                   materialDesign:HintAssist.Hint="Package"
-                  Style="{StaticResource MaterialDesignOutlinedComboBox}" SelectionChanged="changedPackageSelection"/>
+                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                  ItemsSource="{Binding PackageList}"
+                  SelectionChanged="changedPackageSelection"/>
 
         <!--Local Package Folder-->
         <Grid Grid.Column="0"
