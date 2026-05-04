@@ -29,10 +29,11 @@ public class KeyboardListener
     private KeyboardListener() { }
 
     // -----------------------------------------------------
-    // ASYNC LISTENER – KEIN DAUER-EVENT, NUR TEMPORÄR
+    // ASYNC LISTENER
     // -----------------------------------------------------
     public Task<KeyResult?> ListenAsync(UserControl window, CancellationToken cancellationToken = default)
     {
+        // Cancel when already listening
         if (keyTcs != null && !keyTcs.Task.IsCompleted)
         {
             keyTcs.TrySetCanceled();
@@ -108,6 +109,14 @@ public class KeyboardListener
         return len > 0 ? sb.ToString() : $"Scan {scanCode}";
     }
 
+    // -----------------------------------------------------
+    // KEYRESULT
+    // -----------------------------------------------------
+    /// <summary>
+    /// Receive Keyresult from scanCode only
+    /// </summary>
+    /// <param name="scanCode">The scan code of the key</param>
+    /// <returns>A KeyResult object if the scanCode is valid</returns>
     public static KeyResult? GetKeyFromCode(uint scanCode)
     {
         ushort code = (ushort)((scanCode >> 16) & 0xFF);
