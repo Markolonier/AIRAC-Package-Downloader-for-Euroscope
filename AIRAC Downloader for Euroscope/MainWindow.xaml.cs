@@ -53,8 +53,8 @@ namespace AIRAC_Downloader_for_Euroscope
 
             //VCCS Setup
             newConfig.thisVCCS.Nickname = (bool)VccsSettings.CheckNickname.IsChecked ? VccsSettings.Nickname.Text : null;
-            //G2A TBD
-            //G2G TBD
+            newConfig.thisVCCS.G2Aptt = (bool)VccsSettings.CheckG2A.IsChecked && VccsSettings.G2aPttKey != null ? VccsSettings.G2aPttKey.Value.Code : 0;
+            newConfig.thisVCCS.G2Gptt = (bool)VccsSettings.CheckG2G.IsChecked && VccsSettings.G2gPttKey != null ? VccsSettings.G2gPttKey.Value.Code : 0;
             newConfig.thisVCCS.CaptureMode = (bool)VccsSettings.CheckCaptureMode.IsChecked ? (string)VccsSettings.CaptureMode.SelectedValue : null;
             newConfig.thisVCCS.CaptureDevice = (bool)VccsSettings.CheckCaptureDevice.IsChecked ? (string)VccsSettings.CaptureDevice.SelectedValue : null;
             newConfig.thisVCCS.PlaybackMode = (bool)VccsSettings.CheckPlaybackMode.IsChecked ? (string)VccsSettings.PlaybackMode.SelectedValue : null;
@@ -126,10 +126,12 @@ namespace AIRAC_Downloader_for_Euroscope
                 VccsSettings.Nickname.Text = newConfig.thisVCCS.Nickname != null ? newConfig.thisVCCS.Nickname : string.Empty;
                 
                 VccsSettings.CheckG2A.IsChecked = newConfig.thisVCCS.G2Aptt != 0;
-                //tbd...
+                VccsSettings.G2aPttKey = newConfig.thisVCCS.G2Aptt != 0 ? KeyboardListener.GetKeyFromCode(newConfig.thisVCCS.G2Aptt) : null;
+                VccsSettings.G2A.Content = VccsSettings.G2aPttKey != null ? $"G2A PTT: {VccsSettings.G2aPttKey.Value.Name}" : "G2A PTT: Not set";
 
                 VccsSettings.CheckG2G.IsChecked = newConfig.thisVCCS.G2Gptt != 0;
-                //tbd...
+                VccsSettings.G2gPttKey = newConfig.thisVCCS.G2Aptt != 0 ? KeyboardListener.GetKeyFromCode(newConfig.thisVCCS.G2Gptt) : null;
+                VccsSettings.G2G.Content = VccsSettings.G2gPttKey != null ? $"G2G PTT: {VccsSettings.G2gPttKey.Value.Name}" : "G2G PTT: Not set";
 
                 VccsSettings.CheckCaptureMode.IsChecked = newConfig.thisVCCS.CaptureMode != null;
                 VccsSettings.CaptureMode.SelectedValue = newConfig.thisVCCS.CaptureMode != null ? newConfig.thisVCCS.CaptureMode : string.Empty;
