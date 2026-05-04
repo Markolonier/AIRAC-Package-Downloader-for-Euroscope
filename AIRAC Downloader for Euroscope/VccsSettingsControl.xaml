@@ -47,10 +47,10 @@
                   Margin="0,7,0,0"
                   HorizontalAlignment="Center"/>
         <Button x:Name="G2A"
-                Content="G2A PTT: "
+                Content="G2A PTT: Not set"
                 Grid.Column="1"
                 Grid.Row="2"
-                Margin="0,7,0,0"/>
+                Margin="0,7,0,0" Click="G2A_Click"/>
         
         <!--G2G PTT-->
         <CheckBox x:Name="CheckG2G"
@@ -59,10 +59,10 @@
                   Margin="0,7,0,0"
                   HorizontalAlignment="Center"/>
         <Button x:Name="G2G"
-                Content="G2G PTT: "
+                Content="G2G PTT: Not set"
                 Grid.Column="1"
                 Grid.Row="3"
-                Margin="0,7,0,0"/>
+                Margin="0,7,0,0" Click="G2G_Click"/>
         
         <!--Capture Mode-->
         <CheckBox x:Name="CheckCaptureMode"
