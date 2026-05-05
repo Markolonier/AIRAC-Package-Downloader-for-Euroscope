@@ -11,6 +11,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -35,6 +36,7 @@
                   HorizontalAlignment="Center"/>
         <TextBox x:Name="Nickname"
                  Grid.Column="1"
+                 Grid.ColumnSpan="2"
                  Grid.Row="1"
                  Margin="0,7,0,0"
                  materialDesign:HintAssist.Hint="Nickname"
@@ -50,8 +52,16 @@
                 Content="G2A PTT: Not set"
                 Grid.Column="1"
                 Grid.Row="2"
-                Margin="0,7,0,0" Click="G2A_Click"/>
+                Margin="0,7,0,0"
+                Click="G2A_Click"/>
+        <Button x:Name="G2Adelete"
+                Grid.Column="2"
+                Grid.Row="2"
+                Margin="7,7,0,0" Click="G2Adelete_Click">
+            <materialDesign:PackIcon Kind="Bin"/>
+        </Button>
         
+
         <!--G2G PTT-->
         <CheckBox x:Name="CheckG2G"
                   Grid.Column="0"
@@ -63,7 +73,13 @@
                 Grid.Column="1"
                 Grid.Row="3"
                 Margin="0,7,0,0" Click="G2G_Click"/>
-        
+        <Button x:Name="G2Gdelete"
+                Grid.Column="2"
+                Grid.Row="3"
+                Margin="7,7,0,0" Click="G2Gdelete_Click">
+            <materialDesign:PackIcon Kind="Bin"/>
+        </Button>
+
         <!--Capture Mode-->
         <CheckBox x:Name="CheckCaptureMode"
                   Grid.Column="0"
@@ -72,6 +88,7 @@
                   HorizontalAlignment="Center"/>
         <ComboBox x:Name="CaptureMode"
                   Grid.Column="1"
+                  Grid.ColumnSpan="2"
                   Grid.Row="4"
                   Margin="0,7,0,0"
                   materialDesign:HintAssist.Hint="Capture Mode"
@@ -86,6 +103,7 @@
                   HorizontalAlignment="Center"/>
         <ComboBox x:Name="CaptureDevice"
                   Grid.Column="1"
+                  Grid.ColumnSpan="2"
                   Grid.Row="5"
                   Margin="0,7,0,0"
                   materialDesign:HintAssist.Hint="Capture Device"
@@ -100,6 +118,7 @@
                   HorizontalAlignment="Center"/>
         <ComboBox x:Name="PlaybackMode"
                   Grid.Column="1"
+                  Grid.ColumnSpan="2"
                   Grid.Row="6"
                   Margin="0,7,0,0"
                   materialDesign:HintAssist.Hint="Playback Mode"
@@ -114,6 +133,7 @@
                   HorizontalAlignment="Center"/>
         <ComboBox x:Name="PlaybackDevice"
                   Grid.Column="1"
+                  Grid.ColumnSpan="2"
                   Grid.Row="7"
                   Margin="0,7,0,0"
                   materialDesign:HintAssist.Hint="Playback Device"

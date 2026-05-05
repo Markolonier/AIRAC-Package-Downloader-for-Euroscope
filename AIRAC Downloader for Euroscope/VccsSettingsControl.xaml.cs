@@ -75,5 +75,17 @@ namespace AIRAC_Downloader_for_Euroscope
             else
                 G2G.Content = "G2G PTT: Not set";
         }
+
+        private void G2Adelete_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            G2aPttKey = null;
+            G2A.Content = "G2A PTT: Not set";
+        }
+
+        private void G2Gdelete_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            G2gPttKey = null;
+            G2G.Content = "G2G PTT: Not set";
+        }
     }
 }
