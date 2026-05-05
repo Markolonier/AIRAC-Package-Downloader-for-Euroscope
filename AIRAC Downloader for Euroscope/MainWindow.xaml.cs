@@ -36,7 +36,7 @@ namespace AIRAC_Downloader_for_Euroscope
 
             //Euroscope Settings
             newConfig.thisES.Callsign = (bool)EuroscopeSettigs.CheckCallsign.IsChecked ? EuroscopeSettigs.Callsign.Text : null;
-            newConfig.thisES.Realname = (bool)EuroscopeSettigs.CheckRealName.IsChecked ? EuroscopeSettigs.Realname.Text : null;
+            newConfig.thisES.Realname = (bool)EuroscopeSettigs.CheckRealName.IsChecked ? EuroscopeSettigs.RealName.Text : null;
             newConfig.thisES.Certificate = (bool)EuroscopeSettigs.CheckCertificate.IsChecked ? EuroscopeSettigs.Certificate.Text : null;
             newConfig.thisES.Password = (bool)EuroscopeSettigs.CheckPassword.IsChecked ? EuroscopeSettigs.Password.Password : null;
             newConfig.thisES.Facility = (bool)EuroscopeSettigs.CheckFacility.IsChecked ? (string)EuroscopeSettigs.Facility.SelectedValue : null;
@@ -80,7 +80,7 @@ namespace AIRAC_Downloader_for_Euroscope
                 EuroscopeSettigs.Callsign.Text = newConfig.thisES.Callsign != null ? newConfig.thisES.Callsign : string.Empty;
 
                 EuroscopeSettigs.CheckRealName.IsChecked = newConfig.thisES.Realname != null;
-                EuroscopeSettigs.Realname.Text = newConfig.thisES.Realname != null ? newConfig.thisES.Realname : string.Empty;
+                EuroscopeSettigs.RealName.Text = newConfig.thisES.Realname != null ? newConfig.thisES.Realname : string.Empty;
                 
                 EuroscopeSettigs.CheckCertificate.IsChecked = newConfig.thisES.Certificate != null;
                 EuroscopeSettigs.Certificate.Text = newConfig.thisES.Certificate != null ? newConfig.thisES.Certificate : string.Empty;
