@@ -7,7 +7,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="1000" d:DesignWidth="800">
-    <Grid Margin="10">
+    <Grid x:Name="MainGrid" Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
@@ -23,22 +23,27 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <CheckBox Content="Enable all"
+        <CheckBox x:Name="CheckEnableAll"
+                  Content="Enable all"
                   Grid.Row="0"
                   Grid.Column="0"
-                  Grid.ColumnSpan="2"/>
+                  Grid.ColumnSpan="2"
+                  Click="CheckEnableAll_Checked"/>
 
         <!--Callsign-->
         <CheckBox x:Name="CheckCallsign"
                   Grid.Column="0"
                   Grid.Row="1"
                   Margin="0,7,0,0"
-                  HorizontalAlignment="Center"/>
+                  HorizontalAlignment="Center"
+                  Checked="CheckCallsign_Toggled"
+                  Unchecked="CheckCallsign_Toggled"/>
         <TextBox x:Name="Callsign"
                  Grid.Column="1"
                  Grid.Row="1"
                  Margin="0,7,0,0"
                  materialDesign:HintAssist.Hint="Callsign"
+                 IsEnabled="False"
                  Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
 
         <!--Realname-->
@@ -46,12 +51,15 @@
                   Grid.Column="0"
                   Grid.Row="2"
                   Margin="0,7,0,0"
-                  HorizontalAlignment="Center"/>
-        <TextBox x:Name="Realname"
+                  HorizontalAlignment="Center"
+                  Checked="CheckRealName_Toggled"
+                  Unchecked="CheckRealName_Toggled"/>
+        <TextBox x:Name="RealName"
                  Grid.Column="1"
                  Grid.Row="2"
                  Margin="0,7,0,0"
                  materialDesign:HintAssist.Hint="Realname"
+                 IsEnabled="False"
                  Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
 
         <!--Certificate-->
@@ -59,12 +67,15 @@
                   Grid.Column="0"
                   Grid.Row="3"
                   Margin="0,7,0,0"
-                  HorizontalAlignment="Center"/>
+                  HorizontalAlignment="Center"
+                  Checked="CheckCertificate_Toggled"
+                  Unchecked="CheckCertificate_Toggled"/>
         <TextBox x:Name="Certificate"
                  Grid.Column="1"
                  Grid.Row="3"
                  Margin="0,7,0,0"
                  materialDesign:HintAssist.Hint="Certificate"
+                 IsEnabled="False"
                  Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
 
         <!--Password-->
@@ -72,7 +83,9 @@
                   Grid.Column="0"
                   Grid.Row="4"
                   Margin="0,7,0,0"
-                  HorizontalAlignment="Center"/>
+                  HorizontalAlignment="Center"
+                  Checked="CheckPassword_Toggled"
+                  Unchecked="CheckPassword_Toggled"/>
         <PasswordBox x:Name="Password"
                      Grid.Column="1"
                      Grid.Row="4"
@@ -80,7 +93,7 @@
                      materialDesign:HintAssist.Hint="Password"
                      materialDesign:TextFieldAssist.HasClearButton="True"
                      materialDesign:PasswordBoxAssist.Password="{Binding Password2, Mode=TwoWay}"
-                     IsEnabled="{Binding ElementName=RevealPasswordFilledEnabled}"
+                     IsEnabled="False"
                      Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}"/>
 
         <!--Facility-->
@@ -88,12 +101,15 @@
                   Grid.Column="0"
                   Grid.Row="5"
                   Margin="0,7,0,0"
-                  HorizontalAlignment="Center"/>
+                  HorizontalAlignment="Center"
+                  Checked="CheckFacility_Toggled"
+                  Unchecked="CheckFacility_Toggled"/>
         <ComboBox x:Name="Facility"
                   Grid.Column="1"
                   Grid.Row="5"
                   Margin="0,7,0,0"
                   materialDesign:HintAssist.Hint="Facility"
+                  IsEnabled="False"
                   Style="{StaticResource MaterialDesignOutlinedComboBox}"
                   ItemsSource="{Binding Facilities}"/>
 
@@ -104,12 +120,15 @@
                   Grid.Column="0"
                   Grid.Row="6"
                   Margin="0,7,0,0"
-                  HorizontalAlignment="Center"/>
+                  HorizontalAlignment="Center"
+                  Checked="CheckRating_Toggled"
+                  Unchecked="CheckRating_Toggled"/>
         <ComboBox x:Name="Rating"
                   Grid.Column="1"
                   Grid.Row="6"
                   Margin="0,7,0,0"
                   materialDesign:HintAssist.Hint="Rating"
+                  IsEnabled="False"
                   Style="{StaticResource MaterialDesignOutlinedComboBox}"
                   ItemsSource="{Binding Ratings}"/>
 
@@ -120,7 +139,9 @@
                   Grid.Column="0"
                   Grid.Row="7"
                   Margin="0,7,0,0"
-                  HorizontalAlignment="Center"/>
+                  HorizontalAlignment="Center"
+                  Checked="CheckHoppie_Toggled"
+                  Unchecked="CheckHoppie_Toggled"/>
         <PasswordBox x:Name="Hoppie"
                      Grid.Column="1"
                      Grid.Row="7"
@@ -128,7 +149,7 @@
                      materialDesign:HintAssist.Hint="Hoppie"
                      materialDesign:TextFieldAssist.HasClearButton="True"
                      materialDesign:PasswordBoxAssist.Password="{Binding Password2, Mode=TwoWay}"
-                     IsEnabled="{Binding ElementName=RevealPasswordFilledEnabled}"
+                     IsEnabled="False"
                      Style="{StaticResource MaterialDesignOutlinedRevealPasswordBox}"/>
 
         <materialDesign:Card Grid.Row="8"
@@ -174,11 +195,12 @@
                                     <DataGridCheckBoxColumn.HeaderTemplate>
                                         <DataTemplate>
                                             <StackPanel>
-                                                <TextBlock Text="Select" HorizontalAlignment="Center"/>
-                                                <CheckBox Content=""
+                                                <TextBlock Text="Select all" HorizontalAlignment="Center"/>
+                                                <CheckBox x:Name="CheckSelectAllSounds"
+                                                          Content=""
                                                           IsChecked="{Binding DataContext.AllSelected,
                                                                       RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                                          HorizontalAlignment="Center"/>
+                                                          HorizontalAlignment="Center" Checked="CheckSelectAll_Toggled"/>
                                             </StackPanel>
                                             
                                         </DataTemplate>
@@ -188,8 +210,9 @@
                                     <DataGridCheckBoxColumn.HeaderTemplate>
                                         <DataTemplate>
                                             <StackPanel>
-                                                <TextBlock Text="Enabled" HorizontalAlignment="Center"/>
-                                                <CheckBox Content=""
+                                                <TextBlock Text="Enable all" HorizontalAlignment="Center"/>
+                                                <CheckBox x:Name="CheckEnableAllSounds"
+                                                          Content=""
                                                           IsChecked="{Binding DataContext.AllSelected,
                                                                       RelativeSource={RelativeSource AncestorType=DataGrid}}"
                                                           HorizontalAlignment="Center"/>
