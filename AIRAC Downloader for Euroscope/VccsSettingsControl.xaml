@@ -23,7 +23,8 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <CheckBox Content="Enable all"
+        <CheckBox x:Name="CheckEnableAll"
+                  Content="Enable all"
                   Grid.Row="0"
                   Grid.Column="0"
                   Grid.ColumnSpan="2"/> 
