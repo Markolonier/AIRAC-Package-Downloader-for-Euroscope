@@ -173,8 +173,8 @@
                         </Grid.ColumnDefinitions>
                         <!--Headerthingy-->
                         <TextBlock Text="Add custom Sounds" Grid.Row="0" Grid.Column="0" Margin="7,7,0,0" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        
-                        <Button x:Name="RemoveSoundRow"  Grid.Row="0" Grid.Column="2" Margin="7,7,7,0" HorizontalAlignment="Right">
+
+                        <Button x:Name="RemoveSoundRow"  Grid.Row="0" Grid.Column="2" Margin="7,7,7,0" HorizontalAlignment="Right" Click="Click_RemoveSoundRow">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="TableRowRemove" Height="24" Width="24"/>
                                 <TextBlock Text="Remove selected Row(s)" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="7,0,0,0"/>
@@ -189,37 +189,54 @@
                                   Margin="7,7,7,7"
                                   HorizontalAlignment="Stretch"
                                   ItemsSource="{Binding Sounds}"
-                                  AutoGenerateColumns="False">
+                                  AutoGenerateColumns="False"
+                                  CanUserAddRows="True"
+                                  CurrentCellChanged="SoundsList_CurrentCellIsSelectedChanged">
                             <DataGrid.Columns>
-                                <DataGridCheckBoxColumn Binding="{Binding IsSelected}">
-                                    <DataGridCheckBoxColumn.HeaderTemplate>
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.Header>
+                                        <StackPanel>
+                                            <TextBlock Text="Select all"
+                                                       HorizontalAlignment="Center"/>
+                                            <CheckBox x:Name="CheckSelectAllSounds"
+                                                      HorizontalAlignment="Center"
+                                                      Checked="CheckSelectAllSounds_Toggled"
+                                                      Unchecked="CheckSelectAllSounds_Toggled"/>
+                                        </StackPanel>
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <StackPanel>
-                                                <TextBlock Text="Select all" HorizontalAlignment="Center"/>
-                                                <CheckBox x:Name="CheckSelectAllSounds"
-                                                          Content=""
-                                                          IsChecked="{Binding DataContext.AllSelected,
-                                                                      RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                                          HorizontalAlignment="Center" Checked="CheckSelectAll_Toggled"/>
-                                            </StackPanel>
-                                            
+                                            <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                                      HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"
+                                                      Checked="SoundsList_CurrentCellIsSelectedChanged"
+                                                      Unchecked="SoundsList_CurrentCellIsSelectedChanged"/>
                                         </DataTemplate>
-                                    </DataGridCheckBoxColumn.HeaderTemplate>
-                                </DataGridCheckBoxColumn>
-                                <DataGridCheckBoxColumn Binding="{Binding IsEnabled}">
-                                    <DataGridCheckBoxColumn.HeaderTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.Header>
+                                        <StackPanel>
+                                            <TextBlock Text="Enable all"
+                                                       HorizontalAlignment="Center"/>
+                                            <CheckBox x:Name="CheckEnableAllSounds"
+                                                      HorizontalAlignment="Center"
+                                                      Checked="CheckEnableAllSounds_Toggled"
+                                                      Unchecked="CheckEnableAllSounds_Toggled"/>
+                                        </StackPanel>
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <StackPanel>
-                                                <TextBlock Text="Enable all" HorizontalAlignment="Center"/>
-                                                <CheckBox x:Name="CheckEnableAllSounds"
-                                                          Content=""
-                                                          IsChecked="{Binding DataContext.AllSelected,
-                                                                      RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                                          HorizontalAlignment="Center"/>
-                                            </StackPanel>
+                                            <CheckBox IsChecked="{Binding IsEnabled, Mode=TwoWay}"
+                                                      HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"
+                                                      Checked="SoundsList_CurrentCellIsEnabledChanged"
+                                                      Unchecked="SoundsList_CurrentCellIsEnabledChanged"/>
                                         </DataTemplate>
-                                    </DataGridCheckBoxColumn.HeaderTemplate>
-                                </DataGridCheckBoxColumn>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                
                                 <DataGridTextColumn Header="Soundfile"
                                                     Binding="{Binding SoundFile}"/>
                                 <DataGridComboBoxColumn Header="Soundtype"
@@ -244,7 +261,7 @@
                         </Grid.ColumnDefinitions>
                         <!--Headerthingy-->
                         <TextBlock Text="Add custom Plugins" Grid.Row="0" Grid.Column="0" Margin="7,7,0,0" FontSize="15" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <Button x:Name="RemovePluginRow"  Grid.Row="0" Grid.Column="2" Margin="7,7,7,0" HorizontalAlignment="Right">
+                        <Button x:Name="RemovePluginRow"  Grid.Row="0" Grid.Column="2" Margin="7,7,7,0" HorizontalAlignment="Right" Click="Click_RemovePluginRow">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="TableRowRemove" Height="24" Width="24"/>
                                 <TextBlock Text="Remove selected Row(s)" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="7,0,0,0"/>
@@ -256,38 +273,56 @@
                                   Grid.Column="0"
                                   Grid.ColumnSpan="3"
                                   Margin="0,7,0,0"
+                                  HorizontalAlignment="Stretch"
                                   ItemsSource="{Binding Plugins}"
                                   AutoGenerateColumns="False"
-                                  CanUserAddRows="True">
+                                  CanUserAddRows="True"
+                                  CurrentCellChanged="PluginsList_CurrentCellIsSelectedChanged">
                             <DataGrid.Columns>
-                                <DataGridCheckBoxColumn Binding="{Binding IsSelected}">
-                                    <DataGridCheckBoxColumn.HeaderTemplate>
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.Header>
+                                        <StackPanel>
+                                            <TextBlock Text="Select all"
+                                                       HorizontalAlignment="Center"/>
+                                            <CheckBox x:Name="CheckSelectAllPlugins"
+                                                      HorizontalAlignment="Center"
+                                                      Checked="CheckSelectAllPlugins_Toggled"
+                                                      Unchecked="CheckSelectAllPlugins_Toggled"/>
+                                        </StackPanel>
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <StackPanel>
-                                                <TextBlock Text="Select" HorizontalAlignment="Center"/>
-                                                <CheckBox Content=""
-                                                          IsChecked="{Binding DataContext.AllSelected,
-                                                                      RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                                          HorizontalAlignment="Center"/>
-                                            </StackPanel>
-
+                                            <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                                      HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"
+                                                      Checked="PluginsList_CurrentCellIsSelectedChanged"
+                                                      Unchecked="PluginsList_CurrentCellIsSelectedChanged"/>
                                         </DataTemplate>
-                                    </DataGridCheckBoxColumn.HeaderTemplate>
-                                </DataGridCheckBoxColumn>
-                                <DataGridCheckBoxColumn Binding="{Binding IsEnabled}">
-                                    <DataGridCheckBoxColumn.HeaderTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                
+                                <DataGridTemplateColumn>
+                                    <DataGridTemplateColumn.Header>
+                                        <StackPanel>
+                                            <TextBlock Text="Enable all"
+                                                       HorizontalAlignment="Center"/>
+                                            <CheckBox x:Name="CheckEnableAllPlugins"
+                                                      HorizontalAlignment="Center"
+                                                      Checked="CheckEnableAllPlugins_Toggled"
+                                                      Unchecked="CheckEnableAllPlugins_Toggled"/>
+                                        </StackPanel>
+                                    </DataGridTemplateColumn.Header>
+                                    <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <StackPanel>
-                                                <TextBlock Text="Enabled" HorizontalAlignment="Center"/>
-                                                <CheckBox Content=""
-                                                          IsChecked="{Binding DataContext.AllSelected,
-                                                                      RelativeSource={RelativeSource AncestorType=DataGrid}}"
-                                                          HorizontalAlignment="Center"/>
-                                            </StackPanel>
+                                            <CheckBox IsChecked="{Binding IsEnabled, Mode=TwoWay}"
+                                                      HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"
+                                                      Checked="PluginsList_CurrentCellIsEnabledChanged"
+                                                      Unchecked="PluginsList_CurrentCellIsEnabledChanged"/>
                                         </DataTemplate>
-                                    </DataGridCheckBoxColumn.HeaderTemplate>
-                                </DataGridCheckBoxColumn>
-                                <DataGridTextColumn Header="Soundfile"
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Header="Pluginfile"
                                                     Binding="{Binding PluginPath}"/>
                             </DataGrid.Columns>
                         </DataGrid>
