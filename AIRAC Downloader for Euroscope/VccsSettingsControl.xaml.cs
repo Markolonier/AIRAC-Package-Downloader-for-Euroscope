@@ -1,9 +1,12 @@
-﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Windows.Controls;
-using NAudio.CoreAudioApi;
+﻿using NAudio.CoreAudioApi;
 using NAudio.Wave;
 using NAudio.Wave.Asio;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 namespace AIRAC_Downloader_for_Euroscope
 {
     /// <summary>
@@ -86,6 +89,107 @@ namespace AIRAC_Downloader_for_Euroscope
         {
             G2gPttKey = null;
             G2G.Content = "G2G PTT: Not set";
+        }
+
+
+
+
+        /// <summary>
+        /// Checks if all checkboxes in the provided collection are checked, unchecked, or a mix of both.
+        /// </summary>
+        /// <param name="checkboxes">The collection of checkboxes to check.</param>
+        /// <returns>True if all are checked, false if all are unchecked, null if a mix.</returns>
+        private bool? IsAllChecked(IEnumerable<FrameworkElement> checkboxes)
+        {
+            int checkedCount = 0;
+            int checkBoxesCount = 0;
+
+            foreach (var chk in checkboxes)
+            {
+                var chkCast = chk as CheckBox;
+                if (chkCast != null && chkCast.IsChecked == true)
+                {
+                    checkedCount++;
+                }
+                if (chkCast != null)
+                {
+                    checkBoxesCount++;
+                }
+            }
+
+            if (checkedCount == 0)
+            {
+                return false;
+            }
+            else if (checkedCount == checkBoxesCount)
+            {
+                return true;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+
+        // -------------------------------
+        // The following methods are for the checkboxes that enable/disable the corresponding TextBoxes in the Main Grid.
+        // They also call ChangedOne_Checked to update the state of the "Enable All" checkbox.
+        // -------------------------------
+
+        // This method lists all the checkboxes in the MainGrid and updates the "Enable All" checkbox based on their states.
+        private void ChangedOne_Checked()
+        {
+            //The named Grid, and not TabControl
+            var children = LogicalTreeHelper.GetChildren(MainGrid).OfType<FrameworkElement>().Where(e => e.Name != "CheckEnableAll");
+            CheckEnableAll.IsChecked = IsAllChecked(children);
+        }
+
+        private void CheckNickname_Toggled(object sender, RoutedEventArgs e)
+        {
+            Nickname.IsEnabled = CheckNickname.IsChecked == true;
+            ChangedOne_Checked();
+        }
+        private void CheckG2A_Toggled(object sender, RoutedEventArgs e)
+        {
+            G2A.IsEnabled = G2Adelete.IsEnabled = CheckG2A.IsChecked == true;
+            ChangedOne_Checked();
+        }
+
+        private void CheckG2G_Toggled(object sender, RoutedEventArgs e)
+        {
+            G2G.IsEnabled = G2Gdelete.IsEnabled = CheckG2G.IsChecked == true;
+            ChangedOne_Checked();
+        }
+
+        private void CheckCaptureMode_Toggled(object sender, RoutedEventArgs e)
+        {
+            CaptureMode.IsEnabled = CheckCaptureMode.IsChecked == true;
+            ChangedOne_Checked();
+        }
+
+        private void CheckCaptureDevice_Toggled(object sender, RoutedEventArgs e)
+        {
+            CaptureDevice.IsEnabled = CheckCaptureDevice.IsChecked == true;
+            ChangedOne_Checked();
+        }
+
+        private void CheckPlaybackMode_Toggled(object sender, RoutedEventArgs e)
+        {
+            PlaybackMode.IsEnabled = CheckPlaybackMode.IsChecked == true;
+            ChangedOne_Checked();
+        }
+
+        private void CheckPlaybackDevice_Toggled(object sender, RoutedEventArgs e)
+        {
+            PlaybackDevice.IsEnabled = CheckPlaybackDevice.IsChecked == true;
+            ChangedOne_Checked();
+        }
+
+        //Enables or disables all TextBoxes based on the state of the "Enable All" checkbox.
+        private void CheckEnableAll_Checked(object sender, RoutedEventArgs e)
+        {
+            CheckNickname.IsChecked = CheckG2A.IsChecked = CheckG2G.IsChecked = CheckCaptureMode.IsChecked = CheckCaptureDevice.IsChecked = CheckPlaybackMode.IsChecked = CheckPlaybackDevice.IsChecked = CheckEnableAll.IsChecked == true;
         }
     }
 }

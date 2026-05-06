@@ -7,7 +7,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Margin="10">
+    <Grid x:Name="MainGrid" Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition/>
@@ -27,20 +27,25 @@
                   Content="Enable all"
                   Grid.Row="0"
                   Grid.Column="0"
-                  Grid.ColumnSpan="2"/> 
+                  Grid.ColumnSpan="2"
+                  Checked="CheckEnableAll_Checked"
+                  Unchecked="CheckEnableAll_Checked"/> 
         
         <!--Nickname-->
         <CheckBox x:Name="CheckNickname"
                   Grid.Column="0"
                   Grid.Row="1"
                   Margin="0,7,0,0"
-                  HorizontalAlignment="Center"/>
+                  HorizontalAlignment="Center"
+                  Checked="CheckNickname_Toggled"
+                  Unchecked="CheckNickname_Toggled"/>
         <TextBox x:Name="Nickname"
                  Grid.Column="1"
                  Grid.ColumnSpan="2"
                  Grid.Row="1"
                  Margin="0,7,0,0"
                  materialDesign:HintAssist.Hint="Nickname"
+                 IsEnabled="False"
                  Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
         
         <!--G2A PTT-->
@@ -48,17 +53,22 @@
                   Grid.Column="0"
                   Grid.Row="2"
                   Margin="0,7,0,0"
-                  HorizontalAlignment="Center"/>
+                  HorizontalAlignment="Center"
+                  Checked="CheckG2A_Toggled"
+                  Unchecked="CheckG2A_Toggled"/>
         <Button x:Name="G2A"
                 Content="G2A PTT: Not set"
                 Grid.Column="1"
                 Grid.Row="2"
                 Margin="0,7,0,0"
+                IsEnabled="False"
                 Click="G2A_Click"/>
         <Button x:Name="G2Adelete"
                 Grid.Column="2"
                 Grid.Row="2"
-                Margin="7,7,0,0" Click="G2Adelete_Click">
+                Margin="7,7,0,0"
+                IsEnabled="False"
+                Click="G2Adelete_Click">
             <materialDesign:PackIcon Kind="Bin"/>
         </Button>
         
@@ -68,16 +78,22 @@
                   Grid.Column="0"
                   Grid.Row="3"
                   Margin="0,7,0,0"
-                  HorizontalAlignment="Center"/>
+                  HorizontalAlignment="Center"
+                  Checked="CheckG2G_Toggled"
+                  Unchecked="CheckG2G_Toggled"/>
         <Button x:Name="G2G"
                 Content="G2G PTT: Not set"
                 Grid.Column="1"
                 Grid.Row="3"
-                Margin="0,7,0,0" Click="G2G_Click"/>
+                Margin="0,7,0,0"
+                IsEnabled="False"
+                Click="G2G_Click"/>
         <Button x:Name="G2Gdelete"
                 Grid.Column="2"
                 Grid.Row="3"
-                Margin="7,7,0,0" Click="G2Gdelete_Click">
+                Margin="7,7,0,0"
+                IsEnabled="False"
+                Click="G2Gdelete_Click">
             <materialDesign:PackIcon Kind="Bin"/>
         </Button>
 
@@ -86,13 +102,16 @@
                   Grid.Column="0"
                   Grid.Row="4"
                   Margin="0,7,0,0"
-                  HorizontalAlignment="Center"/>
+                  HorizontalAlignment="Center"
+                  Checked="CheckCaptureMode_Toggled"
+                  Unchecked="CheckCaptureMode_Toggled"/>
         <ComboBox x:Name="CaptureMode"
                   Grid.Column="1"
                   Grid.ColumnSpan="2"
                   Grid.Row="4"
                   Margin="0,7,0,0"
                   materialDesign:HintAssist.Hint="Capture Mode"
+                  IsEnabled="False"
                   Style="{StaticResource MaterialDesignOutlinedComboBox}"
                   ItemsSource="{Binding InputAudioAPIs}"/>
         
@@ -101,13 +120,16 @@
                   Grid.Column="0"
                   Grid.Row="5"
                   Margin="0,7,0,0"
-                  HorizontalAlignment="Center"/>
+                  HorizontalAlignment="Center"
+                  Checked="CheckCaptureDevice_Toggled"
+                  Unchecked="CheckCaptureDevice_Toggled"/>
         <ComboBox x:Name="CaptureDevice"
                   Grid.Column="1"
                   Grid.ColumnSpan="2"
                   Grid.Row="5"
                   Margin="0,7,0,0"
                   materialDesign:HintAssist.Hint="Capture Device"
+                  IsEnabled="False"
                   Style="{StaticResource MaterialDesignOutlinedComboBox}"
                   ItemsSource="{Binding InputAudioDevices}"/>
         
@@ -116,13 +138,16 @@
                   Grid.Column="0"
                   Grid.Row="6"
                   Margin="0,7,0,0"
-                  HorizontalAlignment="Center"/>
+                  HorizontalAlignment="Center"
+                  Checked="CheckPlaybackMode_Toggled"
+                  Unchecked="CheckPlaybackMode_Toggled"/>
         <ComboBox x:Name="PlaybackMode"
                   Grid.Column="1"
                   Grid.ColumnSpan="2"
                   Grid.Row="6"
                   Margin="0,7,0,0"
                   materialDesign:HintAssist.Hint="Playback Mode"
+                  IsEnabled="False"
                   Style="{StaticResource MaterialDesignOutlinedComboBox}"
                   ItemsSource="{Binding OutputAudioAPIs}"/>
         
@@ -131,13 +156,16 @@
                   Grid.Column="0"
                   Grid.Row="7"
                   Margin="0,7,0,0"
-                  HorizontalAlignment="Center"/>
+                  HorizontalAlignment="Center"
+                  Checked="CheckPlaybackDevice_Toggled"
+                  Unchecked="CheckPlaybackDevice_Toggled"/>
         <ComboBox x:Name="PlaybackDevice"
                   Grid.Column="1"
                   Grid.ColumnSpan="2"
                   Grid.Row="7"
                   Margin="0,7,0,0"
                   materialDesign:HintAssist.Hint="Playback Device"
+                  IsEnabled="False"
                   Style="{StaticResource MaterialDesignOutlinedComboBox}"
                   ItemsSource="{Binding OutputAudioDevices}"/>
     </Grid>
