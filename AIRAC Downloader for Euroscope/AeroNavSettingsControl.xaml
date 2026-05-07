@@ -6,8 +6,7 @@
              xmlns:local="clr-namespace:AIRAC_Downloader_for_Euroscope"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:mde="clr-namespace:MaterialDesignExtensions.Controls;assembly=MaterialDesignExtensions"
-             mc:Ignorable="d" 
-             Loaded="loaded"
+             mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     
     <Grid Margin="10">
@@ -36,8 +35,7 @@
                   Margin="0,7,0,0"
                   materialDesign:HintAssist.Hint="VACC"
                   Style="{StaticResource MaterialDesignOutlinedComboBox}"
-                  ItemsSource="{Binding VaccList}"
-                  SelectionChanged="changedVaccSelection"/>
+                  ItemsSource="{Binding VaccList}"/>
         
         <!--Package-->
         <ComboBox x:Name="Package"
