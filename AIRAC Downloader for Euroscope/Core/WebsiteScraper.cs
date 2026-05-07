@@ -4,6 +4,21 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
 {
     public class WebsiteScraper
     {
+        public record PackageContent
+        {
+            public string ICAO { get; init; }
+            public string PackageName { get; init; }
+            public string AIRAC { get; init; }
+            public string Version { get; init; }
+            public string Released { get; init; }
+        }
+
+        public record VaccContent
+        {
+            public string ICAO { get; init; }
+            public string VaccName { get; init; }
+        }
+
         private static string Website = "https://files.aero-nav.com/";
 
         /// <summary>
@@ -27,10 +42,10 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
         /// <summary>
         ///     Creates a List of all vACCs available in AeroNav GNG
         /// </summary>
-        /// <returns>Returns a List with the Tuple of all vACCs as [(ICAO, vACC Name)]</returns>
-        public List<(String, String)> GetVaccList()
+        /// <returns>Returns a List of VaccContent Objects</returns>
+        public List<VaccContent> GetVaccList()
         {
-            var VACCs = new List<(String, String)>();
+            List<VaccContent> VACCs = new ();
             
             // Download HTML Website content
             HtmlAgilityPack.HtmlDocument HtmlCode = GetHtmlCode(Website);
@@ -44,7 +59,8 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
                 if(tr.ChildNodes.Count >= 5) // to filter last row containing "Powered by AeroNav Association"
                 {
                     // ChildNodes[3] = Column of vACC-ICAO; ChildNodes[5] = Column of vACC-Name
-                    VACCs.Add((tr.ChildNodes[3].InnerText, tr.ChildNodes[5].InnerText));
+                    VACCs.Add(new VaccContent { ICAO=tr.ChildNodes[3].InnerText, VaccName=tr.ChildNodes[5].InnerText });
+                    //VACCs.Add((tr.ChildNodes[3].InnerText, tr.ChildNodes[5].InnerText));
                 }
             }
 
@@ -56,10 +72,10 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
         ///     Returns all Packs available within the given vACC
         /// </summary>
         /// <param name="ICAO">ICAO Code of concerning vACC</param>
-        /// <returns>Returns a List of Tuples of all Packs like [(Packagename, AIRAC, Version, Released)]</returns>
-        public List<(String, String, String, String)> GetPacksList(string ICAO)
+        /// <returns>Returns a List of PackageContent Objects</returns>
+        public List<PackageContent> GetPacksList(string ICAO)
         {
-            var Packs = new List<(String, String, String, String)>();
+            List<PackageContent> Packs = new();
 
             // Download HTML Website content
             HtmlAgilityPack.HtmlDocument HtmlCode = GetHtmlCode(Website +  ICAO);
@@ -68,11 +84,13 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
             var table = HtmlCode.DocumentNode.SelectSingleNode("//table[@class='table table-striped table-hover table-bordered']");
 
             // To skip Table header
+            string PackICAO = null;
             foreach (var tr in table.ChildNodes.Skip(2))
             {
                 if (tr.ChildNodes.Count >= 4) // probably not required but doesn't hurt
                 {
-                    Packs.Add((tr.ChildNodes[1].InnerText, tr.ChildNodes[2].InnerText, tr.ChildNodes[3].InnerText, tr.ChildNodes[4].InnerText));
+                    PackICAO = tr.ChildNodes[1].InnerText.Split(' ')[0];
+                    Packs.Add(new PackageContent {ICAO=PackICAO, PackageName=tr.ChildNodes[1].InnerText, AIRAC=tr.ChildNodes[2].InnerText, Version=tr.ChildNodes[3].InnerText, Released=tr.ChildNodes[4].InnerText });    
                 }
             }
 
