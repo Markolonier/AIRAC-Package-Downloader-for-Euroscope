@@ -1,5 +1,6 @@
 ﻿using AIRAC_Downloader_for_Euroscope.Code.Core;
 using MaterialDesignThemes.Wpf;
+using System.IO.Packaging;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
@@ -15,18 +16,24 @@ namespace AIRAC_Downloader_for_Euroscope
 
         public MainWindow()
         {
-            InitializeComponent();
             Instance = this;
+            InitializeComponent();
             OnNewConfigImport();
         }
 
-        public void ToggleDownloadButton(bool enabled, string? PackageName)
+        public void ToggleDownloadButton()
         {
-            this.Download.IsEnabled = enabled;
-            if (enabled)
-                this.DownloadButtonText.Text = $"Download {PackageName} now";
+            if (AeroNavSettings.Package.SelectedIndex != -1 &&
+                !string.IsNullOrEmpty(AeroNavSettings.PackageFolder.Text))
+            {
+                this.Download.IsEnabled = true;
+                this.DownloadButtonText.Text = $"Download {AeroNavSettings.availablePackages[AeroNavSettings.Package.SelectedIndex].PackageName} now";
+            }
             else
+            {
+                this.Download.IsEnabled = false;
                 this.DownloadButtonText.Text = "Download not possible. Select Folder and Package in AeroNav first";
+            }
         }
 
         public void OnSaveRequested()
