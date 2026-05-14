@@ -22,6 +22,7 @@ namespace AIRAC_Downloader_for_Euroscope.Code.Core
         /// <param name="targetPath">Zielordner zum entpacken</param>
         /// <param name="onExtracted">Callback, wird mit dem entpackten Ordnerpfad aufgerufen</param>
         /// <param name="downloadFolder">Optional: Pfad zum Download-Ordner (null = Standard)</param>
+        [Obsolete("Replaced by DownloadWatcher", true)]
         public static void StartBrowserAndWatch(string fir, string targetPath, Action<string> onExtracted, string? downloadFolder = null)
         {
             if (string.IsNullOrWhiteSpace(fir)) throw new ArgumentException("fir must be set", nameof(fir));

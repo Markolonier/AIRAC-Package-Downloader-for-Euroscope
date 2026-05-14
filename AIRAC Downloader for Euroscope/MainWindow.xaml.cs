@@ -1,4 +1,6 @@
-﻿using AIRAC_Downloader_for_Euroscope.Code.Core;
+﻿using AIRAC_Downloader.Code.Core;
+using AIRAC_Downloader_for_Euroscope.Code.Core;
+using AIRAC_Downloader_for_Euroscope.Core;
 using MaterialDesignThemes.Wpf;
 using System.IO.Packaging;
 using System.Runtime.InteropServices;
@@ -20,6 +22,75 @@ namespace AIRAC_Downloader_for_Euroscope
             InitializeComponent();
             OnNewConfigImport();
         }
+
+        private async void Download_Click(object sender, RoutedEventArgs e)
+        {
+            ShowDisplayDialog(text:"Please download the .zip-File into your default Download Folder. The rest will be done automatically", false);
+            DownloadWatcher downloader = new(ICAO: AeroNavSettings.availablePackages[AeroNavSettings.Package.SelectedIndex].ICAO,
+                targetFolder: AeroNavSettings.PackageFolder.Text,
+                null,
+                null
+            );
+
+            downloader.OpenBrowser();
+            try
+            {
+                await downloader.StartWatcher();
+            }
+            catch (Exception ex)
+            {
+                ShowDisplayDialog(ex.Message, true);
+            }
+
+
+            Injector.Data injectionData = new(
+                callsign: EuroscopeSettigs.CheckCallsign.IsChecked == true ? EuroscopeSettigs.Callsign.Text : null,
+                realname: EuroscopeSettigs.CheckRealName.IsChecked == true ? EuroscopeSettigs.RealName.Text : null,
+                certificate: EuroscopeSettigs.CheckCertificate.IsChecked == true ? EuroscopeSettigs.Certificate.Text : null,
+                password: EuroscopeSettigs.CheckPassword.IsChecked == true ? EuroscopeSettigs.Password.Password : null,
+                facility: EuroscopeSettigs.CheckFacility.IsChecked == true ? EuroscopeSettigs.Facility.SelectedIndex : null,
+                rating: EuroscopeSettigs.CheckRating.IsChecked == true ? EuroscopeSettigs.Rating.SelectedIndex : null,
+                hoppie: EuroscopeSettigs.CheckHoppie.IsChecked == true ? EuroscopeSettigs.Hoppie.Password : null,
+                plugins: EuroscopeSettigs.Plugins
+                        .Where(p => p.IsEnabled)
+                        .Select(p => p.PluginPath)
+                        .ToList(),
+                Sounds: EuroscopeSettigs.Sounds
+                        .Where(s => s.IsEnabled)
+                        .Select(s => new Injector.Data.Euroscope.Sound { SoundPath = s.SoundFile, SoundType = EuroscopeSettingsControl.SoundTypes.IndexOf(s.SoundType) + 1 })
+                        .ToList(),
+
+
+                vccsNickname: VccsSettings.CheckNickname.IsChecked == true ? VccsSettings.Nickname.Text : null,
+                g2aptt: VccsSettings.CheckG2A.IsChecked == true ? VccsSettings.G2aPttKey.Value.Code : null,
+                g2gptt: VccsSettings.CheckG2G.IsChecked == true ? VccsSettings.G2gPttKey.Value.Code : null,
+                captureMode: VccsSettings.CheckCaptureMode.IsChecked == true ? VccsSettings.CaptureMode.Text : null,
+                captureDevice: VccsSettings.CheckCaptureDevice.IsChecked == true ? VccsSettings.CaptureDevice.Text : null,
+                playbackMode: VccsSettings.CheckPlaybackMode.IsChecked == true ? VccsSettings.PlaybackMode.Text : null,
+                playbackDevice: VccsSettings.CheckPlaybackDevice.IsChecked == true ? VccsSettings.PlaybackDevice.Text : null
+            );
+            
+            Injector.InjectAllDatas(injectionData, downloader.ExtractedDir);
+
+            ShowSnackbar("Download and Injection successful! You can now start Euroscope with the new AIRAC cycle", false);
+        }
+
+        private void ShowSnackbar(string text, bool error)
+        {
+        }
+            
+        private void ShowDisplayDialog(string text, bool error)
+        {
+            if (error) 
+                DownloadStatusIcon.Kind = PackIconKind.AlertDecagram;
+
+            else
+                DownloadStatusIcon.Kind = PackIconKind.ExclamationThick;
+            
+            DownloadStatusText.Text = text;
+            DownloadStatus.IsOpen = true;
+        }
+
 
         public void ToggleDownloadButton()
         {
@@ -236,6 +307,6 @@ namespace AIRAC_Downloader_for_Euroscope
             Close();
         }
 
-
+        
     }
 }

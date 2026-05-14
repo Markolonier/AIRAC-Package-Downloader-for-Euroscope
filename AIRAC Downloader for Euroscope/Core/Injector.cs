@@ -14,7 +14,7 @@ namespace AIRAC_Downloader.Code.Core
             
             // Constructor
             public Data(
-                string? callsign = null, string? realname = null, string? certificate= null, string? password = null, int? facility = null, int? rating = null, string? hoppie = null, List<string>? plugins = null, List<(string? Sound, int? Soundtype)>? Sounds = null,
+                string? callsign = null, string? realname = null, string? certificate= null, string? password = null, int? facility = null, int? rating = null, string? hoppie = null, List<string>? plugins = null, List<Euroscope.Sound>? Sounds = null,
                 string? vccsNickname = null, uint? g2aptt = null, uint? g2gptt = null, string? captureMode = null, string? captureDevice = null, string? playbackMode = null, string? playbackDevice = null
             )
             {
@@ -50,7 +50,14 @@ namespace AIRAC_Downloader.Code.Core
                 public int? Rating { get; set; }
                 public string? Hoppie { get; set; }
                 public List<string>? Plugins { get; set; } = [];
-                public List<(string? Sound, int? Soundtype)>? Sounds { get; set; } = new List<(string? Sound, int? Soundtype)>();
+
+                public class Sound
+                {
+                    public string? SoundPath { get; set; }
+                    public int? SoundType { get; set; }
+                }
+
+                public List<Sound> Sounds { get; set; } = new();
             }
 
             public class VCCS
@@ -76,7 +83,7 @@ namespace AIRAC_Downloader.Code.Core
         /// <param name="content">String of the prf file</param>
         /// <param name="keyWord">keyWord where the highest index is required of</param>
         /// <returns>Int of the highest Keyword</returns>
-        private int GetHighestIndex(string content,  string keyWord)
+        private static int GetHighestIndex(string content,  string keyWord)
         {
 
             //Splitting the content to receive ["0 \Link\to\first.dll", "1 \Link\to\second.dll", "2 \Link\to\third.dll"] need to parse the integer before the first whitespace
@@ -103,7 +110,7 @@ namespace AIRAC_Downloader.Code.Core
         /// </summary>
         /// <param name="toInject"></param>
         /// <param name="PackageFolder"></param>
-        public void InjectAllDatas(Data toInject, string PackageFolder)
+        public static void InjectAllDatas(Data toInject, string PackageFolder)
         {
             //List of all Profiles
             string[] files = Directory.GetFiles(PackageFolder, "*.prf", SearchOption.AllDirectories);
@@ -117,9 +124,9 @@ namespace AIRAC_Downloader.Code.Core
             
             if (toInject.thisES.Sounds is not null && toInject.thisES.Sounds.Count > 0)
             {
-                foreach ((string Sound, int Soundtype) sound in toInject.thisES.Sounds)
+                foreach (var sound in toInject.thisES.Sounds)
                 {
-                    GeneralProfileString += $"Sounds\tSound{sound.Item2}\t{sound.Item1}{Environment.NewLine}";
+                    GeneralProfileString += $"Sounds\tSound{sound.SoundType}\t{sound.SoundPath}{Environment.NewLine}";
                 }
             }
 

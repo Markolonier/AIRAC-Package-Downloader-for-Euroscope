@@ -12,88 +12,110 @@
         <WindowChrome GlassFrameThickness="1" CornerRadius="0" CaptionHeight="0" UseAeroCaptionButtons="False" ResizeBorderThickness="7"/>
     </WindowChrome.WindowChrome>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <materialDesign:ColorZone Height="65" Padding="12" Grid.Row="0" MouseDown="Window_MouseLeftButtonDown" MouseUp="Window_MouseUp" MouseMove="Window_MouseMove" ClipToBounds="False" Mode="PrimaryDark">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Text="AIRAC Downloader for Euroscope" Grid.Column="0" Margin="8,0,0,0" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <Button Style="{StaticResource MaterialDesignToolButton}" Grid.Column="2" Margin="5,0" Click="MinimizeWindow_Click">
-                    <materialDesign:PackIcon Kind="WindowMinimize" Foreground="White" Width="24" Height="24"/>
-                </Button>
-                <Button Style="{StaticResource MaterialDesignToolButton}" Grid.Column="3" Margin="5,0" Click="MaximizeOrUnMaximizeWindow_Click">
-                    <materialDesign:PackIcon x:Name="MaximizeOrUnMaximizeWindowButtonIcon" Kind="WindowMaximize" Foreground="White" Width="24" Height="24"/>
-                </Button>
-                <Button Style="{StaticResource MaterialDesignToolButton}" Grid.Column="4" Click="CloseWindow_Click">
-                    <materialDesign:PackIcon Kind="WindowClose" Foreground="White" Width="24" Height="24"/>
-                </Button>
-            </Grid>
-        </materialDesign:ColorZone>
-        <TabControl materialDesign:NavigationRailAssist.ShowSelectionBackground="True"
-                    materialDesign:ColorZoneAssist.Mode="PrimaryMid"
-                    Style="{StaticResource MaterialDesignNavigationRailTabControl}"
-                    Grid.Column="0"
-                    Grid.Row="1">
-            <TabItem Width="Auto" Height="Auto">
-                <TabItem.Header>
-                    <StackPanel Width="auto" Height="auto" Margin="10">
-                        <materialDesign:PackIcon Width="24"
-                                                 Height="24"
-                                                 HorizontalAlignment="Center"
-                                                 Kind="Radar"/>
-                        <TextBlock HorizontalAlignment="Center" Text="Euroscope"/>
-                    </StackPanel>
-                </TabItem.Header>
-                <ScrollViewer>
-                    <local:EuroscopeSettingsControl x:Name="EuroscopeSettigs" Height="Auto" Width="Auto"/>
-                </ScrollViewer>
-            </TabItem>
-
-            <TabItem Width="auto" Height="auto">
-                <TabItem.Header>
-                    <StackPanel Width="auto" Height="auto" Margin="10">
-                        <materialDesign:PackIcon Width="24"
-                                                 Height="24"
-                                                 HorizontalAlignment="Center"
-                                                 Kind="PhoneDial"/>
-                        <TextBlock HorizontalAlignment="Center" Text="VCCS"/>
-                    </StackPanel>
-                </TabItem.Header>
-                <ScrollViewer>
-                    <local:VccsSettingsControl x:Name="VccsSettings" Height="Auto" Width="Auto"/>
-                </ScrollViewer>
-            </TabItem>
-
-            <TabItem Width="auto" Height="auto">
-                <TabItem.Header>
-                    <StackPanel Width="auto" Height="auto" Margin="10">
-                        <materialDesign:PackIcon Width="24"
-                                                 Height="24"
-                                                 HorizontalAlignment="Center"
-                                                 Kind="DatabaseArrowDown"/>
-                        <TextBlock HorizontalAlignment="Center" Text="AeroNav"/>
-                    </StackPanel>
-                </TabItem.Header>
-                <ScrollViewer>
-                    <local:AeroNavSettingsControl x:Name="AeroNavSettings" Width="Auto" Height="Auto"/>
-                </ScrollViewer>
-            </TabItem>
-        </TabControl>
-        <Button x:Name="Download" Grid.Row="2" Height="57" Style="{StaticResource MaterialDesignFlatMidBgButton}">
-            <StackPanel Orientation="Horizontal">
-                <materialDesign:PackIcon Kind="DownloadBox" Height="30" Width="30" VerticalAlignment="Center"/>
-                <TextBlock x:Name="DownloadButtonText" Text="Download" Margin="10,0,0,0" VerticalAlignment="Center"  Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
+    <materialDesign:DialogHost x:Name="DownloadStatus"
+                               VerticalAlignment="Center"
+                               ApplyBlurBackground="True"
+                               BlurRadius="{Binding ElementName=BlurRadiusSlider, Path=Value}"
+                               CloseOnClickAway="True"
+                               Identifier="sampleDialog6">
+        <materialDesign:DialogHost.DialogContent>
+            <StackPanel MaxWidth="500">
+                <DockPanel>
+                    <materialDesign:PackIcon Name="DownloadStatusIcon" Margin="10,10,0,10"/>
+                    <TextBlock Name="DownloadStatusText" Margin="10" TextWrapping="Wrap"/>
+                </DockPanel>
+                <Button HorizontalAlignment="Center" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Content="Close" IsCancel="True" Style="{StaticResource MaterialDesignFlatButton}" Margin="0,0,0,10"/>
             </StackPanel>
-        </Button>
-    </Grid>
+        </materialDesign:DialogHost.DialogContent>
+        
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <!--materialDesign:Snackbar MessageQueue="{Binding DownloadStatusQueue}"
+                         VerticalAlignment="Bottom"
+                         HorizontalAlignment="Center"/-->
+            
+            <materialDesign:ColorZone Height="65" Padding="12" Grid.Row="0" MouseDown="Window_MouseLeftButtonDown" MouseUp="Window_MouseUp" MouseMove="Window_MouseMove" ClipToBounds="False" Mode="PrimaryDark">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="AIRAC Downloader for Euroscope" Grid.Column="0" Margin="8,0,0,0" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Button Style="{StaticResource MaterialDesignToolButton}" Grid.Column="2" Margin="5,0" Click="MinimizeWindow_Click">
+                        <materialDesign:PackIcon Kind="WindowMinimize" Foreground="White" Width="24" Height="24"/>
+                    </Button>
+                    <Button Style="{StaticResource MaterialDesignToolButton}" Grid.Column="3" Margin="5,0" Click="MaximizeOrUnMaximizeWindow_Click">
+                        <materialDesign:PackIcon x:Name="MaximizeOrUnMaximizeWindowButtonIcon" Kind="WindowMaximize" Foreground="White" Width="24" Height="24"/>
+                    </Button>
+                    <Button Style="{StaticResource MaterialDesignToolButton}" Grid.Column="4" Click="CloseWindow_Click">
+                        <materialDesign:PackIcon Kind="WindowClose" Foreground="White" Width="24" Height="24"/>
+                    </Button>
+                </Grid>
+            </materialDesign:ColorZone>
+            <TabControl materialDesign:NavigationRailAssist.ShowSelectionBackground="True"
+                        materialDesign:ColorZoneAssist.Mode="PrimaryMid"
+                        Style="{StaticResource MaterialDesignNavigationRailTabControl}"
+                        Grid.Column="0"
+                        Grid.Row="1">
+                <TabItem Width="Auto" Height="Auto">
+                    <TabItem.Header>
+                        <StackPanel Width="auto" Height="auto" Margin="10">
+                            <materialDesign:PackIcon Width="24"
+                                                     Height="24"
+                                                     HorizontalAlignment="Center"
+                                                     Kind="Radar"/>
+                            <TextBlock HorizontalAlignment="Center" Text="Euroscope"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <ScrollViewer>
+                        <local:EuroscopeSettingsControl x:Name="EuroscopeSettigs" Height="Auto" Width="Auto"/>
+                    </ScrollViewer>
+                </TabItem>
+
+                <TabItem Width="auto" Height="auto">
+                    <TabItem.Header>
+                        <StackPanel Width="auto" Height="auto" Margin="10">
+                            <materialDesign:PackIcon Width="24"
+                                                     Height="24"
+                                                     HorizontalAlignment="Center"
+                                                     Kind="PhoneDial"/>
+                            <TextBlock HorizontalAlignment="Center" Text="VCCS"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <ScrollViewer>
+                        <local:VccsSettingsControl x:Name="VccsSettings" Height="Auto" Width="Auto"/>
+                    </ScrollViewer>
+                </TabItem>
+
+                <TabItem Width="auto" Height="auto">
+                    <TabItem.Header>
+                        <StackPanel Width="auto" Height="auto" Margin="10">
+                            <materialDesign:PackIcon Width="24"
+                                                     Height="24"
+                                                     HorizontalAlignment="Center"
+                                                     Kind="DatabaseArrowDown"/>
+                            <TextBlock HorizontalAlignment="Center" Text="AeroNav"/>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <ScrollViewer>
+                        <local:AeroNavSettingsControl x:Name="AeroNavSettings" Width="Auto" Height="Auto"/>
+                    </ScrollViewer>
+                </TabItem>
+            </TabControl>
+            <Button x:Name="Download" Grid.Row="2" Height="57" Style="{StaticResource MaterialDesignFlatMidBgButton}" Click="Download_Click">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="DownloadBox" Height="30" Width="30" VerticalAlignment="Center"/>
+                    <TextBlock x:Name="DownloadButtonText" Text="Download" Margin="10,0,0,0" VerticalAlignment="Center"  Style="{StaticResource MaterialDesignHeadline5TextBlock}"/>
+                </StackPanel>
+            </Button>
+        </Grid>
+    </materialDesign:DialogHost>
 </Window>
